@@ -56,17 +56,17 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
     </div>
 
     <!-- Main Footer Content -->
-    <div class="inner mx-auto px-4 pt-14 pb-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 lg:gap-16">
+    <div class="inner mx-auto px-4 pt-0 pb-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 lg:gap-16 items-stretch">
 
             <!-- Col 1: Logo + Description -->
             <div class="md:col-span-1">
                 <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
                     <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo-white.png'); ?>"
                          alt="<?php bloginfo('name'); ?>"
-                         style="height:60px; width:auto; display:block; margin-bottom:16px;" />
+                         style="height:160px; width:auto; display:block; margin-bottom:4px;" />
                 </a>
-                <p style="color: rgba(255,255,255,0.6); font-size:0.93rem; line-height:1.68; margin-bottom:24px;">
+                <p style="color: rgba(255,255,255,0.6); font-size:0.93rem; line-height:1.68; margin-top: 0; margin-bottom:12px;">
                     <?php echo esc_html($description); ?>
                 </p>
                 <div style="display:flex; gap:12px;">
@@ -82,73 +82,81 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                 </div>
             </div>
 
-            <!-- Col 2: Quick Links -->
-            <div class="md:col-span-1">
-                <p class="dark-footer-heading"><?php esc_html_e('Quick Links', 'myco'); ?></p>
-                <nav aria-label="<?php esc_attr_e('Footer quick links', 'myco'); ?>">
-                    <?php
-                    if (has_nav_menu('footer_quick')) {
-                        wp_nav_menu([
-                            'theme_location' => 'footer_quick',
-                            'container'      => false,
-                            'items_wrap'     => '%3$s',
-                            'walker'         => new Walker_Footer_Nav(),
-                        ]);
-                    } else {
-                        // Fallback
-                        echo '<a href="' . esc_url(home_url('/')) . '" class="dark-footer-link">Home</a>';
-                        echo '<a href="' . esc_url(home_url('/about/')) . '" class="dark-footer-link">About Us</a>';
-                        echo '<a href="' . esc_url(home_url('/programs/')) . '" class="dark-footer-link">Programs</a>';
-                        echo '<a href="' . esc_url(home_url('/events/')) . '" class="dark-footer-link">Events</a>';
-                        echo '<a href="' . esc_url(home_url('/news/')) . '" class="dark-footer-link">News</a>';
-                    }
-                    ?>
-                </nav>
-            </div>
+            <!-- Grouped Columns 2, 3, 4 -->
+            <div class="md:col-span-3 flex flex-col justify-end">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 lg:gap-16 items-start">
 
-            <!-- Col 3: Get Involved -->
-            <div class="md:col-span-1">
-                <p class="dark-footer-heading"><?php esc_html_e('Get Involved', 'myco'); ?></p>
-                <nav aria-label="<?php esc_attr_e('Footer get involved', 'myco'); ?>">
-                    <?php
-                    if (has_nav_menu('footer_involved')) {
-                        wp_nav_menu([
-                            'theme_location' => 'footer_involved',
-                            'container'      => false,
-                            'items_wrap'     => '%3$s',
-                            'walker'         => new Walker_Footer_Nav(),
-                        ]);
-                    } else {
-                        echo '<a href="' . esc_url(home_url('/volunteer/')) . '" class="dark-footer-link">Volunteer</a>';
-                        echo '<a href="' . esc_url(home_url('/donate/')) . '" class="dark-footer-link">Donate</a>';
-                        echo '<a href="' . esc_url(home_url('/contact/')) . '" class="dark-footer-link">Contact Us</a>';
-                        echo '<a href="' . esc_url(home_url('/gallery/')) . '" class="dark-footer-link">Gallery</a>';
-                    }
-                    ?>
-                </nav>
-            </div>
+                    <!-- Col 2: Quick Links -->
+                    <div class="flex flex-col">
+                        <p class="dark-footer-heading"><?php esc_html_e('Quick Links', 'myco'); ?></p>
+                        <nav class="flex flex-col" aria-label="<?php esc_attr_e('Footer quick links', 'myco'); ?>">
+                            <?php
+                            if (has_nav_menu('footer_quick')) {
+                                wp_nav_menu([
+                                    'theme_location' => 'footer_quick',
+                                    'container'      => false,
+                                    'items_wrap'     => '%3$s',
+                                    'walker'         => new Walker_Footer_Nav(),
+                                ]);
+                            } else {
+                                echo '<a href="' . esc_url(home_url('/')) . '" class="dark-footer-link">Home</a>';
+                                echo '<a href="' . esc_url(home_url('/about/')) . '" class="dark-footer-link">About Us</a>';
+                                echo '<a href="' . esc_url(home_url('/programs/')) . '" class="dark-footer-link">Programs</a>';
+                                echo '<a href="' . esc_url(home_url('/events/')) . '" class="dark-footer-link">Events</a>';
+                                echo '<a href="' . esc_url(home_url('/news/')) . '" class="dark-footer-link">News</a>';
+                            }
+                            ?>
+                        </nav>
+                    </div>
 
-            <!-- Col 4: Connect / Newsletter -->
-            <div class="md:col-span-1">
-                <p class="dark-footer-heading"><?php echo esc_html($newsletter_heading); ?></p>
-                <p style="color: rgba(255,255,255,0.55); font-size:0.9rem; line-height:1.6; margin-bottom:16px;">
-                    <?php esc_html_e('Subscribe to our newsletter for updates on events, programs, and community news.', 'myco'); ?>
-                </p>
-                <form class="newsletter-form flex gap-2" action="#" method="post">
-                    <input type="email" placeholder="<?php esc_attr_e('Your email', 'myco'); ?>" required
-                           class="flex-1 px-4 py-2.5 rounded-xl text-sm bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-white/30" />
-                    <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
-                            style="background: #C8402E; transition: background 0.18s;">
-                        <?php esc_html_e('Join', 'myco'); ?>
-                    </button>
-                </form>
-                <p class="newsletter-message" style="font-size:0.82rem; margin-top:8px; min-height:1.2em;"></p>
+                    <!-- Col 3: Get Involved -->
+                    <div class="flex flex-col">
+                        <p class="dark-footer-heading"><?php esc_html_e('Get Involved', 'myco'); ?></p>
+                        <nav class="flex flex-col" aria-label="<?php esc_attr_e('Footer get involved', 'myco'); ?>">
+                            <?php
+                            if (has_nav_menu('footer_involved')) {
+                                wp_nav_menu([
+                                    'theme_location' => 'footer_involved',
+                                    'container'      => false,
+                                    'items_wrap'     => '%3$s',
+                                    'walker'         => new Walker_Footer_Nav(),
+                                ]);
+                            } else {
+                                echo '<a href="' . esc_url(home_url('/volunteer/')) . '" class="dark-footer-link">Volunteer</a>';
+                                echo '<a href="' . esc_url(home_url('/donate/')) . '" class="dark-footer-link">Donate</a>';
+                                echo '<a href="' . esc_url(home_url('/contact/')) . '" class="dark-footer-link">Contact Us</a>';
+                                echo '<a href="' . esc_url(home_url('/gallery/')) . '" class="dark-footer-link">Gallery</a>';
+                            }
+                            ?>
+                        </nav>
+                    </div>
+
+                    <!-- Col 4: Connect / Newsletter -->
+                    <div class="flex flex-col">
+                        <p class="dark-footer-heading"><?php echo esc_html($newsletter_heading); ?></p>
+                        <div class="flex flex-col">
+                            <p style="color: rgba(255,255,255,0.55); font-size:0.9rem; line-height:1.6; margin-bottom:16px;">
+                                <?php esc_html_e('Subscribe to our newsletter for updates on events, programs, and community news.', 'myco'); ?>
+                            </p>
+                            <form class="newsletter-form flex gap-2" action="#" method="post">
+                                <input type="email" placeholder="<?php esc_attr_e('Your email', 'myco'); ?>" required
+                                       class="flex-1 px-4 py-2.5 rounded-xl text-sm bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-white/30" />
+                                <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
+                                        style="background: #C8402E; transition: background 0.18s;">
+                                    <?php esc_html_e('Join', 'myco'); ?>
+                                </button>
+                            </form>
+                            <p class="newsletter-message" style="font-size:0.82rem; margin-top:8px; min-height:1.2em;"></p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>
 
         <!-- Bottom bar -->
-        <div style="border-top: 1px solid rgba(255,255,255,0.08); margin-top:48px; padding-top:24px;">
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); margin-top:24px; padding-top:16px;">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p style="color: rgba(255,255,255,0.4); font-size:0.85rem;">&copy; <?php echo esc_html($copyright); ?></p>
                 <div class="flex gap-6" style="color: rgba(255,255,255,0.4); font-size:0.82rem;">

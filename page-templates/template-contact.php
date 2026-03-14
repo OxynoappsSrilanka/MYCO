@@ -317,36 +317,71 @@ get_header();
       </p>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 1200px; margin: 0 auto;">
+    <div style="flex-direction: column; gap: 16px; max-width: 900px; margin: 0 auto; display: flex;">
       <?php
       $faqs = myco_get_field('faq_items');
       if ($faqs) :
         foreach ($faqs as $faq) :
       ?>
-      <div style="background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08);">
-        <h3 style="font-size: 18px; font-weight: 800; color: #141943; margin-bottom: 12px;"><?php echo esc_html($faq['question']); ?></h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7;"><?php echo esc_html($faq['answer']); ?></p>
+      <div class="faq-item accordion-item">
+        <button class="accordion-header">
+          <span class="accordion-title"><?php echo esc_html($faq['question']); ?></span>
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <p><?php echo esc_html($faq['answer']); ?></p>
+        </div>
       </div>
       <?php
         endforeach;
       else :
       ?>
       <!-- Default FAQs -->
-      <div style="background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08);">
-        <h3 style="font-size: 18px; font-weight: 800; color: #141943; margin-bottom: 12px;">What age groups do you serve?</h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7;">MYCO serves youth ages 6-18 with age-appropriate programs for elementary, middle school, and high school students.</p>
+      <div class="faq-item accordion-item">
+        <button class="accordion-header">
+          <span class="accordion-title">What age groups do you serve?</span>
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <p>MYCO serves youth ages 6-18 with age-appropriate programs for elementary, middle school, and high school students.</p>
+        </div>
       </div>
-      <div style="background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08);">
-        <h3 style="font-size: 18px; font-weight: 800; color: #141943; margin-bottom: 12px;">How do I register my child?</h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7;">Visit our Programs page to browse available programs and click the registration link, or contact us directly for assistance.</p>
+      <div class="faq-item accordion-item">
+        <button class="accordion-header">
+          <span class="accordion-title">How do I register my child?</span>
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <p>Visit our Programs page to browse available programs and click the registration link, or contact us directly for assistance.</p>
+        </div>
       </div>
-      <div style="background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08);">
-        <h3 style="font-size: 18px; font-weight: 800; color: #141943; margin-bottom: 12px;">Are programs free?</h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7;">Many programs are free or low-cost. Financial assistance is available for families in need. Contact us to learn more.</p>
+      <div class="faq-item accordion-item">
+        <button class="accordion-header">
+          <span class="accordion-title">Are programs free?</span>
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <p>Many programs are free or low-cost. Financial assistance is available for families in need. Contact us to learn more.</p>
+        </div>
       </div>
-      <div style="background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08);">
-        <h3 style="font-size: 18px; font-weight: 800; color: #141943; margin-bottom: 12px;">Can I volunteer at MYCO?</h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7;">Yes! We welcome volunteers. Visit our Volunteer page to learn about opportunities and complete the registration form.</p>
+      <div class="faq-item accordion-item">
+        <button class="accordion-header">
+          <span class="accordion-title">Can I volunteer at MYCO?</span>
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <p>Yes! We welcome volunteers. Visit our Volunteer page to learn about opportunities and complete the registration form.</p>
+        </div>
       </div>
       <?php endif; ?>
     </div>

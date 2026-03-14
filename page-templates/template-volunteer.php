@@ -145,7 +145,7 @@ if (!$cta_button_url) {
 <!-- ===============================================================
      SECTION 1 - WHY VOLUNTEER (Benefits) - REDESIGNED: More Compact
      =============================================================== -->
-<section class="w-full section-bg-gray" style="padding: 80px 0;">
+<section class="w-full section-bg-gray" style="padding: 60px 0;">
     <div class="inner mx-auto px-4">
 
         <!-- Section header -->

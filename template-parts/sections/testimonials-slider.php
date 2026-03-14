@@ -16,14 +16,34 @@ $defaults = [
 ];
 $use_defaults = empty($testimonials);
 $items = $use_defaults ? $defaults : $testimonials;
+
+// If odd count, repeat the first one to fill the gap in the last slide
+if (count($items) % 2 !== 0 && count($items) > 1) {
+    $items[] = $items[0];
+}
+
 $per_page = 2;
 $pages = array_chunk($items, $per_page);
 $star_svg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="#C8402E" aria-hidden="true"><path d="M10 1l2.39 4.84 5.35.78-3.87 3.77.91 5.32L10 13.27l-4.78 2.44.91-5.32L2.26 6.62l5.35-.78z"/></svg>';
 ?>
 
 <section id="testimonials" aria-labelledby="testimonials-heading"
-    class="w-full bg-[#F3F4F6] pt-16 pb-20 md:pt-20 md:pb-24">
+    style="background-color: #ffffff !important;"
+    class="w-full bg-white pt-16 pb-20 md:pt-20 md:pb-24">
     <div class="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
+        <style>
+            .testi-card { 
+                border: 1.5px solid rgba(20, 25, 67, 0.12); 
+                background: #ffffff !important;
+                box-shadow: 0 10px 30px rgba(20, 25, 67, 0.05); /* Softer shadow to reduce layer look */
+            }
+            #testi-viewport {
+                padding: 20px 0; /* Vertical space for shadows to breathe */
+                margin: -20px 0; /* Offset padding to keep layout tight */
+                background: transparent !important;
+            }
+            #testi-track { background: transparent !important; }
+        </style>
 
         <!-- Section Header (centered) -->
         <div class="flex flex-col items-center text-center mb-12 md:mb-14 gap-3">

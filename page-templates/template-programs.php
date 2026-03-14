@@ -78,6 +78,7 @@ $use_defaults = !$programs->have_posts();
             <?php if ($use_defaults) : ?>
                 <?php foreach ($default_programs as $program) : ?>
                 <div class="program-item bg-white rounded-2xl overflow-hidden transition-all duration-200"
+                     data-categories="<?php echo esc_attr(strtolower($program['category'])); ?>"
                      style="box-shadow: 0 8px 24px rgba(20,25,67,0.08);"
                      onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(20,25,67,0.14)'"
                      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(20,25,67,0.08)'">

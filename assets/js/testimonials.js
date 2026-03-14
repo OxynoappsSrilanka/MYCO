@@ -18,19 +18,14 @@
     var total = pages.length;
     var autoPlayInterval;
 
-    // Create dots
+    // Link existing dots
     if (dotsContainer) {
-      for (var i = 0; i < total; i++) {
-        var dot = document.createElement('button');
-        dot.className = 'w-3 h-3 rounded-full transition-all duration-300 ' +
-          (i === 0 ? 'bg-red w-8' : 'bg-gray-300 hover:bg-gray-400');
-        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-        dot.dataset.index = i;
+      var dots = dotsContainer.querySelectorAll('button');
+      dots.forEach(function (dot) {
         dot.addEventListener('click', function () {
           goTo(parseInt(this.dataset.index));
         });
-        dotsContainer.appendChild(dot);
-      }
+      });
     }
 
     function goTo(index) {
@@ -47,9 +42,11 @@
       var dots = dotsContainer.querySelectorAll('button');
       dots.forEach(function (dot, i) {
         if (i === current) {
-          dot.className = 'w-8 h-3 rounded-full transition-all duration-300 bg-red';
+          dot.classList.add('active');
+          dot.setAttribute('aria-selected', 'true');
         } else {
-          dot.className = 'w-3 h-3 rounded-full transition-all duration-300 bg-gray-300 hover:bg-gray-400';
+          dot.classList.remove('active');
+          dot.setAttribute('aria-selected', 'false');
         }
       });
     }

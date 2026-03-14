@@ -6,9 +6,9 @@
  */
 $events = get_posts(['post_type' => 'event', 'posts_per_page' => 3, 'meta_key' => 'event_date', 'orderby' => 'meta_value', 'order' => 'ASC']);
 $defaults = [
-    ['month' => 'OCT', 'day' => '15', 'title' => 'Youth Basketball League: Kick-off Games & Registration', 'meta' => 'MYCO Community Center, 6:00 PM – 9:00 PM'],
-    ['month' => 'OCT', 'day' => '18', 'title' => 'Academic Tutoring: Math & Science Support for High School', 'meta' => 'Online via Zoom, 4:00 PM – 8:00 PM'],
-    ['month' => 'OCT', 'day' => '27', 'title' => 'Monthly Service Day: Food Pantry Volunteering', 'meta' => 'Central Ohio Food Bank, 9:00 AM – 12:00 PM'],
+    ['month' => 'OCT', 'day' => '15', 'title' => 'Youth Basketball League: Kick-off Games & Registration', 'meta' => '6:00 PM – 9:00 PM &middot; MYCO Community Center'],
+    ['month' => 'OCT', 'day' => '18', 'title' => 'Academic Tutoring: Math & Science Support for High School', 'meta' => '4:00 PM – 8:00 PM &middot; Online via Zoom'],
+    ['month' => 'OCT', 'day' => '27', 'title' => 'Monthly Service Day: Food Pantry Volunteering', 'meta' => '9:00 AM – 12:00 PM &middot; Central Ohio Food Bank'],
 ];
 $use_defaults = empty($events);
 $vol_image = myco_get_field('volunteer_card_image', false, '');
@@ -35,16 +35,50 @@ $vol_img_url = $vol_image ? (is_array($vol_image) ? $vol_image['url'] : wp_get_a
 
             <!-- RIGHT: Event list -->
             <div class="flex-2 min-w-0">
+                <style>
+                    .ue-row-new {
+                        display: flex;
+                        align-items: flex-start;
+                        padding: 1.5rem 0;
+                        border-bottom: 1px solid rgba(20, 25, 67, 0.08);
+                        gap: 2rem;
+                        transition: all 0.2s ease;
+                    }
+                    .ue-row-new:hover {
+                        background: rgba(255,255,255,0.4);
+                        padding-left: 1rem;
+                        padding-right: 1rem;
+                        margin-left: -1rem;
+                        margin-right: -1rem;
+                        border-radius: 12px;
+                    }
+                    .ue-content-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+                    .ue-pattern-title { color: #141943; font-weight: 700; font-size: 1.15rem; line-height: 1.3; }
+                    .ue-meta-row { display: flex; align-items: center; gap: 1.5rem; color: #6B7280; font-size: 0.9rem; font-weight: 500; }
+                    .ue-pattern-venue { color: #9CA3AF; }
+                    @media (max-width: 768px) {
+                        .ue-row-new { gap: 1rem; }
+                        .ue-meta-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+                    }
+                </style>
+
                 <?php if ($use_defaults) : ?>
-                    <?php foreach ($defaults as $ev) : ?>
-                    <div class="ue-event-row">
+                    <?php foreach ($defaults as $ev) : 
+                        $parts = explode(' &middot; ', $ev['meta']);
+                        $time = isset($parts[0]) ? $parts[0] : '';
+                        $venue = isset($parts[1]) ? $parts[1] : '';
+                    ?>
+                    <div class="ue-row-new">
                         <div class="ue-date-col">
                             <span class="ue-month"><?php echo esc_html($ev['month']); ?></span>
                             <span class="ue-day"><?php echo esc_html($ev['day']); ?></span>
                         </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="ue-event-title"><?php echo esc_html($ev['title']); ?></p>
-                            <p class="ue-event-meta"><?php echo esc_html($ev['meta']); ?></p>
+                        <div class="ue-content-col">
+                            <h3 class="ue-pattern-title"><?php echo esc_html($ev['title']); ?></h3>
+                            <div class="ue-meta-row">
+                                <span class="ue-pattern-time"><?php echo esc_html($time); ?></span>
+                                <span class="ue-pattern-venue"><?php echo esc_html($venue); ?></span>
+                            </div>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -52,17 +86,22 @@ $vol_img_url = $vol_image ? (is_array($vol_image) ? $vol_image['url'] : wp_get_a
                     <?php foreach ($events as $event) :
                         $date_raw = myco_get_field('event_date', $event->ID, '');
                         $date = myco_format_event_date($date_raw);
-                        $location = myco_get_field('event_location', $event->ID, '');
-                        $time = myco_get_field('event_time', $event->ID, '');
+                        $location = myco_get_field('event_location_name', $event->ID, 'Venue TBA');
+                        $time = myco_get_field('event_start_time', $event->ID, 'Time TBA');
+                        $end_time = myco_get_field('event_end_time', $event->ID, '');
+                        if ($end_time) $time .= ' – ' . $end_time;
                     ?>
-                    <div class="ue-event-row">
+                    <div class="ue-row-new">
                         <div class="ue-date-col">
-                            <span class="ue-month"><?php echo esc_html($date ? $date['month'] : ''); ?></span>
-                            <span class="ue-day"><?php echo esc_html($date ? $date['day'] : ''); ?></span>
+                            <span class="ue-month"><?php echo esc_html($date ? $date['month'] : 'OCT'); ?></span>
+                            <span class="ue-day"><?php echo esc_html($date ? $date['day'] : '15'); ?></span>
                         </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="ue-event-title"><?php echo esc_html(get_the_title($event->ID)); ?></p>
-                            <p class="ue-event-meta"><?php echo esc_html($location); ?><?php if ($time) echo ', ' . esc_html($time); ?></p>
+                        <div class="ue-content-col">
+                            <h3 class="ue-pattern-title"><?php echo get_the_title($event->ID); ?></h3>
+                            <div class="ue-meta-row">
+                                <span class="ue-pattern-time"><?php echo esc_html($time); ?></span>
+                                <span class="ue-pattern-venue"><?php echo esc_html($location); ?></span>
+                            </div>
                         </div>
                     </div>
                     <?php endforeach; ?>
