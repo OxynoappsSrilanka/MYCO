@@ -1,0 +1,16 @@
+{
+  "name": "myco-theme",
+  "version": "1.0.0",
+  "description": "MYCO WordPress Theme - Moving the Community Forward",
+  "private": true,
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./assets/css/tailwind-input.css -o ./assets/css/tailwind-output.css --minify",
+    "watch:css": "npx tailwindcss -i ./assets/css/tailwind-input.css -o ./assets/css/tailwind-output.css --watch",
+    "build": "npm run build:css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  }
+}

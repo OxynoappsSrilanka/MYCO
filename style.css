@@ -1,0 +1,29 @@
+/*
+Theme Name: MYCO
+Theme URI: https://myco.org
+Author: Oxyno Apps Development Team
+Author URI: https://oxynoapps.com
+Description: Custom WordPress theme for MYCO (Muslim Youth Community Organization) - Moving the Community Forward. Features ACF Pro integration, Stripe donations, custom post types, and responsive design.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.5
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: myco
+Tags: custom-logo, custom-menu, featured-images, theme-options, translation-ready
+
+MYCO WordPress Theme
+Copyright (C) 2026 MYCO
+*/
+
+/*
+ * All styles are loaded via:
+ * - assets/css/tailwind-output.css (compiled Tailwind)
+ * - assets/css/custom.css (shared custom styles)
+ * - assets/css/donate.css (donate page)
+ * - assets/css/gallery.css (gallery page)
+ * - assets/css/accordion.css (accordion components)
+ *
+ * See inc/enqueue.php for conditional loading logic.
+ */

@@ -1,0 +1,586 @@
+/* ==========================================================================
+   MYCO IMPROVED CUSTOM STYLES
+   Modern, Accessible, Mobile-First Design
+   ========================================================================== */
+
+@import url('design-system.css');
+
+/* ------------------------------------------------------------------
+   1. RESET & BASE (Improved)
+   ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: #ffffff;
+  color: var(--navy-800);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: var(--leading-normal);
+  font-size: var(--text-base);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Focus Styles for Accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--red-600);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ------------------------------------------------------------------
+   2. IMPROVED CONTAINER SYSTEM
+   ------------------------------------------------------------------ */
+.inner {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+@media (min-width: 1536px) {
+  .inner {
+    max-width: 1400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+}
+
+/* ------------------------------------------------------------------
+   3. IMPROVED NAVIGATION (Fixed Mobile Issues)
+   ------------------------------------------------------------------ */
+.pill-nav {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+}
+
+.pill-nav a {
+  font-family: "Inter", sans-serif;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--gray-500);
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  position: relative;
+}
+
+.pill-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--red-600);
+  transition: width var(--transition-base);
+}
+
+.pill-nav a:hover:not(.active):not(.donate-btn) {
+  color: var(--navy-800);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.pill-nav a.active {
+  background: #ffffff;
+  color: var(--navy-800);
+  font-weight: var(--font-semibold);
+  box-shadow: var(--shadow-sm);
+}
+
+.pill-nav a.donate-btn {
+  background: var(--red-600);
+  color: #ffffff;
+  font-weight: var(--font-semibold);
+  padding: 10px 22px;
+  box-shadow: 0 4px 14px 0 rgba(200, 64, 46, 0.35);
+  transition: all var(--transition-base);
+}
+
+.pill-nav a.donate-btn:hover {
+  background: var(--red-700);
+  box-shadow: 0 6px 20px 0 rgba(200, 64, 46, 0.45);
+  transform: translateY(-1px);
+}
+
+/* ------------------------------------------------------------------
+   4. MOBILE MENU (Improved with Animation)
+   ------------------------------------------------------------------ */
+#mobile-menu {
+  transition: opacity var(--transition-base), 
+              transform var(--transition-base),
+              visibility var(--transition-base);
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+#mobile-menu.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mobile-menu-link {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  color: var(--gray-700);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link:focus {
+  background: var(--gray-50);
+  color: var(--navy-800);
+}
+
+.mobile-menu-link.active {
+  background: var(--red-50, rgba(200, 64, 46, 0.08));
+  color: var(--red-600);
+  font-weight: var(--font-semibold);
+}
+
+/* Hamburger Animation */
+.ham-line {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background: var(--navy-800);
+  border-radius: 2px;
+  transition: transform var(--transition-base), 
+              opacity var(--transition-fast);
+}
+
+#hamburger[aria-expanded="true"] .ham-line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+#hamburger[aria-expanded="true"] .ham-line:nth-child(2) {
+  opacity: 0;
+}
+
+#hamburger[aria-expanded="true"] .ham-line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ------------------------------------------------------------------
+   5. STICKY DONATE FAB (NEW - Critical for Conversions)
+   ------------------------------------------------------------------ */
+.sticky-donate-fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-fixed);
+  
+  background: linear-gradient(135deg, var(--red-600) 0%, var(--red-500) 100%);
+  color: white;
+  
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  border: none;
+  
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  
+  box-shadow: 0 8px 24px rgba(200, 64, 46, 0.4),
+              0 2px 8px rgba(200, 64, 46, 0.2);
+  
+  cursor: pointer;
+  transition: all var(--transition-base);
+  
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sticky-donate-fab:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(200, 64, 46, 0.5),
+              0 4px 12px rgba(200, 64, 46, 0.3);
+}
+
+.sticky-donate-fab:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Pulse animation for attention */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.sticky-donate-fab::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: var(--radius-full);
+  background: var(--red-600);
+  opacity: 0.3;
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+  .sticky-donate-fab {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}
+
+/* ------------------------------------------------------------------
+   6. IMPROVED BUTTONS (Better Hierarchy & Accessibility)
+   ------------------------------------------------------------------ */
+.btn-primary {
+  background: linear-gradient(135deg, var(--red-600) 0%, var(--red-500) 100%);
+  color: #ffffff;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(200, 64, 46, 0.3);
+  transition: all var(--transition-base);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+  min-height: 44px; /* Accessibility: Touch target */
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--red-700) 0%, var(--red-600) 100%);
+  box-shadow: 0 6px 20px rgba(200, 64, 46, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--navy-800);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  padding: 13px 32px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--gray-300);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.btn-secondary:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.btn-secondary-white {
+  background: transparent;
+  color: #ffffff;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  padding: 13px 32px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.btn-secondary-white:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------------
+   7. IMPROVED HERO SECTION (Fixed Mobile Issues)
+   ------------------------------------------------------------------ */
+.hero-section {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-10);
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-16);
+  }
+}
+
+.hero-headline {
+  font-weight: var(--font-black);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--navy-800);
+  font-size: clamp(2.25rem, 5vw + 1rem, 4rem);
+}
+
+.hero-text-right {
+  padding-left: 0; /* FIXED: Removed excessive 7rem padding */
+}
+
+@media (min-width: 1024px) {
+  .hero-text-right {
+    padding-left: var(--space-8); /* Reasonable padding on large screens */
+  }
+}
+
+.hero-img-wrap {
+  border-radius: var(--radius-3xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-2xl);
+}
+
+@media (min-width: 768px) {
+  .hero-img-wrap {
+    border-radius: 48px 48px 48px 180px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   8. IMPROVED FORMS (Better UX & Accessibility)
+   ------------------------------------------------------------------ */
+.form-group {
+  margin-bottom: var(--space-4);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--navy-800);
+  margin-bottom: var(--space-2);
+}
+
+.form-label .required {
+  color: var(--red-600);
+  margin-left: 2px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: var(--text-base);
+  font-family: inherit;
+  color: var(--navy-800);
+  background: #fff;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  outline: none;
+  transition: all var(--transition-base);
+  min-height: 44px; /* Accessibility */
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: var(--gray-400);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--red-600);
+  box-shadow: 0 0 0 3px rgba(200, 64, 46, 0.1);
+}
+
+.form-input.error,
+.form-select.error,
+.form-textarea.error {
+  border-color: var(--error);
+}
+
+.form-error {
+  color: var(--error);
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.form-success {
+  color: var(--success);
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Loading State */
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  background: var(--gray-100);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ------------------------------------------------------------------
+   9. IMPROVED CARDS (Modern Hover Effects)
+   ------------------------------------------------------------------ */
+.card-hover {
+  background: white;
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-2xl);
+}
+
+/* ------------------------------------------------------------------
+   10. LOADING STATES (NEW)
+   ------------------------------------------------------------------ */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--gray-200) 0%,
+    var(--gray-100) 50%,
+    var(--gray-200) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ------------------------------------------------------------------
+   11. ACCESSIBILITY IMPROVEMENTS
+   ------------------------------------------------------------------ */
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .btn-primary,
+  .btn-secondary {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   12. UTILITY CLASSES
+   ------------------------------------------------------------------ */
+.text-balance {
+  text-wrap: balance;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

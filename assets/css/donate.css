@@ -1,0 +1,200 @@
+/* ─── Donate Page Styles ─────────────────────────────────────── */
+
+.donation-widget {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 16px 48px rgba(20, 25, 67, 0.12);
+  padding: 40px 36px;
+}
+
+.donation-tab {
+  flex: 1;
+  padding: 12px 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  background: transparent;
+  color: #6b7280;
+}
+
+.donation-tab.active {
+  background: #C8402E;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(200, 64, 46, 0.25);
+}
+
+.donation-tab:not(.active):hover {
+  background: #f3f4f6;
+  color: #141943;
+}
+
+.amt-btn {
+  flex: 1;
+  padding: 14px 0;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+  color: #141943;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.amt-btn:hover {
+  border-color: #C8402E;
+  color: #C8402E;
+}
+
+.amt-btn.active {
+  border-color: #C8402E;
+  background: rgba(200, 64, 46, 0.06);
+  color: #C8402E;
+  box-shadow: 0 2px 12px rgba(200, 64, 46, 0.12);
+}
+
+.impact-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.impact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(20, 25, 67, 0.12);
+}
+
+.impact-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #C8402E;
+}
+
+/* Summary section */
+.donation-summary {
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.donation-summary .summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.donation-summary .summary-total {
+  border-top: 2px solid #e5e7eb;
+  margin-top: 8px;
+  padding-top: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Success/cancel states */
+.donation-success {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.donation-cancelled {
+  text-align: center;
+  padding: 40px;
+}
+
+/* ─── WP Simple Pay Theme Overrides ──────────────────────────── */
+
+/* Wrapper card reset (we apply our own card above it) */
+.myco-simpay-wrapper .simpay-form-wrap {
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Submit / Pay button → match MYCO pill-primary */
+.myco-simpay-wrapper .simpay-btn,
+.myco-simpay-wrapper button[type="submit"],
+.myco-simpay-wrapper .sp-form-btn {
+  background: linear-gradient(135deg, #C8402E 0%, #e05040 100%) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  padding: 16px 40px !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 18px rgba(200,64,46,0.35) !important;
+  transition: box-shadow 0.2s, transform 0.15s !important;
+  letter-spacing: 0.01em !important;
+}
+
+.myco-simpay-wrapper .simpay-btn:hover,
+.myco-simpay-wrapper button[type="submit"]:hover,
+.myco-simpay-wrapper .sp-form-btn:hover {
+  box-shadow: 0 6px 24px rgba(200,64,46,0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Labels */
+.myco-simpay-wrapper label,
+.myco-simpay-wrapper .simpay-label-wrap label {
+  font-weight: 600 !important;
+  color: #141943 !important;
+  font-size: 0.92rem !important;
+  letter-spacing: 0.01em !important;
+  margin-bottom: 6px !important;
+}
+
+/* Inputs */
+.myco-simpay-wrapper input[type="text"],
+.myco-simpay-wrapper input[type="email"],
+.myco-simpay-wrapper input[type="number"],
+.myco-simpay-wrapper select {
+  border: 1.5px solid #e5e7eb !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  font-size: 0.96rem !important;
+  color: #141943 !important;
+  transition: border-color 0.18s !important;
+}
+
+.myco-simpay-wrapper input:focus,
+.myco-simpay-wrapper select:focus {
+  border-color: #C8402E !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(200,64,46,0.12) !important;
+}
+
+/* Total / amount display */
+.myco-simpay-wrapper .simpay-total-amount-change {
+  font-size: 1.8rem !important;
+  font-weight: 900 !important;
+  color: #C8402E !important;
+}
+
