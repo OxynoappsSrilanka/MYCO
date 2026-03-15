@@ -201,34 +201,15 @@ $use_default_gallery = !$gallery_query->have_posts();
     <h2 style="font-size: 32px; font-weight: 800; color: #141943; margin-bottom: 32px; letter-spacing: -0.01em;">
       📸 Photos
     </h2>
-    <div class="gallery-grid" id="gallery-photos" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; grid-auto-rows: 240px; grid-auto-flow: dense;">
+    <div class="gallery-grid" id="gallery-photos" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
       <?php if ($use_default_gallery) : ?>
-        <?php 
-        // Beautiful pattern: mix of squares (1x1), tall rectangles (1x2), and wide rectangles (2x1)
-        $patterns = array(
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 2), // Tall
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 2), // Tall
-          array('col' => 2, 'row' => 1), // Wide
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 2, 'row' => 1), // Wide
-          array('col' => 1, 'row' => 2), // Tall
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 1), // Square
-        );
-        
-        foreach ($default_gallery as $index => $item) : 
-          $pattern = $patterns[$index % count($patterns)];
-        ?>
+        <?php foreach ($default_gallery as $index => $item) : ?>
         <div class="gallery-item loading" 
              data-album="<?php echo esc_attr($item['category']); ?>" 
              data-type="photo" 
              data-caption="<?php echo esc_attr($item['caption']); ?>" 
              data-src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/Galleries/' . $item['image']); ?>" 
-             style="grid-column: span <?php echo $pattern['col']; ?>; grid-row: span <?php echo $pattern['row']; ?>; cursor: pointer;">
+             style="aspect-ratio: 1 / 1; cursor: pointer;">
           <img data-src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/Galleries/' . $item['image']); ?>" 
                alt="<?php echo esc_attr($item['caption']); ?>" 
                class="lazy" 
@@ -252,25 +233,7 @@ $use_default_gallery = !$gallery_query->have_posts();
         </div>
         <?php endforeach; ?>
       <?php elseif ($gallery_query->have_posts()) : ?>
-        <?php 
-        // Beautiful pattern for custom posts
-        $patterns = array(
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 2), // Tall
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 2), // Tall
-          array('col' => 2, 'row' => 1), // Wide
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 2, 'row' => 1), // Wide
-          array('col' => 1, 'row' => 2), // Tall
-          array('col' => 1, 'row' => 1), // Square
-          array('col' => 1, 'row' => 1), // Square
-        );
-        
-        $index = 0; 
-        while ($gallery_query->have_posts()) : $gallery_query->the_post();
+        <?php while ($gallery_query->have_posts()) : $gallery_query->the_post();
           $albums_list = get_the_terms(get_the_ID(), 'gallery_album');
           $album_slugs = '';
           if ($albums_list && !is_wp_error($albums_list)) {
@@ -283,14 +246,13 @@ $use_default_gallery = !$gallery_query->have_posts();
               $image_url = 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop';
               $image_full = $image_url;
           }
-          $pattern = $patterns[$index % count($patterns)];
         ?>
         <div class="gallery-item loading" 
              data-album="<?php echo esc_attr($album_slugs); ?>" 
              data-type="photo" 
              data-caption="<?php echo esc_attr($caption); ?>" 
              data-src="<?php echo esc_url($image_full); ?>" 
-             style="grid-column: span <?php echo $pattern['col']; ?>; grid-row: span <?php echo $pattern['row']; ?>; cursor: pointer;">
+             style="aspect-ratio: 1 / 1; cursor: pointer;">
           <img data-src="<?php echo esc_url($image_url); ?>" 
                alt="<?php echo esc_attr($caption); ?>" 
                class="lazy" 
@@ -312,7 +274,7 @@ $use_default_gallery = !$gallery_query->have_posts();
             </div>
           </div>
         </div>
-        <?php $index++; endwhile; wp_reset_postdata(); ?>
+        <?php endwhile; wp_reset_postdata(); ?>
       <?php else : ?>
         <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
           <p style="font-size: 18px; color: #6B7280;">No photos have been added yet. Check back soon!</p>
