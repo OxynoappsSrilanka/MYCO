@@ -64,7 +64,7 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                 <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
                     <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo-white.png'); ?>"
                          alt="<?php bloginfo('name'); ?>"
-                         style="height:160px; width:auto; display:block; margin-bottom:4px;" />
+                         style="height:100px; width:auto; display:block; margin-bottom:4px;" />
                 </a>
                 <p style="color: rgba(255,255,255,0.6); font-size:0.93rem; line-height:1.68; margin-top: 0; margin-bottom:12px;">
                     <?php echo esc_html($description); ?>
