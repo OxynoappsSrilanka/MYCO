@@ -76,18 +76,10 @@ if (!$stats) $stats = $default_stats;
                 </div>
             </div>
 
-            <!-- RIGHT: Image Grid Column -->
+            <!-- RIGHT: Single Image Column -->
             <div class="story-image-column">
-                <div class="image-grid">
-                    <div class="image-card image-left">
-                        <img src="<?php echo esc_url(MYCO_URI . '/assets/images/study.jpg'); ?>" alt="Students studying" loading="lazy" />
-                    </div>
-                    <div class="image-card image-top">
-                        <img src="<?php echo esc_url(MYCO_URI . '/assets/images/meeting.jpg'); ?>" alt="Youth meeting" loading="lazy" />
-                    </div>
-                    <div class="image-card image-bottom">
-                        <img src="<?php echo esc_url(MYCO_URI . '/assets/images/sports.jpg'); ?>" alt="Youth sports" loading="lazy" />
-                    </div>
+                <div class="single-image-wrapper">
+                    <img src="<?php echo esc_url($img_url); ?>" alt="<?php esc_attr_e('Diverse Muslim youth gathering community', 'myco'); ?>" loading="lazy" />
                 </div>
             </div>
 

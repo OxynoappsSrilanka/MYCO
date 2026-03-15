@@ -831,90 +831,42 @@ section {
   }
 }
 
-/* Image Grid - Structured 2-column layout */
-.image-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 20px;
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  .image-grid {
-    grid-template-columns: 1fr;
-    max-width: 100%;
-  }
-}
-
-/* Image Cards */
-.image-card {
+/* Single Image Wrapper */
+.single-image-wrapper {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 12px 40px rgba(20, 25, 67, 0.12);
-  transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.45s ease;
   border-radius: 48px;
-}
-
-.image-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 48px rgba(20, 25, 67, 0.18);
-  z-index: 10;
-}
-
-.image-card img {
+  box-shadow: 0 12px 48px rgba(20, 25, 67, 0.12);
+  transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.45s ease;
   width: 100%;
-  height: 250px;
+}
+
+.single-image-wrapper:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(20, 25, 67, 0.18);
+}
+
+.single-image-wrapper img {
+  width: 100%;
+  height: 520px;
   object-fit: cover;
   display: block;
 }
 
-@media (max-width: 768px) {
-  .image-card img {
-    height: 300px;
+@media (max-width: 1024px) {
+  .single-image-wrapper img {
+    height: 480px;
   }
 }
 
-/* Image positioning in grid with custom curved shapes */
-.image-left {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  align-self: center;
-}
-
-.image-left img {
-  height: 420px;
-}
-
-.image-top {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.image-bottom {
-  grid-column: 2;
-  grid-row: 2;
-}
-
 @media (max-width: 768px) {
-  .image-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    max-width: 440px;
-  }
-
-  .image-left,
-  .image-top,
-  .image-bottom {
-    grid-column: 1;
-    grid-row: auto;
+  .single-image-wrapper {
+    max-width: 100%;
     border-radius: 32px;
   }
-
-  .image-left img,
-  .image-top img,
-  .image-bottom img {
-    height: 300px;
+  
+  .single-image-wrapper img {
+    height: 360px;
   }
 }
 
