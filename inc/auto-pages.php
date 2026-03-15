@@ -124,12 +124,9 @@ function myco_create_page_if_not_exists($page_data) {
     if ($existing) {
         $page_id = $existing->ID;
 
-        // Make sure the template is assigned even if page exists
+        // Always force-update the template on theme activation (handles reinstalls)
         if (!empty($page_data['template'])) {
-            $current_template = get_post_meta($page_id, '_wp_page_template', true);
-            if (empty($current_template) || $current_template === 'default') {
-                update_post_meta($page_id, '_wp_page_template', $page_data['template']);
-            }
+            update_post_meta($page_id, '_wp_page_template', $page_data['template']);
         }
 
         // Make sure it's published
@@ -356,26 +353,35 @@ function myco_setup_admin_notice() {
         return;
     }
 
-    // Check if any required pages are missing
+    // Check if any required pages are missing or have wrong templates
     $pages = myco_get_required_pages();
     $missing = [];
+    $wrong_template = [];
     foreach ($pages as $key => $page_data) {
         $existing = get_page_by_path($page_data['slug']);
         if (!$existing || get_post_status($existing->ID) !== 'publish') {
             $missing[] = $page_data['title'];
+        } elseif (!empty($page_data['template'])) {
+            $current_template = get_post_meta($existing->ID, '_wp_page_template', true);
+            if ($current_template !== $page_data['template']) {
+                $wrong_template[] = $page_data['title'];
+            }
         }
     }
 
     // Check if primary menu is set
     $has_menu = has_nav_menu('primary');
 
-    if (!empty($missing) || !$has_menu) {
+    if (!empty($missing) || !empty($wrong_template) || !$has_menu) {
         $nonce = wp_create_nonce('myco_setup_nonce');
         $url = admin_url('admin.php?myco-run-setup=1&_wpnonce=' . $nonce);
         echo '<div class="notice notice-warning">';
         echo '<p><strong>MYCO Theme:</strong> ';
         if (!empty($missing)) {
             echo 'Missing pages: ' . esc_html(implode(', ', $missing)) . '. ';
+        }
+        if (!empty($wrong_template)) {
+            echo 'Pages with incorrect template (may show unstyled): ' . esc_html(implode(', ', $wrong_template)) . '. ';
         }
         if (!$has_menu) {
             echo 'Primary navigation menu is not configured. ';

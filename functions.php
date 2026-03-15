@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Theme constants
-define('MYCO_VERSION', '1.0.0');
+define('MYCO_VERSION', '1.0.1');
 define('MYCO_DIR', get_template_directory());
 define('MYCO_URI', get_template_directory_uri());
 
@@ -33,6 +33,23 @@ add_action('init', function () {
         update_option('myco_rewrite_flush_version', $flush_version);
     }
 }, 999);
+
+// Auto-fix page templates after reinstall (runs once when version changes)
+add_action('init', function () {
+    $template_fix_version = MYCO_VERSION;
+    if (get_option('myco_template_fix_version') !== $template_fix_version) {
+        if (function_exists('myco_get_required_pages')) {
+            foreach (myco_get_required_pages() as $page_data) {
+                if (empty($page_data['template'])) continue;
+                $page = get_page_by_path($page_data['slug']);
+                if ($page) {
+                    update_post_meta($page->ID, '_wp_page_template', $page_data['template']);
+                }
+            }
+        }
+        update_option('myco_template_fix_version', $template_fix_version);
+    }
+}, 998);
 
 // ACF includes (only if ACF is active)
 if (class_exists('ACF')) {
