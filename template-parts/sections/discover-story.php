@@ -45,19 +45,19 @@ if (!$stats) $stats = $default_stats;
 
                 <!-- Three Points: Problem, Difference, Outcome -->
                 <div class="story-points">
-                    <div class="story-point">
+                    <div class="story-point" data-step="01">
                         <h3 class="story-point-title">The Problem</h3>
                         <p class="story-point-text">
                             Muslim youth in America need a welcoming space where they can feel a sense of belonging and understanding.
                         </p>
                     </div>
-                    <div class="story-point">
+                    <div class="story-point" data-step="02">
                         <h3 class="story-point-title">The Difference</h3>
                         <p class="story-point-text">
                             MYCO meets Muslim youth where they're at today, providing a space to play, socialize, and meet mentors who guide them academically and spiritually.
                         </p>
                     </div>
-                    <div class="story-point">
+                    <div class="story-point" data-step="03">
                         <h3 class="story-point-title">The Outcome</h3>
                         <p class="story-point-text">
                             Our youth cultivate strong Islamic identities, lift each other up, and go on to become leaders of their own communities.

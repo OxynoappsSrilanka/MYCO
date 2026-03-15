@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 <?php wp_body_open(); ?>
 
 <header class="w-full bg-white">
-    <div class="w-full mx-auto px-8 sm:px-12 lg:px-16 py-6 flex items-center justify-between">
+    <div class="w-full mx-auto px-8 sm:px-12 lg:px-16 py-14 flex items-center justify-between">
         <!-- Logo -->
         <a href="<?php echo esc_url(home_url('/')); ?>" class="flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
             <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"

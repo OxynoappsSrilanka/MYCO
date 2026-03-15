@@ -419,40 +419,46 @@ function myco_create_sample_content() {
     if (empty($existing_programs)) {
         $programs = [
             [
-                'title'   => 'Youth Leadership Development',
-                'excerpt' => 'Helping youth build confidence, communication skills, teamwork, responsibility, and leadership rooted in Islamic values.',
-                'content' => '<p>Our Youth Leadership Development program empowers Muslim youth to become confident leaders in their communities. Through workshops, mentorship, and hands-on projects, participants develop essential skills in communication, teamwork, and decision-making—all grounded in Islamic values.</p><p>This program meets weekly and includes leadership training, public speaking practice, and community service projects.</p>',
-                'image'   => 'myco-youth-team-award-check-winners.jpg',
+                'title'    => 'Youth Leadership Development',
+                'excerpt'  => 'Helping youth build confidence, communication skills, teamwork, responsibility, and leadership rooted in Islamic values.',
+                'content'  => '<p>Our Youth Leadership Development program empowers Muslim youth to become confident leaders in their communities. Through workshops, mentorship, and hands-on projects, participants develop essential skills in communication, teamwork, and decision-making—all grounded in Islamic values.</p><p>This program meets weekly and includes leadership training, public speaking practice, and community service projects.</p>',
+                'image'    => 'myco-youth-team-award-check-winners.jpg',
+                'category' => 'Leadership',
             ],
             [
-                'title'   => 'Spiritual Development',
-                'excerpt' => 'Lectures, youth halaqas, Islamic learning opportunities, and guidance that strengthens faith and identity.',
-                'content' => '<p>Strengthen your connection with Allah through our Spiritual Development program. We offer youth halaqas, Islamic lectures, Quran study circles, and spiritual guidance sessions that help young Muslims deepen their faith and understanding of Islam.</p><p>Sessions include weekly halaqas, monthly guest speakers, and Ramadan special programs.</p>',
-                'image'   => 'myco-youth-basketball-event-congregational-prayer.jpg',
+                'title'    => 'Spiritual Development',
+                'excerpt'  => 'Lectures, youth halaqas, Islamic learning opportunities, and guidance that strengthens faith and identity.',
+                'content'  => '<p>Strengthen your connection with Allah through our Spiritual Development program. We offer youth halaqas, Islamic lectures, Quran study circles, and spiritual guidance sessions that help young Muslims deepen their faith and understanding of Islam.</p><p>Sessions include weekly halaqas, monthly guest speakers, and Ramadan special programs.</p>',
+                'image'    => 'myco-youth-basketball-event-congregational-prayer.jpg',
+                'category' => 'Spiritual',
             ],
             [
-                'title'   => 'Education & Skill Building',
-                'excerpt' => 'Support through educational initiatives such as computer literacy, counseling, learning support, and developmental programming.',
-                'content' => '<p>Our Education & Skill Building program provides comprehensive academic support and life skills training. From homework help and tutoring to computer literacy and career counseling, we equip youth with the tools they need to succeed.</p><p>Services include free tutoring, college prep workshops, resume building, and technology training.</p>',
-                'image'   => 'myco-youth-community-center-groundbreaking-ceremony.jpg',
+                'title'    => 'Education & Skill Building',
+                'excerpt'  => 'Support through educational initiatives such as computer literacy, counseling, learning support, and developmental programming.',
+                'content'  => '<p>Our Education & Skill Building program provides comprehensive academic support and life skills training. From homework help and tutoring to computer literacy and career counseling, we equip youth with the tools they need to succeed.</p><p>Services include free tutoring, college prep workshops, resume building, and technology training.</p>',
+                'image'    => 'myco-youth-community-center-groundbreaking-ceremony.jpg',
+                'category' => 'Academic',
             ],
             [
-                'title'   => 'Athletics & Training',
-                'excerpt' => 'Basketball, soccer, and other active programming that builds discipline, confidence, and brotherhood/sisterhood.',
-                'content' => '<p>Stay active and build lasting friendships through our Athletics & Training program. We offer basketball leagues, soccer tournaments, fitness training, and other sports activities that promote physical health, teamwork, and Islamic brotherhood/sisterhood.</p><p>Weekly basketball nights, seasonal soccer leagues, and fitness training sessions available for all skill levels.</p>',
-                'image'   => 'myco-basketball-champions-team-with-trophy.jpg.jpg',
+                'title'    => 'Athletics & Training',
+                'excerpt'  => 'Basketball, soccer, and other active programming that builds discipline, confidence, and brotherhood/sisterhood.',
+                'content'  => '<p>Stay active and build lasting friendships through our Athletics & Training program. We offer basketball leagues, soccer tournaments, fitness training, and other sports activities that promote physical health, teamwork, and Islamic brotherhood/sisterhood.</p><p>Weekly basketball nights, seasonal soccer leagues, and fitness training sessions available for all skill levels.</p>',
+                'image'    => 'myco-basketball-champions-team-with-trophy.jpg.jpg',
+                'category' => 'Athletics',
             ],
             [
-                'title'   => 'Social & Cultural Activities',
-                'excerpt' => 'Gatherings that foster belonging, friendship, and community connection across backgrounds.',
-                'content' => '<p>Build meaningful connections through our Social & Cultural Activities program. We host game nights, cultural celebrations, community dinners, and social events that bring Muslim youth together in a welcoming, faith-centered environment.</p><p>Monthly social events, holiday celebrations, and community gatherings throughout the year.</p>',
-                'image'   => 'myco-basketball-tournament-award-ceremony-team-celebration.jpg.JPG',
+                'title'    => 'Social & Cultural Activities',
+                'excerpt'  => 'Gatherings that foster belonging, friendship, and community connection across backgrounds.',
+                'content'  => '<p>Build meaningful connections through our Social & Cultural Activities program. We host game nights, cultural celebrations, community dinners, and social events that bring Muslim youth together in a welcoming, faith-centered environment.</p><p>Monthly social events, holiday celebrations, and community gatherings throughout the year.</p>',
+                'image'    => 'myco-basketball-tournament-award-ceremony-team-celebration.jpg.JPG',
+                'category' => 'Social',
             ],
             [
-                'title'   => 'Community Service & Innovation',
-                'excerpt' => 'Volunteer initiatives that teach youth to serve others and contribute meaningfully to their communities.',
-                'content' => '<p>Make a real difference through our Community Service & Innovation program. Youth participate in volunteer projects, food drives, community clean-ups, and innovative service initiatives that embody Islamic values of compassion and social responsibility.</p><p>Monthly service projects, partnership with local organizations, and youth-led community initiatives.</p>',
-                'image'   => 'MCYC Groundbreaking_ Aatifa.jpg',
+                'title'    => 'Community Service & Innovation',
+                'excerpt'  => 'Volunteer initiatives that teach youth to serve others and contribute meaningfully to their communities.',
+                'content'  => '<p>Make a real difference through our Community Service & Innovation program. Youth participate in volunteer projects, food drives, community clean-ups, and innovative service initiatives that embody Islamic values of compassion and social responsibility.</p><p>Monthly service projects, partnership with local organizations, and youth-led community initiatives.</p>',
+                'image'    => 'MCYC Groundbreaking_ Aatifa.jpg',
+                'category' => 'Community Service',
             ],
         ];
 
@@ -465,6 +471,11 @@ function myco_create_sample_content() {
                 'post_type'    => 'program',
                 'post_author'  => $author_id,
             ]);
+
+            // Set category
+            if ($id && !empty($p['category'])) {
+                wp_set_object_terms($id, $p['category'], 'program_category');
+            }
             
             // Set featured image if image filename provided
             if ($id && !empty($p['image'])) {
