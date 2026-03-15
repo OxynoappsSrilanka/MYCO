@@ -17,12 +17,17 @@ $defaults = [
 $use_defaults = empty($testimonials);
 $items = $use_defaults ? $defaults : $testimonials;
 
-// If odd count, repeat the first one to fill the gap in the last slide
-if (count($items) % 2 !== 0 && count($items) > 1) {
-    $items[] = $items[0];
+// Fill incomplete final slide so each page has the same number of cards
+$per_page = 3;
+if (count($items) > 1 && count($items) % $per_page !== 0) {
+    $seed_count = count($items);
+    $pad_index = 0;
+    while (count($items) % $per_page !== 0) {
+        $items[] = $items[$pad_index % $seed_count];
+        $pad_index++;
+    }
 }
 
-$per_page = 2;
 $pages = array_chunk($items, $per_page);
 $star_svg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="#C8402E" aria-hidden="true"><path d="M10 1l2.39 4.84 5.35.78-3.87 3.77.91 5.32L10 13.27l-4.78 2.44.91-5.32L2.26 6.62l5.35-.78z"/></svg>';
 ?>
