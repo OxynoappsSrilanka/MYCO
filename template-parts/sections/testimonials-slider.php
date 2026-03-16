@@ -35,7 +35,7 @@ $star_svg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="#C8402E" aria
 <section id="testimonials" aria-labelledby="testimonials-heading"
     style="background-color: #ffffff !important;"
     class="w-full bg-white pt-16 pb-20 md:pt-20 md:pb-24">
-    <div class="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="testimonials-container mx-auto">
         <style>
             .testi-card { 
                 border: 1.5px solid rgba(20, 25, 67, 0.12); 

@@ -693,6 +693,11 @@ section {
   padding: 20px 8px 160px 8px;
 }
 
+.story-section .section-container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 @media (max-width: 1024px) {
   .section-container {
     padding: 15px 16px 160px 16px;
@@ -755,139 +760,164 @@ section {
   max-width: 580px;
 }
 
-/* Three Points — Horizontal Arrow/Chevron Flow */
-.story-points {
+/* Three Points — Redesigned Story Stage */
+.story-points-stage {
+  position: relative;
   display: flex;
-  flex-direction: row;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  min-height: auto;
   margin-bottom: 8px;
+  overflow: visible;
+}
+
+.story-points-stage::before,
+.story-points-stage::after {
+  content: none;
+}
+
+.story-points {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  width: 100%;
+  margin: 0;
   align-items: stretch;
 }
 
+.story-point-border {
+  display: flex;
+  padding: 2px;
+  background: linear-gradient(135deg, #0f3c5f 0%, #1a4d6d 55%, #2b6b8d 100%);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+}
+
+/* First arrow: flat left, pointed right */
+.story-point-first {
+  clip-path: polygon(0 0, 0 100%, 94% 100%, 100% 50%, 94% 0);
+}
+
+.story-point-first .story-point {
+  clip-path: polygon(0 0, 0 100%, 94% 100%, 100% 50%, 94% 0);
+  padding: 14px 38px 40px 22px;
+}
+
+/* Middle arrow: chevron left, pointed right */
+.story-point-middle {
+  clip-path: polygon(0 0, 6% 50%, 0 100%, 94% 100%, 100% 50%, 94% 0);
+}
+
+.story-point-middle .story-point {
+  clip-path: polygon(0 0, 6% 50%, 0 100%, 94% 100%, 100% 50%, 94% 0);
+  padding: 14px 38px 40px 38px;
+}
+
+/* Last arrow: chevron left, pointed right */
+.story-point-last {
+  clip-path: polygon(0 0, 6% 50%, 0 100%, 94% 100%, 100% 50%, 94% 0);
+}
+
+.story-point-last .story-point {
+  clip-path: polygon(0 0, 6% 50%, 0 100%, 94% 100%, 100% 50%, 94% 0);
+  padding: 14px 38px 40px 38px;
+}
+
 .story-point {
-  --story-arrow-depth: 30px;
-  --story-outline: #1a2458;
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 8px;
-  padding: 18px 30px 18px 18px;
-  min-height: 120px;
-  clip-path: polygon(0 0, calc(100% - var(--story-arrow-depth)) 0, 100% 50%, calc(100% - var(--story-arrow-depth)) 100%, 0 100%, var(--story-arrow-depth) 50%);
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  position: relative;
-  isolation: isolate;
+  min-height: 175px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
-.story-point > * {
+.story-point-content {
   position: relative;
   z-index: 1;
-}
-
-.story-point:first-child {
-  clip-path: polygon(0 0, calc(100% - var(--story-arrow-depth)) 0, 100% 50%, calc(100% - var(--story-arrow-depth)) 100%, 0 100%);
-  padding-left: 18px;
-  padding-right: 30px;
-  --story-outline: #141943;
-}
-
-.story-point:nth-child(2) {
-  --story-outline: #1e2d68;
-}
-
-.story-point:nth-child(3) {
-  clip-path: polygon(0 0, calc(100% - var(--story-arrow-depth)) 0, 100% 50%, calc(100% - var(--story-arrow-depth)) 100%, 0 100%, var(--story-arrow-depth) 50%);
-  --story-outline: #C8402E;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  padding-right: 8px;
 }
 
 .story-point-title {
-  font-size: 0.75rem;
-  font-weight: 900;
-  color: #141943;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #0f2f4a;
   margin: 0;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 1;
 }
 
 .story-point-text {
   font-size: 0.8rem;
-  line-height: 1.55;
-  color: #334155;
+  line-height: 1.52;
+  color: #475569;
   margin: 0;
-  max-width: none;
-  text-align: left;
-  hyphens: auto;
-  padding-left: 10px;
+  text-align: justify;
+  text-justify: inter-word;
+  text-wrap: pretty;
 }
 
-/* Outline + step number accent */
-.story-point::before {
-  content: "";
+.story-point-number {
   position: absolute;
-  inset: 0;
-  clip-path: inherit;
-  border: 2px solid var(--story-outline);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.story-point::after {
-  content: attr(data-step);
-  font-size: 1.2rem;
+  right: 26px;
+  bottom: 8px;
+  font-size: 2.2rem;
   font-weight: 900;
   line-height: 1;
-  color: rgba(20, 25, 67, 0.24);
-  position: absolute;
-  bottom: 10px;
-  right: 26px;
+  color: #d9e2ee;
+  opacity: 0.85;
   pointer-events: none;
+  user-select: none;
 }
 
-/* Per-arrow text color overrides */
-.story-point:nth-child(2) .story-point-text {
-  color: #334155;
-}
-
-.story-point:nth-child(2)::after {
-  color: rgba(30, 45, 104, 0.24);
-}
-
-.story-point:nth-child(3) .story-point-title {
-  color: #C8402E;
-}
-
-.story-point:nth-child(3) .story-point-text {
-  color: #9A3A2D;
-}
-
-.story-point:nth-child(3)::after {
-  color: rgba(200, 64, 46, 0.28);
-}
-
-@media (max-width: 900px) {
-  .story-points {
-    flex-direction: column;
-    gap: 6px;
-  }
-  .story-point,
-  .story-point:first-child,
-  .story-point:nth-child(2),
-  .story-point:nth-child(3) {
-    clip-path: none;
-    border-radius: 10px;
-    box-shadow: none;
-    padding: 20px 22px;
+@media (max-width: 1100px) {
+  .story-points-stage {
     min-height: auto;
+    padding: 0;
   }
 
-  .story-point::before {
+  .story-points {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .story-point-first,
+  .story-point-middle,
+  .story-point-last,
+  .story-point-first .story-point,
+  .story-point-middle .story-point,
+  .story-point-last .story-point {
     clip-path: none;
-    border-radius: 10px;
-    border-width: 1.8px;
+    border-radius: 12px;
+  }
+
+  .story-point-first .story-point,
+  .story-point-middle .story-point,
+  .story-point-last .story-point {
+    min-height: auto;
+    padding: 16px 18px 44px;
+  }
+
+  .story-point-content {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .story-section .section-container {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
@@ -964,6 +994,7 @@ section {
   position: relative;
   width: 100%;
   background: transparent;
+  overflow: visible;
 }
 
 .single-image-wrapper:hover {
@@ -972,11 +1003,28 @@ section {
 }
 
 .single-image-wrapper img {
-  width: 100%;
-  height: 520px;
+  width: 144%;
+  max-width: none;
+  height: 700px;
+  margin-left: auto;
   object-fit: contain;
+  object-position: center top;
   display: block;
   background: transparent;
+}
+
+@media (max-width: 1024px) {
+  .single-image-wrapper img {
+    width: 126%;
+    height: 620px;
+  }
+}
+
+@media (max-width: 768px) {
+  .single-image-wrapper img {
+    width: 116%;
+    height: 520px;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -1001,6 +1049,43 @@ section {
 /* ------------------------------------------------------------------
    21. Testimonials (Source exact match)
    ------------------------------------------------------------------ */
+.testimonials-container {
+  width: 100%;
+  max-width: 1380px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 640px) {
+  .testimonials-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (min-width: 1366px) {
+  .testimonials-container {
+    max-width: 1640px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .testimonials-container {
+    max-width: 1760px;
+    padding-left: 44px;
+    padding-right: 44px;
+  }
+}
+
 .testi-track {
   display: flex;
   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1133,6 +1218,44 @@ section {
 
 .testi-dot:hover:not(.active) {
   background: #9CA3AF;
+}
+
+/* Outcomes section container alignment */
+.outcomes-container {
+  width: 100%;
+  max-width: 1380px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 640px) {
+  .outcomes-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .outcomes-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1366px) {
+  .outcomes-container {
+    max-width: 1640px;
+    padding-left: 52px;
+    padding-right: 52px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .outcomes-container {
+    max-width: 1760px;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -1594,6 +1717,43 @@ header .flex-shrink-0 img {
    ------------------------------------------------------------------ */
 .hero-centerline-row {
   align-items: flex-start;
+}
+
+.hero-home-container {
+  width: 100%;
+  max-width: 1380px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 640px) {
+  .hero-home-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-home-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1366px) {
+  .hero-home-container {
+    max-width: 1640px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .hero-home-container {
+    max-width: 1760px;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
 }
 
 .hero-centerline-left h1 {
@@ -2095,4 +2255,25 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]) {
   color: #6B7280;
   font-weight: 600;
   margin-bottom: 24px;
+}
+
+/* ------------------------------------------------------------------
+   LARGE SCREEN PADDING FIX
+   At higher resolutions the max-width container is fully centred, so
+   the extra inner horizontal padding becomes excessive. Reduce it once
+   the viewport is wider than ~1440 px (container already has enough
+   external margin from mx-auto centering).
+   ------------------------------------------------------------------ */
+@media (min-width: 1440px) {
+  .max-w-\[1380px\] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .max-w-\[1380px\] {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

@@ -17,7 +17,7 @@ $hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp
 ?>
 
 <section class="w-full bg-white" aria-labelledby="hero-heading">
-    <div class="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="hero-home-container mx-auto">
 
         <!-- Text row: Headline (left) + Paragraph+CTA (right) -->
         <div class="hero-centerline-row flex flex-col gap-8 pt-0 pb-10 md:pt-0 md:pb-12">
