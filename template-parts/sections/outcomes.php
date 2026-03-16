@@ -17,7 +17,7 @@ $bg_url = $bg_image ? (is_array($bg_image) ? $bg_image['url'] : wp_get_attachmen
     <div class="outcomes-container mx-auto">
 
         <!-- Big Rounded Stage Wrapper -->
-        <div class="relative w-full overflow-hidden rounded-3xl" style="min-height: clamp(340px, 44vw, 540px); box-shadow: 0 14px 44px rgba(20,25,67,0.12), 0 2px 8px rgba(20,25,67,0.06); background: #FAFAFB;">
+        <div class="relative w-full overflow-hidden rounded-3xl" style="min-height: clamp(300px, 38vw, 460px); box-shadow: 0 14px 44px rgba(20,25,67,0.12), 0 2px 8px rgba(20,25,67,0.06); background: #FAFAFB;">
 
             <!-- Background image -->
             <img src="<?php echo esc_url($bg_url); ?>"
@@ -32,14 +32,14 @@ $bg_url = $bg_image ? (is_array($bg_image) ? $bg_image['url'] : wp_get_attachmen
             <div class="absolute bottom-0 left-0 w-full" style="height: 20%; background: rgba(255,255,255,0.80); z-index: 1;" aria-hidden="true"></div>
 
             <!-- Overlay Card -->
-            <div class="relative z-10 flex items-center h-full p-6 sm:p-8 md:p-10 lg:p-12">
-                <div class="bg-white rounded-3xl flex flex-col gap-5 w-full" style="max-width: 520px; padding: clamp(24px, 3.5vw, 44px); box-shadow: 0 18px 60px rgba(20,25,67,0.14), 0 2px 10px rgba(20,25,67,0.06); border: 1px solid rgba(20,25,67,0.05); text-align: left; align-items: flex-start;">
+            <div class="relative z-10 flex items-center h-full p-4 sm:p-6 md:p-7 lg:p-8">
+                <div class="bg-white rounded-3xl flex flex-col gap-4 w-full" style="max-width: 660px; padding: clamp(20px, 2.6vw, 34px); box-shadow: 0 18px 60px rgba(20,25,67,0.14), 0 2px 10px rgba(20,25,67,0.06); border: 1px solid rgba(20,25,67,0.05); text-align: left; align-items: flex-start;">
 
                     <span style="color: rgba(200,64,46,0.88); font-weight: 700; font-size: 0.84rem; letter-spacing: 0.04em; display: block; width: 100%;">
                         <?php echo esc_html(myco_get_field('outcomes_label', false, 'Outcomes') . ' —'); ?>
                     </span>
 
-                    <h2 id="outcomes-heading" class="font-inter tracking-tight" style="color: #141943; font-weight: 900; font-size: clamp(2.0rem, 4.2vw, 3.3rem); line-height: 1.05; width: 100%; margin: 0;">
+                    <h2 id="outcomes-heading" class="font-inter tracking-tight" style="color: #141943; font-weight: 900; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.06; width: 100%; margin: 0;">
                         <?php if ($heading) { echo nl2br(esc_html($heading)); } else { ?>This space is built to<br />shape habits,<br />relationships, and identity<?php } ?>
                     </h2>
 

@@ -28,8 +28,6 @@ function myco_register_menus() {
  */
 class Walker_Pill_Nav extends Walker_Nav_Menu {
 
-    private int $item_count = 0;
-
     public function start_lvl(&$output, $depth = 0, $args = null) {
         // No nested lists
     }
@@ -39,16 +37,6 @@ class Walker_Pill_Nav extends Walker_Nav_Menu {
     }
 
     public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
-        $this->item_count++;
-
-        // Spacer with Bismillah image overlaid at center
-        if ($this->item_count === 5) {
-            $bismillah_url = get_template_directory_uri() . '/assets/images/Bismillah.webp';
-            $output .= '<span class="pill-nav-bismillah-slot" style="width:200px;" aria-hidden="true">'
-                     . '<img src="' . esc_url($bismillah_url) . '" alt="Bismillah ir-Rahman ir-Raheem" class="pill-nav-bismillah-image" style="height:60px;" />'
-                     . '</span>';
-        }
-
         $classes = [];
 
         // Check if current page
@@ -148,12 +136,6 @@ function myco_fallback_menu() {
         ['url' => home_url('/contact/'), 'label' => 'Contact'],
     ];
     foreach ($links as $i => $link) {
-        if ($i === 4) {
-            $bismillah_url = get_template_directory_uri() . '/assets/images/Bismillah.webp';
-            echo '<span class="pill-nav-bismillah-slot" style="width:280px;" aria-hidden="true">'
-               . '<img src="' . esc_url($bismillah_url) . '" alt="Bismillah ir-Rahman ir-Raheem" class="pill-nav-bismillah-image" style="height:44px;" />'
-               . '</span>';
-        }
         $is_active = (trailingslashit($link['url']) === $current_url) || (is_front_page() && $link['label'] === 'Home');
         $class = $is_active ? ' class="active" aria-current="page"' : '';
         echo '<a href="' . esc_url($link['url']) . '"' . $class . '>' . esc_html($link['label']) . '</a>';

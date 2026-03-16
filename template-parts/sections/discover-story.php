@@ -9,7 +9,34 @@
 $heading   = myco_get_field('story_heading', false, '');
 $paragraph = myco_get_field('story_paragraph', false, 'Because a strong Muslim identity isn\'t built by accident—it\'s built with community.');
 $image     = myco_get_field('story_image');
-$img_url   = $image ? (is_array($image) ? $image['url'] : wp_get_attachment_url($image)) : MYCO_URI . '/assets/images/about.png';
+$heading_clean = trim(preg_replace('/\s+/', ' ', (string) $heading));
+$heading_display = '';
+if ($heading_clean !== '') {
+    $heading_display = ucwords(strtolower($heading_clean));
+}
+$fallback_rel  = '/assets/images/about.png';
+$fallback_path = MYCO_DIR . $fallback_rel;
+$fallback_ver  = file_exists($fallback_path) ? filemtime($fallback_path) : MYCO_VERSION;
+$fallback_url  = add_query_arg('v', (string) $fallback_ver, MYCO_URI . $fallback_rel);
+
+$attachment_id = 0;
+$img_url       = $fallback_url;
+
+if ($image) {
+    $attachment_id = is_array($image) ? (int) ($image['ID'] ?? 0) : (int) $image;
+    $img_url       = is_array($image) ? ($image['url'] ?? $fallback_url) : wp_get_attachment_url($image);
+
+    if (!$img_url) {
+        $img_url = $fallback_url;
+    }
+}
+
+if ($attachment_id > 0) {
+    $image_ver = get_post_modified_time('U', true, $attachment_id);
+    if ($image_ver) {
+        $img_url = add_query_arg('v', (string) $image_ver, $img_url);
+    }
+}
 $stats     = myco_get_field('story_stats');
 $default_stats = [
     ['number' => '2,500+', 'label' => 'Youth Served'],
@@ -22,26 +49,25 @@ if (!$stats) $stats = $default_stats;
 <section id="discover-story" class="story-section w-full bg-white" aria-labelledby="story-heading">
     <div class="section-container">
 
+        <!-- Section Heading -->
+        <h2 id="story-heading" class="story-heading">
+            <?php if ($heading_display !== '') : ?>
+                <?php echo esc_html($heading_display); ?>
+            <?php else : ?>
+                Why Dedicated Youth Centers?
+            <?php endif; ?>
+        </h2>
+
+        <!-- Section Intro -->
+        <p class="story-intro">
+            <?php echo esc_html($paragraph); ?>
+        </p>
+
         <!-- Two-column layout: text (55%) + images (45%) -->
         <div class="section-layout">
 
             <!-- LEFT: Text Content Column -->
             <div class="story-text-column">
-
-                <!-- Heading -->
-                <h2 id="story-heading" class="story-heading">
-                    <?php if ($heading) : ?>
-                        <?php echo nl2br(esc_html($heading)); ?>
-                    <?php else : ?>
-                        WHY DEDICATED<br />
-                        YOUTH CENTERS?
-                    <?php endif; ?>
-                </h2>
-
-                <!-- Intro Paragraph -->
-                <p class="story-intro">
-                    <?php echo esc_html($paragraph); ?>
-                </p>
 
                 <!-- Three Points: Problem, Difference, Outcome -->
                 <div class="story-points-stage">

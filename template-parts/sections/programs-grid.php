@@ -64,43 +64,28 @@ if (!$programs) $programs = $defaults;
         </div>
 
         <!-- 3x2 Cards Grid with Background Images -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <?php foreach ($programs as $p) : 
+        <div class="homepage-programs-grid">
+            <?php foreach ($programs as $index => $p) :
                 $bg_image = !empty($p['image']) ? MYCO_URI . '/assets/images/Galleries/' . $p['image'] : '';
+                $card_number = str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT);
+                $card_tag = strtok((string) ($p['title'] ?? ''), ' ');
             ?>
-            <div class="bg-white rounded-2xl flex flex-col gap-4 transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-2 overflow-hidden relative"
-                 style="box-shadow: 0 8px 24px rgba(20,25,67,0.09), 0 1px 4px rgba(20,25,67,0.05);">
-                
-                <?php if ($bg_image) : ?>
-                <!-- Background Image with Overlay -->
-                <div style="position: absolute; top: 0; left: 0; right: 0; height: 140px; background-image: url('<?php echo esc_url($bg_image); ?>'); background-size: cover; background-position: center; opacity: 0.15;"></div>
-                <?php endif; ?>
-                
-                <div style="padding: 32px 28px; position: relative; z-index: 1;">
-                    <!-- Icon -->
-                    <div style="width: 64px; height: 64px; border-radius: 16px; background: linear-gradient(135deg, rgba(200,64,46,0.1) 0%, rgba(200,64,46,0.05) 100%); display: flex; align-items: center; justify-content: center; color: #C8402E; margin-bottom: 16px;">
-                        <?php 
-                        if (!empty($p['icon'])) {
-                            echo wp_kses($p['icon'], [
-                                'svg' => ['width' => [], 'height' => [], 'viewBox' => [], 'fill' => [], 'xmlns' => []],
-                                'path' => ['d' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'fill' => []],
-                                'circle' => ['cx' => [], 'cy' => [], 'r' => [], 'stroke' => [], 'stroke-width' => [], 'fill' => []],
-                            ]);
-                        }
-                        ?>
-                    </div>
-                    
-                    <!-- Title -->
-                    <h3 style="color: #141943; font-weight: 800; font-size: 1.25rem; line-height: 1.3; margin-bottom: 8px;">
-                        <?php echo esc_html($p['title']); ?>
-                    </h3>
-                    
-                    <!-- Description -->
-                    <p style="color: #6B7280; font-size: 0.95rem; line-height: 1.7; margin: 0;">
-                        <?php echo esc_html($p['desc'] ?? $p['description'] ?? ''); ?>
-                    </p>
+            <article class="homepage-program-card">
+                <div class="homepage-program-card-media"<?php if ($bg_image) : ?> style="background-image: linear-gradient(180deg, rgba(20, 25, 67, 0.16) 0%, rgba(20, 25, 67, 0.72) 100%), url('<?php echo esc_url($bg_image); ?>');"<?php endif; ?>>
+                    <span class="homepage-program-card-tag"><?php echo esc_html($card_tag ?: 'MYCO'); ?></span>
+                    <span class="homepage-program-card-index" aria-hidden="true"><?php echo esc_html($card_number); ?></span>
                 </div>
-            </div>
+
+                <div class="homepage-program-card-body">
+                    <h3 class="homepage-program-card-title"><?php echo esc_html($p['title']); ?></h3>
+                    <p class="homepage-program-card-description"><?php echo esc_html($p['desc'] ?? $p['description'] ?? ''); ?></p>
+                    <div class="homepage-program-card-divider" aria-hidden="true"></div>
+                    <div class="homepage-program-card-meta-row">
+                        <span class="homepage-program-card-meta-label">Program track</span>
+                        <span class="homepage-program-card-meta-icon" aria-hidden="true">&#8599;</span>
+                    </div>
+                </div>
+            </article>
             <?php endforeach; ?>
         </div>
 
