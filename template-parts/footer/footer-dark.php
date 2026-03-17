@@ -14,7 +14,101 @@ $social      = myco_get_social_links();
 $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connected');
 ?>
 
-<footer class="dark-footer w-full" aria-label="<?php esc_attr_e('Site footer', 'myco'); ?>">
+<footer class="dark-footer footer-surface w-full" aria-label="<?php esc_attr_e('Site footer', 'myco'); ?>" style="background:#fbfaf5; color:#5b6474;">
+    <style>
+        .dark-footer,
+        .dark-footer.footer-surface {
+            background: #fbfaf5 !important;
+            color: #5b6474 !important;
+        }
+
+        .dark-footer .dark-footer-heading,
+        .dark-footer .footer-nav-heading {
+            color: #141943 !important;
+        }
+
+        .dark-footer .dark-footer-link,
+        .dark-footer .footer-nav-link,
+        .dark-footer .footer-contact-bar-link,
+        .dark-footer .footer-description,
+        .dark-footer .footer-newsletter-copy,
+        .dark-footer .footer-contact-value,
+        .dark-footer .footer-contact-link {
+            color: #5b6474 !important;
+        }
+
+        .dark-footer .dark-footer-link:hover,
+        .dark-footer .footer-nav-link:hover,
+        .dark-footer .footer-contact-bar-link:hover,
+        .dark-footer .footer-contact-link:hover,
+        .dark-footer .footer-legal-link:hover {
+            color: #141943 !important;
+        }
+
+        .dark-footer .dark-footer-social {
+            background: #ffffff !important;
+            border: 1px solid rgba(20, 25, 67, 0.14) !important;
+            color: #141943 !important;
+        }
+
+        .dark-footer .dark-footer-social:hover {
+            background: #c8402e !important;
+            border-color: #c8402e !important;
+            color: #ffffff !important;
+        }
+
+        .dark-footer .footer-newsletter-input {
+            background: #ffffff !important;
+            border: 1px solid rgba(20, 25, 67, 0.14) !important;
+            color: #141943 !important;
+        }
+
+        .dark-footer .newsletter-form {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 10px;
+            padding-top: 20px;
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .dark-footer .footer-newsletter-input,
+        .dark-footer .footer-newsletter-button {
+            min-height: 44px;
+            border-radius: 14px !important;
+        }
+
+        .dark-footer .footer-newsletter-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 74px;
+            padding: 0 20px;
+            white-space: nowrap;
+        }
+
+        .dark-footer .footer-newsletter {
+            padding-top: 10px;
+        }
+
+        .dark-footer .footer-newsletter-input::placeholder,
+        .dark-footer .footer-fine-print,
+        .dark-footer .footer-legal-link,
+        .dark-footer .newsletter-message {
+            color: #8a94a6 !important;
+        }
+
+        @media (max-width: 380px) {
+            .dark-footer .newsletter-form {
+                grid-template-columns: 1fr;
+            }
+
+            .dark-footer .footer-newsletter-button {
+                width: 100%;
+            }
+        }
+    </style>
 
     <!-- Circle Photo Strip -->
     <?php
@@ -30,16 +124,16 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
     <?php endif; ?>
 
     <!-- Contact Bar -->
-    <div style="border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08);">
-        <div class="inner mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-8 text-sm" style="color: rgba(255,255,255,0.6);">
-            <a href="mailto:<?php echo esc_attr($email); ?>" class="flex items-center gap-2 hover:text-white transition-colors">
+    <div style="border-top: 1px solid rgba(20,25,67,0.16); border-bottom: 1px solid rgba(20,25,67,0.16);">
+        <div class="inner mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-8 text-sm" style="color: #5b6474;">
+            <a href="mailto:<?php echo esc_attr($email); ?>" class="footer-contact-bar-link flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="2" y="4" width="20" height="16" rx="3"/>
                     <path d="M22 4L12 13 2 4"/>
                 </svg>
                 <?php echo esc_html($email); ?>
             </a>
-            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>" class="flex items-center gap-2 hover:text-white transition-colors">
+            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>" class="footer-contact-bar-link flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
                 </svg>
@@ -62,11 +156,11 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
             <!-- Col 1: Logo + Description -->
             <div class="md:col-span-1">
                 <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
-                    <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo-white.png'); ?>"
+                    <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
                          alt="<?php bloginfo('name'); ?>"
                          style="height:100px; width:auto; display:block; margin-bottom:4px;" />
                 </a>
-                <p style="color: rgba(255,255,255,0.6); font-size:0.93rem; line-height:1.68; margin-top: 0; margin-bottom:12px;">
+                <p class="footer-description" style="margin-top: 0; margin-bottom:12px;">
                     <?php echo esc_html($description); ?>
                 </p>
                 <div style="display:flex; gap:12px;">
@@ -132,16 +226,16 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                     </div>
 
                     <!-- Col 4: Connect / Newsletter -->
-                    <div class="flex flex-col">
+                    <div class="footer-newsletter flex flex-col">
                         <p class="dark-footer-heading"><?php echo esc_html($newsletter_heading); ?></p>
                         <div class="flex flex-col">
-                            <p style="color: rgba(255,255,255,0.55); font-size:0.9rem; line-height:1.6; margin-bottom:16px;">
+                            <p class="footer-newsletter-copy">
                                 <?php esc_html_e('Subscribe to our newsletter for updates on events, programs, and community news.', 'myco'); ?>
                             </p>
-                            <form class="newsletter-form flex gap-2" action="#" method="post">
+                            <form class="newsletter-form" action="#" method="post">
                                 <input type="email" placeholder="<?php esc_attr_e('Your email', 'myco'); ?>" required
-                                       class="flex-1 px-4 py-2.5 rounded-xl text-sm bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-white/30" />
-                                <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
+                                       class="footer-newsletter-input flex-1 px-4 py-2.5 rounded-xl text-sm" />
+                                <button type="submit" class="footer-newsletter-button rounded-xl text-sm font-semibold text-white"
                                         style="background: #C8402E; transition: background 0.18s;">
                                     <?php esc_html_e('Join', 'myco'); ?>
                                 </button>
@@ -156,12 +250,12 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
         </div>
 
         <!-- Bottom bar -->
-        <div style="border-top: 1px solid rgba(255,255,255,0.08); margin-top:24px; padding-top:16px;">
+        <div style="border-top: 1px solid rgba(20,25,67,0.16); margin-top:24px; padding-top:16px;">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p style="color: rgba(255,255,255,0.4); font-size:0.85rem;">&copy; <?php echo esc_html($copyright); ?></p>
-                <div class="flex gap-6" style="color: rgba(255,255,255,0.4); font-size:0.82rem;">
-                    <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>" class="hover:text-white transition-colors"><?php esc_html_e('Privacy Policy', 'myco'); ?></a>
-                    <a href="#" class="hover:text-white transition-colors"><?php esc_html_e('Terms of Use', 'myco'); ?></a>
+                <p class="footer-fine-print">&copy; <?php echo esc_html($copyright); ?></p>
+                <div class="flex gap-6" style="font-size:0.82rem;">
+                    <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>" class="footer-legal-link"><?php esc_html_e('Privacy Policy', 'myco'); ?></a>
+                    <a href="#" class="footer-legal-link"><?php esc_html_e('Terms of Use', 'myco'); ?></a>
                 </div>
             </div>
         </div>

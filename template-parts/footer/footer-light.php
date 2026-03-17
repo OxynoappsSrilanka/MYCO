@@ -13,7 +13,7 @@ $copyright   = myco_get_option('copyright_text', '2026 MYCO. All rights reserved
 $social      = myco_get_social_links();
 ?>
 
-<footer class="w-full bg-white" aria-label="<?php esc_attr_e('Site footer', 'myco'); ?>">
+<footer class="footer-surface w-full" aria-label="<?php esc_attr_e('Site footer', 'myco'); ?>" style="background:#fbfaf5;">
     <div class="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8 md:pt-16 md:pb-10">
 
         <!-- 4-column grid -->
@@ -27,7 +27,7 @@ $social      = myco_get_social_links();
                              alt="<?php bloginfo('name'); ?>"
                              style="height:150px; width:auto; display:block; margin-bottom:1px;" />
                     </a>
-                    <p style="color:#6B7280; font-size:0.93rem; line-height:1.68; margin-bottom:22px;">
+                    <p class="footer-description" style="margin-bottom:22px;">
                         <?php echo esc_html($description); ?>
                     </p>
                     <div style="display:flex; gap:18px; align-items:center;">
@@ -130,7 +130,7 @@ $social      = myco_get_social_links();
 
         <!-- Divider -->
         <div class="border-t border-gray-200 mt-12 pt-6">
-            <p style="color:#9CA3AF; font-size:0.85rem;">&copy; <?php echo esc_html($copyright); ?></p>
+            <p class="footer-fine-print">&copy; <?php echo esc_html($copyright); ?></p>
         </div>
 
     </div>
