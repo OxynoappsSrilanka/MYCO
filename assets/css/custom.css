@@ -159,32 +159,52 @@ a {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 8px;
+  padding: 6px 10px 6px 8px;
 }
 
-.bismillah-top-bar {
-  width: 100%;
-  min-height: 44px;
-  display: flex;
+.pill-nav-bismillah {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 16px 2px;
-  border-bottom: 1px solid rgba(20, 25, 67, 0.08);
-  background: #ffffff;
+  flex-shrink: 0;
+  margin-right: 0;
+  padding: 0 8px 0 2px;
+  border-right: 1px solid rgba(20, 25, 67, 0.10);
 }
 
-.bismillah-top-image {
-  height: clamp(72px, 6.6vw, 44px);
+.pill-nav-bismillah-image {
   width: auto;
-  max-width: 420px;
+  height: auto;
+  max-width: none;
   display: block;
+  filter: drop-shadow(0 0 6px rgba(20, 25, 67, 0.18))
+    drop-shadow(0 0 14px rgba(20, 25, 67, 0.10))
+    drop-shadow(0 0 12px rgba(200, 64, 46, 0.06));
+  transition: filter 0.22s ease;
   pointer-events: none;
   user-select: none;
 }
 
-@media (max-width: 767px) {
-  .bismillah-top-bar {
+.pill-nav-bismillah:hover .pill-nav-bismillah-image {
+  filter: drop-shadow(0 0 8px rgba(20, 25, 67, 0.22))
+    drop-shadow(0 0 18px rgba(20, 25, 67, 0.12))
+    drop-shadow(0 0 16px rgba(200, 64, 46, 0.08));
+}
+
+@media (max-width: 1280px) {
+  .pill-nav-bismillah {
+    padding-right: 6px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .pill-nav-bismillah {
     display: none;
+  }
+
+  .pill-nav {
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
 
@@ -198,6 +218,21 @@ a {
   text-decoration: none;
   transition: color 0.18s, background 0.18s;
   white-space: nowrap;
+}
+
+@media (max-width: 1280px) {
+  .pill-nav a {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  .pill-nav a {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
 }
 
 .pill-nav a:hover:not(.active):not(.donate-btn) {
@@ -2585,5 +2620,206 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]) {
   .max-w-\[1380px\] {
     padding-left: 0;
     padding-right: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   HOMEPAGE RESPONSIVE ALIGNMENT
+   Preserve the 1366px composition while scaling down cleanly
+   ------------------------------------------------------------------ */
+@media (max-width: 1365px) {
+  .hero-home-container,
+  .story-section .section-container,
+  .testimonials-container,
+  .outcomes-container,
+  #programs-support > div,
+  #upcoming-events > div,
+  #campaign-cta > .relative > .relative {
+    padding-left: clamp(24px, 3vw, 40px) !important;
+    padding-right: clamp(24px, 3vw, 40px) !important;
+  }
+
+  .hero-centerline-row {
+    column-gap: clamp(24px, 2.6vw, 32px);
+  }
+
+  .hero-centerline-left h1 {
+    font-size: clamp(2.5rem, 4.8vw, 4.2rem) !important;
+  }
+
+  #campaign-cta > .relative {
+    min-height: clamp(360px, 52vw, 560px) !important;
+  }
+
+  #campaign-cta > .relative > .relative {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+
+  #campaign-cta > .relative > .relative > div {
+    max-width: 620px !important;
+  }
+
+  .homepage-programs-grid {
+    gap: 24px;
+  }
+
+  .vol-card {
+    padding: clamp(28px, 4vw, 44px);
+    gap: clamp(20px, 3vw, 32px);
+  }
+}
+
+@media (max-width: 1150px) {
+  .hero-centerline-row {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .hero-centerline-right {
+    gap: 20px !important;
+  }
+
+  .section-layout {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+    align-items: start;
+  }
+
+  .story-section .section-container {
+    padding-bottom: 120px !important;
+  }
+
+  .story-image-column {
+    justify-content: center;
+  }
+
+  .single-image-wrapper img {
+    width: min(100%, 620px) !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  #campaign-cta {
+    margin-top: -28px !important;
+  }
+
+  #campaign-cta > .relative > .relative {
+    justify-content: center !important;
+  }
+
+  .homepage-programs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px;
+  }
+
+  #outcomes .outcomes-container > div {
+    min-height: clamp(320px, 48vw, 420px) !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative {
+    padding: 20px !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div {
+    max-width: 560px !important;
+  }
+
+  .vol-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .vol-card-image {
+    width: 100%;
+    max-height: 240px;
+    align-self: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-home-container,
+  .story-section .section-container,
+  .testimonials-container,
+  .outcomes-container,
+  #programs-support > div,
+  #upcoming-events > div,
+  #campaign-cta > .relative > .relative {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .hero-centerline-row {
+    gap: 24px;
+  }
+
+  .hero-centerline-left h1 {
+    font-size: clamp(2.2rem, 10vw, 3.2rem) !important;
+  }
+
+  .hero-cta-group {
+    width: 100%;
+  }
+
+  .hero-cta-group .btn-primary,
+  .hero-cta-group .btn-secondary {
+    width: 100%;
+  }
+
+  #campaign-cta {
+    margin-top: 0 !important;
+  }
+
+  #campaign-cta > .relative {
+    min-height: auto !important;
+  }
+
+  #campaign-cta > .relative > .relative {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+
+  #campaign-cta > .relative > .relative > div {
+    max-width: none !important;
+    padding: 26px 22px !important;
+    border-radius: 24px !important;
+  }
+
+  #programs-support {
+    padding-top: 56px !important;
+    padding-bottom: 64px !important;
+  }
+
+  .homepage-programs-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  #outcomes .outcomes-container > div {
+    min-height: auto !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative {
+    padding: 16px !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div {
+    width: 100%;
+    max-width: none !important;
+  }
+
+  .testi-card {
+    padding: 24px;
+  }
+
+  .vol-card {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .vol-headline {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
   }
 }

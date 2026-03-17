@@ -26,12 +26,6 @@ if (!defined('ABSPATH')) {
 <?php wp_body_open(); ?>
 
 <header class="w-full bg-white">
-    <div class="bismillah-top-bar" role="presentation" aria-hidden="true">
-        <img src="<?php echo esc_url(MYCO_URI . '/assets/images/Bismillah.webp'); ?>"
-             alt=""
-             class="bismillah-top-image" />
-    </div>
-
     <div class="site-header-inner w-full mx-auto px-8 sm:px-12 lg:px-16 flex items-center justify-between">
         <!-- Logo -->
         <a href="<?php echo esc_url(home_url('/')); ?>" class="flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
@@ -42,7 +36,14 @@ if (!defined('ABSPATH')) {
 
         <!-- Desktop pill nav -->
         <nav class="hidden md:flex items-center" aria-label="<?php esc_attr_e('Primary navigation', 'myco'); ?>">
-            <div class="pill-nav flex items-center">
+            <div class="pill-nav flex items-center" style="position: relative; z-index: 1; overflow: visible;">
+                <span class="pill-nav-bismillah" role="presentation" aria-hidden="true"
+                      style="position: relative; z-index: 3; margin-right: 8px; padding-left: 13px; padding-right: 1px;">
+                    <img src="<?php echo esc_url(MYCO_URI . '/assets/images/Bismillah.webp'); ?>"
+                         alt=""
+                         class="pill-nav-bismillah-image"
+                         style="position: relative; z-index: 4; height: 48px !important; width: auto; max-width: 320px !important;" />
+                </span>
                 <?php
                 if (has_nav_menu('primary')) {
                     wp_nav_menu([
