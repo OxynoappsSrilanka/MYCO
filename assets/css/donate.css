@@ -198,3 +198,73 @@
   color: #C8402E !important;
 }
 
+.donate-trust-section {
+  position: relative;
+  padding: 54px 0;
+  background: #f5f6fa;
+}
+
+.donate-trust-inner {
+  text-align: center;
+}
+
+.donate-trust-heading {
+  margin-bottom: 24px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.donate-trust-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  flex-wrap: wrap;
+}
+
+.donate-trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #4b5563;
+}
+
+.donate-trust-icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  color: #667085;
+  flex-shrink: 0;
+}
+
+.donate-trust-label {
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #334155;
+}
+
+@media (max-width: 768px) {
+  .donate-trust-section {
+    padding: 42px 0;
+  }
+
+  .donate-trust-list {
+    gap: 18px 22px;
+    justify-content: flex-start;
+  }
+
+  .donate-trust-inner {
+    text-align: left;
+  }
+
+  .donate-trust-heading {
+    margin-bottom: 18px;
+  }
+}
+

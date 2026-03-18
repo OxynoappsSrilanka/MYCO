@@ -755,34 +755,27 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
 <!-- ===============================================================
      SECTION 5 - TRUST BADGES
      =============================================================== -->
-<section class="w-full" style="background: #F5F6FA; padding: 60px 0; position: relative;">
-    <div class="inner mx-auto px-4" style="text-align: center;">
-
-        <p style="font-size: 14px; color: #6B7280; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.05em; text-transform: uppercase;">
+<section class="donate-trust-section">
+    <div class="inner donate-trust-inner">
+        <p class="donate-trust-heading">
             <?php esc_html_e('Trusted &amp; Secure', 'myco'); ?>
         </p>
 
-        <div style="display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap;">
+        <div class="donate-trust-list">
             <?php foreach ($trust_badges as $badge) : ?>
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
-                    <?php
-                    if (!empty($badge['icon'])) {
-                        echo wp_kses($badge['icon'], [
-                            'svg'    => ['width' => [], 'height' => [], 'viewBox' => [], 'fill' => [], 'class' => []],
-                            'path'   => ['d' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'fill' => []],
-                            'circle' => ['cx' => [], 'cy' => [], 'r' => [], 'stroke' => [], 'stroke-width' => [], 'fill' => []],
-                        ]);
-                    }
-                    ?>
-                </div>
-                <span style="font-size: 15px; font-weight: 600; color: #374151;">
+            <div class="donate-trust-item">
+                <span class="donate-trust-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 2L2 6v5c0 4.694 3.194 9.088 7.5 10 4.306-.912 7.5-5.306 7.5-10V6L10 2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 10l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="donate-trust-label">
                     <?php echo esc_html($badge['label']); ?>
                 </span>
             </div>
             <?php endforeach; ?>
         </div>
-
     </div>
 </section>
 

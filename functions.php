@@ -27,7 +27,7 @@ require_once MYCO_DIR . '/inc/customizer.php';
 
 // Auto-flush rewrite rules when theme version changes (ensures CPT slugs always work)
 add_action('init', function () {
-    $flush_version = '1.1'; // Bump this if CPT slugs change
+    $flush_version = '1.2'; // Bump this if CPT slugs change
     if (get_option('myco_rewrite_flush_version') !== $flush_version) {
         flush_rewrite_rules();
         update_option('myco_rewrite_flush_version', $flush_version);

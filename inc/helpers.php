@@ -69,12 +69,72 @@ function myco_featured_image($post_id = null, $size = 'large', $attrs = []) {
 /**
  * Get ACF field with fallback
  */
+function myco_field_has_value($value) {
+    if (is_array($value)) {
+        return !empty($value);
+    }
+
+    return $value !== null && $value !== '';
+}
+
+/**
+ * Get field value with ACF first, then raw post meta fallback.
+ */
 function myco_get_field($field_name, $post_id = false, $fallback = '') {
+    $resolved_post_id = $post_id ? $post_id : get_the_ID();
+
     if (function_exists('get_field')) {
         $value = get_field($field_name, $post_id);
-        return $value ? $value : $fallback;
+        if (myco_field_has_value($value)) {
+            return $value;
+        }
     }
+
+    if ($resolved_post_id) {
+        $meta_value = get_post_meta($resolved_post_id, $field_name, true);
+        if (myco_field_has_value($meta_value)) {
+            return $meta_value;
+        }
+    }
+
     return $fallback;
+}
+
+/**
+ * Get the best available single-event URL.
+ * Falls back to a query-string URL if a conflicting pretty permalink is generated.
+ */
+function myco_get_event_permalink($post_id = null) {
+    $post_id = $post_id ? $post_id : get_the_ID();
+
+    if (!$post_id) {
+        return home_url('/');
+    }
+
+    $permalink = get_permalink($post_id);
+
+    if (!$permalink) {
+        return add_query_arg(
+            [
+                'post_type' => 'event',
+                'p'         => $post_id,
+            ],
+            home_url('/')
+        );
+    }
+
+    $relative_link = wp_make_link_relative($permalink);
+    if (strpos($relative_link, '/events/') !== false) {
+        return add_query_arg(
+            [
+                'post_type' => 'event',
+                'p'         => $post_id,
+            ],
+            home_url('/')
+        );
+    }
+
+    return $permalink;
 }
 
 /**

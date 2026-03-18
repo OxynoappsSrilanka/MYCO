@@ -56,7 +56,8 @@ function myco_register_post_types() {
         ],
         'public'        => true,
         'has_archive'   => false,
-        'rewrite'       => ['slug' => 'events', 'with_front' => false],
+        // Use a unique single-event base so it does not clash with the /events page.
+        'rewrite'       => ['slug' => 'event', 'with_front' => false],
         'menu_icon'     => 'dashicons-calendar-alt',
         'menu_position' => 6,
         'supports'      => ['title', 'editor', 'thumbnail', 'excerpt'],

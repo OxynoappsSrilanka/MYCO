@@ -28,6 +28,14 @@ function myco_enqueue_styles() {
     $custom_ver    = file_exists($custom_file) ? filemtime($custom_file) : MYCO_VERSION;
     $typefix_file  = MYCO_DIR . '/assets/css/typography-fix.css';
     $typefix_ver   = file_exists($typefix_file) ? filemtime($typefix_file) : MYCO_VERSION;
+    $events_file   = MYCO_DIR . '/assets/css/events.css';
+    $events_ver    = file_exists($events_file) ? filemtime($events_file) : MYCO_VERSION;
+    $donate_file   = MYCO_DIR . '/assets/css/donate.css';
+    $donate_ver    = file_exists($donate_file) ? filemtime($donate_file) : MYCO_VERSION;
+    $gallery_file  = MYCO_DIR . '/assets/css/gallery.css';
+    $gallery_ver   = file_exists($gallery_file) ? filemtime($gallery_file) : MYCO_VERSION;
+    $accordion_file = MYCO_DIR . '/assets/css/accordion.css';
+    $accordion_ver  = file_exists($accordion_file) ? filemtime($accordion_file) : MYCO_VERSION;
 
     if (file_exists($tailwind_file) && filesize($tailwind_file) > 0) {
         wp_enqueue_style(
@@ -56,15 +64,19 @@ function myco_enqueue_styles() {
 
     // Page-specific styles (conditional loading)
     if (is_page_template('page-templates/template-donate.php')) {
-        wp_enqueue_style('myco-donate', MYCO_URI . '/assets/css/donate.css', ['myco-custom'], MYCO_VERSION);
+        wp_enqueue_style('myco-donate', MYCO_URI . '/assets/css/donate.css', ['myco-custom'], $donate_ver);
     }
 
     if (is_page_template('page-templates/template-gallery.php')) {
-        wp_enqueue_style('myco-gallery', MYCO_URI . '/assets/css/gallery.css', ['myco-custom'], MYCO_VERSION);
+        wp_enqueue_style('myco-gallery', MYCO_URI . '/assets/css/gallery.css', ['myco-custom'], $gallery_ver);
     }
 
     if (is_page_template('page-templates/template-privacy.php') || is_page_template('page-templates/template-contact.php')) {
-        wp_enqueue_style('myco-accordion', MYCO_URI . '/assets/css/accordion.css', ['myco-custom'], MYCO_VERSION);
+        wp_enqueue_style('myco-accordion', MYCO_URI . '/assets/css/accordion.css', ['myco-custom'], $accordion_ver);
+    }
+
+    if (is_page_template('page-templates/template-events.php') || is_post_type_archive('event') || is_singular('event')) {
+        wp_enqueue_style('myco-events', MYCO_URI . '/assets/css/events.css', ['myco-custom'], $events_ver);
     }
 }
 
