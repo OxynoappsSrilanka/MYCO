@@ -8,7 +8,7 @@ $defaults = array(
     array(
         'title' => 'Youth Leadership Development',
         'description' => 'Helping youth build confidence, communication skills, teamwork, responsibility, and leadership rooted in Islamic values.',
-        'icon_svg' => '<svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4 4 12.954 4 24s8.954 20 20 20Z" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 16v8l5.5 5.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'icon_svg' => '<svg width="62" height="62" viewBox="0 0 48 48" fill="none"><path d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4 4 12.954 4 24s8.954 20 20 20Z" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 16v8l5.5 5.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         'icon_bg' => 'linear-gradient(135deg, #C8402E 0%, #e06050 100%)',
         'icon_shadow' => 'rgba(200, 64, 46, 0.3)',
         'bg_image' => 'myco-youth-team-award-check-winners.jpg'
@@ -55,7 +55,215 @@ $defaults = array(
     ),
 );
 if (!$programs) $programs = $defaults;
+
+$program_icon_dir = trailingslashit(get_theme_file_path('assets/images/Programs'));
+$program_icon_uri = trailingslashit(MYCO_URI . '/assets/images/Programs');
+$program_icon_map = array(
+    'youth leadership' => 'Youth leadership.webp',
+    'spiritual'        => 'Spiritual development.webp',
+    'education'        => 'Education and skill.webp',
+    'skill'            => 'Education and skill.webp',
+    'athletics'        => 'Athletics and training.webp',
+    'training'         => 'Athletics and training.webp',
+    'social'           => 'Social and cultural.webp',
+    'cultural'         => 'Social and cultural.webp',
+    'community service'=> 'Community service.webp',
+    'innovation'       => 'Community service.webp',
+);
+
+$get_program_icon_url = static function (array $program) use ($program_icon_dir, $program_icon_uri, $program_icon_map): string {
+    $candidates = array();
+
+    $title = strtolower(trim((string) ($program['title'] ?? '')));
+    foreach ($program_icon_map as $keyword => $filename) {
+        if (strpos($title, $keyword) !== false) {
+            $candidates[] = $filename;
+        }
+    }
+
+    foreach (array_unique(array_filter($candidates)) as $filename) {
+        $icon_path = $program_icon_dir . $filename;
+        if (file_exists($icon_path)) {
+            return $program_icon_uri . rawurlencode($filename);
+        }
+    }
+
+    return '';
+};
+
+$programs_page = get_page_by_path('programs');
+$programs_url  = $programs_page ? get_permalink($programs_page) : home_url('/programs/');
 ?>
+<style>
+  #approach .about-program-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  #approach .about-program-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #fff;
+    border: 1px solid rgba(210, 219, 237, 0.8);
+    box-shadow: 0 16px 38px rgba(20, 25, 67, 0.08);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  }
+
+  #approach .about-program-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(200, 64, 46, 0.18);
+    box-shadow: 0 24px 52px rgba(20, 25, 67, 0.12);
+  }
+
+  #approach .about-program-visual {
+    position: relative;
+    height: 142px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #eef2fb 0%, #f8faff 100%);
+  }
+
+  #approach .about-program-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.96) 100%);
+  }
+
+  #approach .about-program-visual-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.04);
+    opacity: 0.42;
+  }
+
+  #approach .about-program-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 24px 24px;
+    margin-top: -54px;
+  }
+
+  #approach .about-program-icon {
+    width: 108px;
+    height: 108px;
+    overflow: hidden;
+    border-radius: 26px;
+    background: #fff;
+    border: 4px solid rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 34px rgba(20, 25, 67, 0.16);
+  }
+
+  #approach .about-program-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.04);
+  }
+
+  #approach .about-program-icon-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #approach .about-program-title {
+    margin-top: 14px;
+    color: #141943;
+    font-size: clamp(1.35rem, 1.8vw, 1.65rem);
+    line-height: 1.1;
+    text-align: center;
+    letter-spacing: -0.03em;
+    font-weight: 900;
+    text-wrap: balance;
+  }
+
+  #approach .about-program-description {
+    margin-top: 12px;
+    max-width: 29ch;
+    color: #5b6575;
+    font-size: 14px;
+    line-height: 1.65;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  #approach .about-program-link {
+    margin-top: auto;
+    padding-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #141943;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  #approach .about-program-link:hover {
+    color: #c8402e;
+  }
+
+  #approach .about-program-link-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  #approach .about-program-card:hover .about-program-link-arrow {
+    transform: translateX(4px);
+  }
+
+  #approach .about-program-footer {
+    margin-top: 44px;
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    #approach .about-program-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    #approach .about-program-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    #approach .about-program-visual {
+      height: 128px;
+    }
+
+    #approach .about-program-body {
+      padding: 0 20px 22px;
+      margin-top: -48px;
+    }
+
+    #approach .about-program-icon {
+      width: 94px;
+      height: 94px;
+      border-radius: 24px;
+    }
+
+    #approach .about-program-title {
+      font-size: 1.4rem;
+    }
+  }
+</style>
 <section id="approach" class="w-full bg-gray-50 py-16 md:py-20">
   <div class="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -73,30 +281,49 @@ if (!$programs) $programs = $defaults;
     </div>
 
     <!-- 6 Programs Grid (3x2) with Background Images -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-      <?php foreach ($programs as $program) : 
+    <div class="about-program-grid">
+      <?php foreach ($programs as $program) :
         $bg_image = !empty($program['bg_image']) ? MYCO_URI . '/assets/images/Galleries/' . $program['bg_image'] : '';
+        $program_icon = $get_program_icon_url($program);
       ?>
-      <div class="bg-white rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden relative" style="box-shadow: 0 8px 24px rgba(20, 25, 67, 0.09);">
-        
-        <?php if ($bg_image) : ?>
-        <!-- Background Image with Overlay -->
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 160px; background-image: url('<?php echo esc_url($bg_image); ?>'); background-size: cover; background-position: center; opacity: 0.12; border-radius: 16px 16px 0 0;"></div>
-        <?php endif; ?>
-        
-        <div style="position: relative; z-index: 1;">
-          <div class="w-20 h-20 rounded-2xl mx-auto mb-6 flex items-center justify-center" style="background: <?php echo esc_attr($program['icon_bg']); ?>; box-shadow: 0 6px 20px <?php echo esc_attr($program['icon_shadow']); ?>;">
-            <?php echo wp_kses($program['icon_svg'], [
-              'svg' => ['width' => [], 'height' => [], 'viewBox' => [], 'fill' => [], 'xmlns' => []],
-              'path' => ['d' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'fill' => []],
-              'circle' => ['cx' => [], 'cy' => [], 'r' => [], 'stroke' => [], 'stroke-width' => [], 'fill' => []],
-            ]); ?>
-          </div>
-          <h3 class="text-xl font-black mb-3 text-center" style="color: #141943;"><?php echo esc_html($program['title']); ?></h3>
-          <p class="text-sm text-gray-500 leading-relaxed text-center"><?php echo esc_html($program['description']); ?></p>
+      <article class="about-program-card">
+        <div class="about-program-visual">
+          <?php if ($bg_image) : ?>
+          <div class="about-program-visual-image" style="background-image: url('<?php echo esc_url($bg_image); ?>');"></div>
+          <?php endif; ?>
         </div>
-      </div>
+
+        <div class="about-program-body">
+          <div class="about-program-icon">
+            <?php if ($program_icon) : ?>
+            <img src="<?php echo esc_url($program_icon); ?>"
+                 alt="<?php echo esc_attr($program['title']); ?>"
+                 loading="lazy" />
+            <?php else : ?>
+            <div class="about-program-icon-fallback" style="background: <?php echo esc_attr($program['icon_bg']); ?>;">
+              <?php echo wp_kses($program['icon_svg'], [
+                'svg' => ['width' => [], 'height' => [], 'viewBox' => [], 'fill' => [], 'xmlns' => []],
+                'path' => ['d' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'fill' => []],
+                'circle' => ['cx' => [], 'cy' => [], 'r' => [], 'stroke' => [], 'stroke-width' => [], 'fill' => []],
+              ]); ?>
+            </div>
+            <?php endif; ?>
+          </div>
+          <h3 class="about-program-title"><?php echo esc_html($program['title']); ?></h3>
+          <p class="about-program-description"><?php echo esc_html($program['description']); ?></p>
+          <a href="<?php echo esc_url($programs_url); ?>" class="about-program-link">
+            <?php esc_html_e('Explore Programs', 'myco'); ?>
+            <span class="about-program-link-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
       <?php endforeach; ?>
+    </div>
+
+    <div class="about-program-footer">
+      <a href="<?php echo esc_url($programs_url); ?>" class="btn-primary">
+        <?php esc_html_e('View All Programs', 'myco'); ?>
+      </a>
     </div>
 
   </div>

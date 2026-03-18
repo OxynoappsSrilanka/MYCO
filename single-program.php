@@ -122,6 +122,216 @@ $capacity = ($static_data) ? $static_data['capacity'] : myco_get_field('program_
 $is_completed = myco_get_field('program_is_completed', false, false);
 ?>
 
+<style>
+    .program-details-sidebar {
+        background: #F0F4FF;
+        border-radius: 24px;
+        padding: 28px 24px 52px;
+        border: 1px solid #C7D2F0;
+        margin-bottom: 32px;
+        box-shadow: 0 16px 40px rgba(20,25,67,0.07);
+    }
+
+    .program-details-heading {
+        font-size: 22px;
+        font-weight: 900;
+        color: #141943;
+        margin-bottom: 24px;
+    }
+
+    .program-details-meta-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .program-details-meta-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 12px 14px;
+        border-left: 4px solid #141943;
+    }
+
+    .program-details-meta-label {
+        font-size: 10px;
+        font-weight: 800;
+        color: #94A3B8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 4px;
+    }
+
+    .program-details-meta-value {
+        font-size: 14px;
+        font-weight: 800;
+        color: #141943;
+        line-height: 1.35;
+    }
+
+    .program-details-divider {
+        margin: 28px 0;
+        border: none;
+        border-top: 1px solid #EDF2F7;
+    }
+
+    .program-details-cta {
+        height: auto;
+        font-size: 15px;
+        padding: 16px 22px;
+    }
+
+    .program-details-contact {
+        text-align: center;
+        font-size: 13px;
+        color: #94A3B8;
+        margin-top: 16px;
+        line-height: 1.4;
+    }
+
+    .program-details-contact a {
+        color: #141943;
+        font-weight: 700;
+    }
+
+    .program-details-coordinator {
+        background: #ffffff;
+        border: 1px solid #C7D2F0;
+        border-left: 4px solid #1e2d68;
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 16px;
+        margin-bottom: 10px;
+    }
+
+    .program-details-coordinator-title {
+        font-size: 16px;
+        font-weight: 900;
+        color: #141943;
+        margin-bottom: 12px;
+    }
+
+    .program-details-coordinator-name {
+        font-size: 14px;
+        font-weight: 800;
+        color: #141943;
+        margin-bottom: 3px;
+    }
+
+    .program-details-coordinator-role {
+        font-size: 12px;
+        color: #94A3B8;
+        margin-bottom: 12px;
+    }
+
+    .program-details-coordinator-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .program-details-coordinator-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5px;
+        text-decoration: none;
+    }
+
+    .program-details-coordinator-link.is-email {
+        color: #374151;
+    }
+
+    .program-details-coordinator-link.is-phone {
+        color: #C8402E;
+        font-weight: 600;
+    }
+
+    @media (min-width: 1024px) {
+        .program-details-sidebar {
+            position: sticky;
+            top: 40px;
+        }
+    }
+
+    @media (min-width: 1024px) and (max-height: 920px) {
+        .program-details-sidebar {
+            top: 20px;
+            padding: 20px 18px 40px;
+        }
+
+        .program-details-heading {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .program-details-meta-list {
+            gap: 8px;
+        }
+
+        .program-details-meta-card {
+            padding: 10px 12px;
+        }
+
+        .program-details-meta-label {
+            font-size: 9px;
+            margin-bottom: 3px;
+        }
+
+        .program-details-meta-value {
+            font-size: 13px;
+        }
+
+        .program-details-divider {
+            margin: 20px 0;
+        }
+
+        .program-details-cta {
+            font-size: 14px;
+            padding: 14px 18px;
+        }
+
+        .program-details-contact {
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        .program-details-coordinator {
+            padding: 14px;
+            margin-top: 14px;
+            margin-bottom: 12px;
+        }
+
+        .program-details-coordinator-title {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .program-details-coordinator-name {
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .program-details-coordinator-role {
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .program-details-coordinator-links {
+            gap: 6px;
+        }
+
+        .program-details-coordinator-link {
+            gap: 6px;
+            font-size: 11.5px;
+        }
+
+        .program-details-coordinator-link svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+</style>
+
 <!-- Hero Section -->
 <section style="background: linear-gradient(130deg, #111640 0%, #182050 40%, #2a3e6a 100%); padding: 120px 0 80px; position: relative; overflow: hidden;">
     <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.09; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'1920\' height=\'400\' fill=\'none\'%3E%3Cpath d=\'M-60 80 C400 -20 800 180 1300 60 S1700 -40 1980 80\' stroke=\'white\' stroke-width=\'1.2\'/%3E%3Cpath d=\'M-60 160 C400 60 800 260 1300 140 S1700 40 1980 160\' stroke=\'white\' stroke-width=\'1.2\'/%3E%3C/svg%3E'); background-size: 1920px 400px; background-repeat: no-repeat;"></div>
@@ -144,7 +354,7 @@ $is_completed = myco_get_field('program_is_completed', false, false);
 </section>
 
 <!-- Content Section -->
-<section style="background: #ffffff; padding: 90px 0 110px;">
+<section style="background: #ffffff; padding: 90px 0 140px;">
     <div class="inner">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
             <div class="lg:col-span-2">
@@ -218,37 +428,37 @@ $is_completed = myco_get_field('program_is_completed', false, false);
             </div>
 
             <div class="lg:col-span-1">
-                <div style="background: #F0F4FF; border-radius: 24px; padding: 32px; border: 1px solid #C7D2F0; margin-bottom: 32px; position: sticky; top: 40px; box-shadow: 0 16px 40px rgba(20,25,67,0.07);">
-                    <h3 style="font-size: 24px; font-weight: 900; color: #141943; margin-bottom: 32px;">Quick Info</h3>
-                    <div class="flex flex-col gap-3">
+                <div class="program-details-sidebar">
+                    <h3 class="program-details-heading">Quick Info</h3>
+                    <div class="program-details-meta-list">
                         <?php if ($age_group) : ?>
-                        <div style="background: #ffffff; border-radius: 12px; padding: 14px 16px; border-left: 4px solid #141943;">
-                            <div style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">Age Range</div>
-                            <div style="font-size: 15px; font-weight: 800; color: #141943;"><?php echo esc_html($age_group); ?></div>
+                        <div class="program-details-meta-card">
+                            <div class="program-details-meta-label">Age Range</div>
+                            <div class="program-details-meta-value"><?php echo esc_html($age_group); ?></div>
                         </div>
                         <?php endif; ?>
 
-                        <div style="background: #ffffff; border-radius: 12px; padding: 14px 16px; border-left: 4px solid #141943;">
-                            <div style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">Skill Level</div>
-                            <div style="font-size: 15px; font-weight: 800; color: #141943;"><?php echo esc_html($skill_level); ?></div>
+                        <div class="program-details-meta-card">
+                            <div class="program-details-meta-label">Skill Level</div>
+                            <div class="program-details-meta-value"><?php echo esc_html($skill_level); ?></div>
                         </div>
 
-                        <div style="background: #ffffff; border-radius: 12px; padding: 14px 16px; border-left: 4px solid #141943;">
-                            <div style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">Cost</div>
-                            <div style="font-size: 15px; font-weight: 800; color: #141943;"><?php echo esc_html($fee); ?></div>
+                        <div class="program-details-meta-card">
+                            <div class="program-details-meta-label">Cost</div>
+                            <div class="program-details-meta-value"><?php echo esc_html($fee); ?></div>
                         </div>
 
-                        <div style="background: #ffffff; border-radius: 12px; padding: 14px 16px; border-left: 4px solid #141943;">
-                            <div style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">Duration</div>
-                            <div style="font-size: 15px; font-weight: 800; color: #141943;"><?php echo esc_html($duration); ?></div>
+                        <div class="program-details-meta-card">
+                            <div class="program-details-meta-label">Duration</div>
+                            <div class="program-details-meta-value"><?php echo esc_html($duration); ?></div>
                         </div>
 
-                        <div style="background: #ffffff; border-radius: 12px; padding: 14px 16px; border-left: 4px solid #141943;">
-                            <div style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">Capacity</div>
-                            <div style="font-size: 15px; font-weight: 800; color: #141943;"><?php echo esc_html($capacity); ?></div>
+                        <div class="program-details-meta-card">
+                            <div class="program-details-meta-label">Capacity</div>
+                            <div class="program-details-meta-value"><?php echo esc_html($capacity); ?></div>
                         </div>
                     </div>
-                    <hr style="margin: 36px 0; border: none; border-top: 1px solid #EDF2F7;">
+                    <hr class="program-details-divider">
                     <?php if ($is_completed) : ?>
                     <!-- Program Completed Card -->
                     <div style="background: #141943; border-radius: 16px; padding: 28px; margin-bottom: 20px;">
@@ -258,13 +468,13 @@ $is_completed = myco_get_field('program_is_completed', false, false);
                         <p style="text-align: center; font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 16px;">Questions? <a href="<?php echo esc_url(home_url('/contact/')); ?>" style="color: rgba(255,255,255,0.7); font-weight: 600;">Contact us</a></p>
                     </div>
                     <?php else : ?>
-                    <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="pill-primary w-full justify-center py-5" style="height: auto; font-size: 16px;">Register Now</a>
-                    <p style="text-align: center; font-size: 14px; color: #94A3B8; margin-top: 20px;">Questions? <a href="<?php echo esc_url(home_url('/contact/')); ?>" style="color: #141943; font-weight: 700;">Contact us</a></p>
+                    <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="pill-primary w-full justify-center py-5 program-details-cta">Register Now</a>
+                    <p class="program-details-contact">Questions? <a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact us</a></p>
                     <?php endif; ?>
 
                     <!-- Program Coordinator Card -->
-                    <div style="background: #ffffff; border: 1px solid #C7D2F0; border-left: 4px solid #1e2d68; border-radius: 16px; padding: 24px; margin-top: 20px;">
-                        <div style="font-size: 17px; font-weight: 900; color: #141943; margin-bottom: 16px;">Program Coordinator</div>
+                    <div class="program-details-coordinator">
+                        <div class="program-details-coordinator-title">Program Coordinator</div>
                         <?php
                         $coordinators = [
                             'basketball-fitness-nights'     => ['name' => 'Coach Ahmed', 'title' => 'Athletics Director',      'email' => 'athletics@myco.org',  'phone' => '(614) 555-9876'],
@@ -278,14 +488,14 @@ $is_completed = myco_get_field('program_is_completed', false, false);
                         }
                         if (!$coord) $coord = ['name' => 'Program Team', 'title' => 'MYCO Staff', 'email' => 'info@myco.org', 'phone' => '(614) 555-0123'];
                         ?>
-                        <div style="font-size: 15px; font-weight: 800; color: #141943; margin-bottom: 4px;"><?php echo esc_html($coord['name']); ?></div>
-                        <div style="font-size: 13px; color: #94A3B8; margin-bottom: 16px;"><?php echo esc_html($coord['title']); ?></div>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <a href="mailto:<?php echo esc_attr($coord['email']); ?>" style="display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #374151; text-decoration: none;">
+                        <div class="program-details-coordinator-name"><?php echo esc_html($coord['name']); ?></div>
+                        <div class="program-details-coordinator-role"><?php echo esc_html($coord['title']); ?></div>
+                        <div class="program-details-coordinator-links">
+                            <a href="mailto:<?php echo esc_attr($coord['email']); ?>" class="program-details-coordinator-link is-email">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
                                 <?php echo esc_html($coord['email']); ?>
                             </a>
-                            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $coord['phone'])); ?>" style="display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #C8402E; text-decoration: none; font-weight: 600;">
+                            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $coord['phone'])); ?>" class="program-details-coordinator-link is-phone">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8402E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.1 10.77a19.79 19.79 0 01-3.07-8.67A2 2 0 012.11 0h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
                                 <?php echo esc_html($coord['phone']); ?>
                             </a>

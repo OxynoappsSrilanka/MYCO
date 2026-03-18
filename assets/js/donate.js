@@ -172,7 +172,7 @@
           return;
         }
 
-        setLoading(proceedBtn, true, 'Loading payment form…');
+        setLoading(proceedBtn, true, 'Preparing secure donation form...');
 
         var fees        = state.coverFees ? Math.round(state.amount * state.feePercentage) / 100 : 0;
         var totalAmount = state.amount + fees;
@@ -192,7 +192,7 @@
             setLoading(proceedBtn, false, '');
 
             if (!data.success) {
-              showError(data.data ? data.data.message : 'Could not initialize payment.');
+              showError(data.data ? data.data.message : 'Could not prepare the donation form.');
               return;
             }
 
@@ -201,7 +201,7 @@
           })
           .catch(function () {
             setLoading(proceedBtn, false, '');
-            showError('Connection error. Please try again.');
+            showError('Connection error. Please try your donation again.');
           });
       });
     }
@@ -209,7 +209,7 @@
     /* ── Mount Stripe Payment Element ───────────────────────────── */
     function mountPaymentElement(clientSecret, totalAmount) {
       if (!stripeKey) {
-        showError('Payment is not configured. Please contact the administrator.');
+        showError('Online donations are not configured right now. Please contact our team.');
         return;
       }
 
@@ -223,7 +223,7 @@
       var s2type   = document.getElementById('s2-type');
       if (s2amount) s2amount.textContent = '$' + totalAmount.toFixed(2);
       if (s2fund)   s2fund.textContent   = fundSelect ? fundSelect.options[fundSelect.selectedIndex].text : state.fund;
-      if (s2type)   s2type.textContent   = state.donationType === 'monthly' ? 'Monthly' : 'One-Time';
+      if (s2type)   s2type.textContent   = state.donationType === 'monthly' ? 'Monthly Donation' : 'One-Time Donation';
 
       /* Init Stripe */
       stripe   = Stripe(stripeKey);
@@ -289,7 +289,7 @@
         e.preventDefault();
         if (!stripe || !elements) return;
 
-        setLoading(completeBtn, true, 'Processing…');
+        setLoading(completeBtn, true, 'Finalizing donation...');
         hideError();
 
         var returnUrl = (cfg.return_url || window.location.href.split('?')[0]) + '?donation=success';
@@ -321,7 +321,7 @@
         if (text) btn.textContent = text;
         btn.style.opacity = '0.7';
       } else {
-        btn.textContent    = btn.dataset.origText || 'Complete Donation';
+        btn.textContent    = btn.dataset.origText || (btn.id === 'complete-donation-btn' ? 'Confirm Donation' : 'Continue to Donate');
         btn.style.opacity  = '1';
         btn.disabled       = false;
       }

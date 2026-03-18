@@ -105,7 +105,8 @@ add_action('template_redirect', function () {
     global $wp_query, $post;
 
     $post_data = [
-        'ID'             => -1,
+        // Use ID 0 for virtual demo posts so core does not try loading a real DB record.
+        'ID'             => 0,
         'post_title'     => ucwords(str_replace('-', ' ', $matched_slug)),
         'post_name'      => $matched_slug,
         'post_type'      => 'program',
@@ -125,7 +126,7 @@ add_action('template_redirect', function () {
     $wp_query->post              = $post;
     $wp_query->posts             = [$post];
     $wp_query->queried_object    = $post;
-    $wp_query->queried_object_id = -1;
+    $wp_query->queried_object_id = 0;
     $wp_query->found_posts       = 1;
     $wp_query->post_count        = 1;
     $wp_query->is_404            = false;
@@ -133,6 +134,9 @@ add_action('template_redirect', function () {
     $wp_query->is_singular       = true;
     $wp_query->is_page           = false;
     $wp_query->is_archive        = false;
+    $wp_query->query_vars['post_type'] = 'program';
+    $wp_query->query_vars['name']      = $matched_slug;
+    unset($wp_query->query_vars['error'], $wp_query->query['error']);
 
     setup_postdata($post);
     status_header(200);

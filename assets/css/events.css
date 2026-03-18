@@ -642,13 +642,28 @@
 
 .event-detail-content {
   background: #ffffff !important;
-  padding: 90px 0 110px;
+  padding: 90px 0 140px;
 }
 
 .event-detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 400px;
-  gap: 70px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+  gap: 56px;
+  align-items: start;
+}
+
+.event-detail-sidebar {
+  align-self: start;
+}
+
+.event-detail-sidebar-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.event-detail-sidebar-stack > * {
+  margin: 0 !important;
 }
 
 .event-detail-image {
@@ -756,11 +771,6 @@
   color: #141943;
   font-size: 16px;
   font-weight: 500;
-}
-
-.event-detail-sidebar .event-detail-card,
-.event-detail-sidebar .event-coordinator-card {
-  margin-bottom: 28px;
 }
 
 .event-detail-card {
@@ -932,13 +942,116 @@
   margin-top: 16px;
 }
 
+@media (min-width: 981px) {
+  .event-detail-sidebar-stack {
+    position: sticky;
+    top: 32px;
+  }
+}
+
+@media (min-width: 981px) and (max-height: 940px) {
+  .event-detail-sidebar-stack {
+    top: 18px;
+    gap: 18px;
+  }
+
+  .event-detail-card {
+    padding: 26px 22px 28px;
+  }
+
+  .event-detail-card h3 {
+    margin-bottom: 18px;
+    font-size: 18px;
+  }
+
+  .event-detail-card-items {
+    gap: 18px;
+  }
+
+  .event-detail-card-item {
+    gap: 12px;
+  }
+
+  .event-detail-card-item svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .event-detail-card-label {
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+
+  .event-detail-card-value {
+    font-size: 15px;
+  }
+
+  .event-detail-card-subvalue {
+    margin-top: 3px;
+    font-size: 13px;
+  }
+
+  .event-detail-map-link,
+  .event-coordinator-link {
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  .event-register-card {
+    padding: 26px 22px 28px;
+  }
+
+  .event-register-card h3 {
+    margin-bottom: 12px;
+    font-size: 20px;
+  }
+
+  .event-register-card p {
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+
+  .event-register-btn {
+    gap: 8px;
+    height: 48px;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .event-register-help {
+    font-size: 12px;
+  }
+
+  .event-coordinator-card {
+    padding: 22px 20px 24px;
+  }
+
+  .event-coordinator-card h3 {
+    margin-bottom: 14px;
+    font-size: 17px;
+  }
+
+  .event-coordinator-name {
+    font-size: 15px;
+  }
+
+  .event-coordinator-title {
+    font-size: 13px;
+  }
+
+  .event-coordinator-links {
+    gap: 8px;
+    margin-top: 12px;
+  }
+}
+
 @media (max-width: 1280px) {
   .events-stack {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 980px) {
   .events-controls {
     flex-direction: column;
     align-items: stretch;

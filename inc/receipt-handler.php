@@ -255,6 +255,37 @@ function myco_send_receipt_email(array $r): void {
     wp_mail($r['email'], $subject, $html, $headers);
 }
 
+function myco_receipt_logo_data_uri(string $variant = 'color'): string {
+    $files = ('white' === $variant)
+        ? ['myco-logo-white.png', 'myco-logo.png']
+        : ['myco-logo.png', 'myco-logo-white.png'];
+
+    foreach ($files as $file) {
+        $path = trailingslashit(MYCO_DIR) . 'assets/images/' . $file;
+
+        if (!file_exists($path) || !is_readable($path)) {
+            continue;
+        }
+
+        $contents = file_get_contents($path);
+        if (false === $contents) {
+            continue;
+        }
+
+        $mime = function_exists('wp_get_image_mime') ? wp_get_image_mime($path) : '';
+        if (!$mime && function_exists('mime_content_type')) {
+            $mime = mime_content_type($path);
+        }
+        if (!$mime) {
+            $mime = 'image/png';
+        }
+
+        return 'data:' . $mime . ';base64,' . base64_encode($contents);
+    }
+
+    return '';
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // 5. RENDER PRINTABLE HTML RECEIPT PAGE
 //    Served at ?myco_receipt=TOKEN
@@ -264,6 +295,9 @@ function myco_render_receipt_page(array $r): void {
     $amount_fmt = '$' . number_format($r['amount'], 2) . ' ' . $r['currency'];
     $org        = esc_html($r['org']);
     $site_url   = esc_url(home_url());
+    $brand_short = 'MYCO';
+    $brand_full  = 'Muslim Youth of Central Ohio';
+    $logo_src    = myco_receipt_logo_data_uri('white');
     ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -275,8 +309,13 @@ function myco_render_receipt_page(array $r): void {
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Inter',sans-serif;background:#F5F6FA;color:#141943;padding:40px 20px;}
   .page{max-width:680px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 8px 36px rgba(20,25,67,.12);overflow:hidden;}
-  .header{background:#141943;padding:40px 48px;display:flex;justify-content:space-between;align-items:center;}
-  .header .logo{font-size:28px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .header{background:#141943;padding:36px 44px;display:flex;justify-content:space-between;align-items:center;gap:24px;}
+  .header .brand{display:flex;align-items:center;gap:18px;min-width:0;}
+  .header .brand-logo{width:82px;height:82px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:20px;padding:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.18);}
+  .header .brand-logo img{display:block;width:100%;height:100%;object-fit:contain;transform:scale(1.08);}
+  .header .brand-copy{min-width:0;}
+  .header .logo{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1;}
+  .header .brand-name{color:rgba(255,255,255,.78);font-size:15px;font-weight:600;margin-top:5px;line-height:1.35;}
   .header .meta{text-align:right;}
   .header .meta p{color:rgba(255,255,255,.55);font-size:13px;}
   .header .meta strong{color:#fff;font-size:16px;}
@@ -308,9 +347,17 @@ function myco_render_receipt_page(array $r): void {
 <div class="page">
 
   <div class="header">
-    <div>
-      <div class="logo"><?php echo $org; ?></div>
-      <div class="receipt-badge">Official Donation Receipt</div>
+    <div class="brand">
+      <?php if ($logo_src) : ?>
+      <div class="brand-logo">
+        <img src="<?php echo esc_attr($logo_src); ?>" alt="MYCO logo">
+      </div>
+      <?php endif; ?>
+      <div class="brand-copy">
+        <div class="logo"><?php echo esc_html($brand_short); ?></div>
+        <div class="brand-name"><?php echo esc_html($brand_full); ?></div>
+        <div class="receipt-badge">Official Donation Receipt</div>
+      </div>
     </div>
     <div class="meta">
       <p>Receipt No.</p>
@@ -682,6 +729,10 @@ function myco_receipt_html(object $donation, string $token): string {
     $type_label     = ($donation->donation_type === 'monthly') ? 'Monthly' : 'One-Time';
     $payment_intent = $donation->stripe_payment_intent ?: '—';
 
+    $brand_short = 'MYCO';
+    $brand_full  = 'Muslim Youth of Central Ohio';
+    $logo_src    = myco_receipt_logo_data_uri('color');
+
     ob_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -691,9 +742,13 @@ function myco_receipt_html(object $donation, string $token): string {
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 13px; color: #1a1a2e; background: #fff; }
   .page { padding: 48px 56px; }
-  .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 24px; border-bottom: 3px solid #F0A020; margin-bottom: 32px; }
-  .org-name { font-size: 22px; font-weight: 700; color: #141943; letter-spacing: -0.01em; }
-  .org-tagline { font-size: 11px; color: #6b7280; margin-top: 2px; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; padding-bottom: 24px; border-bottom: 3px solid #F0A020; margin-bottom: 32px; }
+  .org-brand { display: flex; align-items: center; gap: 16px; min-width: 0; }
+  .org-logo { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 18px; padding: 8px; background: #f8fafc; border: 1px solid #e5e7eb; overflow: hidden; }
+  .org-logo img { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.06); }
+  .org-copy { min-width: 0; }
+  .org-name { font-size: 24px; font-weight: 800; color: #141943; letter-spacing: -0.01em; line-height: 1; }
+  .org-tagline { font-size: 11px; color: #6b7280; margin-top: 5px; line-height: 1.4; }
   .receipt-label { text-align: right; }
   .receipt-label h1 { font-size: 18px; font-weight: 700; color: #141943; }
   .receipt-label p { font-size: 11px; color: #6b7280; margin-top: 3px; }
@@ -720,9 +775,16 @@ function myco_receipt_html(object $donation, string $token): string {
 <div class="page">
 
   <div class="header">
-    <div>
-      <div class="org-name"><?php echo esc_html($site_name); ?></div>
-      <div class="org-tagline">Muslim Youth Community Organization</div>
+    <div class="org-brand">
+      <?php if ($logo_src) : ?>
+      <div class="org-logo">
+        <img src="<?php echo esc_attr($logo_src); ?>" alt="MYCO logo">
+      </div>
+      <?php endif; ?>
+      <div class="org-copy">
+        <div class="org-name"><?php echo esc_html($brand_short); ?></div>
+        <div class="org-tagline"><?php echo esc_html($brand_full); ?></div>
+      </div>
     </div>
     <div class="receipt-label">
       <h1>Donation Receipt</h1>

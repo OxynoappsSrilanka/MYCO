@@ -203,118 +203,120 @@ if (empty($what_to_bring) || !is_array($what_to_bring)) {
             </div>
 
             <aside class="event-detail-sidebar">
-                <div class="event-detail-card">
-                    <h3><?php esc_html_e('Event Details', 'myco'); ?></h3>
-                    <div class="event-detail-card-items">
-                        <?php if ($formatted_date) : ?>
+                <div class="event-detail-sidebar-stack">
+                    <div class="event-detail-card">
+                        <h3><?php esc_html_e('Event Details', 'myco'); ?></h3>
+                        <div class="event-detail-card-items">
+                            <?php if ($formatted_date) : ?>
+                                <div class="event-detail-card-item">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                        <rect x="3" y="5" width="18" height="15" rx="3" stroke="#C8402E" stroke-width="2" />
+                                        <path d="M3 9h18M7 2v6M17 2v6" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
+                                    </svg>
+                                    <div>
+                                        <div class="event-detail-card-label"><?php esc_html_e('Date', 'myco'); ?></div>
+                                        <div class="event-detail-card-value"><?php echo esc_html($formatted_date); ?></div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($event_time) : ?>
+                                <div class="event-detail-card-item">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                        <circle cx="12" cy="12" r="9" stroke="#C8402E" stroke-width="2" />
+                                        <path d="M12 6v6l4 3" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
+                                    </svg>
+                                    <div>
+                                        <div class="event-detail-card-label"><?php esc_html_e('Time', 'myco'); ?></div>
+                                        <div class="event-detail-card-value"><?php echo esc_html($event_time); ?></div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
                             <div class="event-detail-card-item">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <rect x="3" y="5" width="18" height="15" rx="3" stroke="#C8402E" stroke-width="2" />
-                                    <path d="M3 9h18M7 2v6M17 2v6" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" stroke="#C8402E" stroke-width="2" />
+                                    <circle cx="12" cy="10" r="3" stroke="#C8402E" stroke-width="2" />
                                 </svg>
                                 <div>
-                                    <div class="event-detail-card-label"><?php esc_html_e('Date', 'myco'); ?></div>
-                                    <div class="event-detail-card-value"><?php echo esc_html($formatted_date); ?></div>
+                                    <div class="event-detail-card-label"><?php esc_html_e('Location', 'myco'); ?></div>
+                                    <div class="event-detail-card-value"><?php echo esc_html($location_name); ?></div>
+                                    <div class="event-detail-card-subvalue"><?php echo nl2br(esc_html($display_address)); ?></div>
+                                    <?php if ($maps_url) : ?>
+                                        <a class="event-detail-map-link" href="<?php echo esc_url($maps_url); ?>" target="_blank" rel="noopener noreferrer">
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                                                <path d="M7 1C4.24 1 2 3.24 2 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5Z" stroke="currentColor" stroke-width="1.5" />
+                                                <circle cx="7" cy="6" r="1.5" stroke="currentColor" stroke-width="1.5" />
+                                            </svg>
+                                            <?php esc_html_e('Get Directions', 'myco'); ?>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
-                        <?php endif; ?>
 
-                        <?php if ($event_time) : ?>
                             <div class="event-detail-card-item">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="9" stroke="#C8402E" stroke-width="2" />
-                                    <path d="M12 6v6l4 3" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
+                                    <circle cx="12" cy="7" r="4" stroke="#C8402E" stroke-width="2" />
                                 </svg>
                                 <div>
-                                    <div class="event-detail-card-label"><?php esc_html_e('Time', 'myco'); ?></div>
-                                    <div class="event-detail-card-value"><?php echo esc_html($event_time); ?></div>
+                                    <div class="event-detail-card-label"><?php esc_html_e('Age Group', 'myco'); ?></div>
+                                    <div class="event-detail-card-value"><?php echo esc_html($display_age_group); ?></div>
                                 </div>
                             </div>
-                        <?php endif; ?>
 
-                        <div class="event-detail-card-item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" stroke="#C8402E" stroke-width="2" />
-                                <circle cx="12" cy="10" r="3" stroke="#C8402E" stroke-width="2" />
-                            </svg>
-                            <div>
-                                <div class="event-detail-card-label"><?php esc_html_e('Location', 'myco'); ?></div>
-                                <div class="event-detail-card-value"><?php echo esc_html($location_name); ?></div>
-                                <div class="event-detail-card-subvalue"><?php echo nl2br(esc_html($display_address)); ?></div>
-                                <?php if ($maps_url) : ?>
-                                    <a class="event-detail-map-link" href="<?php echo esc_url($maps_url); ?>" target="_blank" rel="noopener noreferrer">
-                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                                            <path d="M7 1C4.24 1 2 3.24 2 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5Z" stroke="currentColor" stroke-width="1.5" />
-                                            <circle cx="7" cy="6" r="1.5" stroke="currentColor" stroke-width="1.5" />
-                                        </svg>
-                                        <?php esc_html_e('Get Directions', 'myco'); ?>
-                                    </a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-
-                        <div class="event-detail-card-item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
-                                <circle cx="12" cy="7" r="4" stroke="#C8402E" stroke-width="2" />
-                            </svg>
-                            <div>
-                                <div class="event-detail-card-label"><?php esc_html_e('Age Group', 'myco'); ?></div>
-                                <div class="event-detail-card-value"><?php echo esc_html($display_age_group); ?></div>
-                            </div>
-                        </div>
-
-                        <div class="event-detail-card-item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10" stroke="#C8402E" stroke-width="2" />
-                                <path d="M12 6v6l4 2" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
-                            </svg>
-                            <div>
-                                <div class="event-detail-card-label"><?php esc_html_e('Cost', 'myco'); ?></div>
-                                <div class="event-detail-card-value"><?php echo esc_html($display_cost); ?></div>
-                                <?php if ($cost_note) : ?>
-                                    <div class="event-detail-card-subvalue"><?php echo esc_html($cost_note); ?></div>
-                                <?php endif; ?>
+                            <div class="event-detail-card-item">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10" stroke="#C8402E" stroke-width="2" />
+                                    <path d="M12 6v6l4 2" stroke="#C8402E" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                                <div>
+                                    <div class="event-detail-card-label"><?php esc_html_e('Cost', 'myco'); ?></div>
+                                    <div class="event-detail-card-value"><?php echo esc_html($display_cost); ?></div>
+                                    <?php if ($cost_note) : ?>
+                                        <div class="event-detail-card-subvalue"><?php echo esc_html($cost_note); ?></div>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="event-register-card">
-                    <h3><?php echo esc_html($register_title); ?></h3>
-                    <p><?php echo esc_html($register_copy); ?></p>
-                    <a class="event-register-btn" href="<?php echo esc_url($register_url); ?>" <?php echo $registration_url ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>>
-                        <?php echo esc_html($register_button); ?>
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                            <path d="M3.5 9h11M10 4.5l4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </a>
-                    <p class="event-register-help">
-                        <?php esc_html_e('Questions?', 'myco'); ?>
-                        <a href="<?php echo esc_url(home_url('/contact/')); ?>"><?php esc_html_e('Contact us', 'myco'); ?></a>
-                    </p>
-                </div>
-
-                <div class="event-coordinator-card">
-                    <h3><?php esc_html_e('Event Coordinator', 'myco'); ?></h3>
-                    <div class="event-coordinator-name"><?php echo esc_html($coordinator_name); ?></div>
-                    <div class="event-coordinator-title"><?php echo esc_html($coordinator_title); ?></div>
-
-                    <div class="event-coordinator-links">
-                        <a class="event-coordinator-link" href="mailto:<?php echo esc_attr($coordinator_email); ?>">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                                <path d="M2 3.5h12v9H2v-9Z" stroke="currentColor" stroke-width="1.5" />
-                                <path d="m3.5 5 4.5 3.5L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <div class="event-register-card">
+                        <h3><?php echo esc_html($register_title); ?></h3>
+                        <p><?php echo esc_html($register_copy); ?></p>
+                        <a class="event-register-btn" href="<?php echo esc_url($register_url); ?>" <?php echo $registration_url ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>>
+                            <?php echo esc_html($register_button); ?>
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                                <path d="M3.5 9h11M10 4.5l4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                            <?php echo esc_html($coordinator_email); ?>
                         </a>
+                        <p class="event-register-help">
+                            <?php esc_html_e('Questions?', 'myco'); ?>
+                            <a href="<?php echo esc_url(home_url('/contact/')); ?>"><?php esc_html_e('Contact us', 'myco'); ?></a>
+                        </p>
+                    </div>
 
-                        <a class="event-coordinator-link" href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $coordinator_phone)); ?>">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                                <path d="M3 2.5h2l1 3-1.5 1.5a11 11 0 0 0 4 4L10 9.5l3 1v2a1 1 0 0 1-1 1A10 10 0 0 1 2 4a1 1 0 0 1 1-1.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <?php echo esc_html($coordinator_phone); ?>
-                        </a>
+                    <div class="event-coordinator-card">
+                        <h3><?php esc_html_e('Event Coordinator', 'myco'); ?></h3>
+                        <div class="event-coordinator-name"><?php echo esc_html($coordinator_name); ?></div>
+                        <div class="event-coordinator-title"><?php echo esc_html($coordinator_title); ?></div>
+
+                        <div class="event-coordinator-links">
+                            <a class="event-coordinator-link" href="mailto:<?php echo esc_attr($coordinator_email); ?>">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <path d="M2 3.5h12v9H2v-9Z" stroke="currentColor" stroke-width="1.5" />
+                                    <path d="m3.5 5 4.5 3.5L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <?php echo esc_html($coordinator_email); ?>
+                            </a>
+
+                            <a class="event-coordinator-link" href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $coordinator_phone)); ?>">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <path d="M3 2.5h2l1 3-1.5 1.5a11 11 0 0 0 4 4L10 9.5l3 1v2a1 1 0 0 1-1 1A10 10 0 0 1 2 4a1 1 0 0 1 1-1.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <?php echo esc_html($coordinator_phone); ?>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </aside>
