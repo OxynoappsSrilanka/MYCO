@@ -23,12 +23,18 @@ function myco_enqueue_styles() {
 
     // Tailwind CSS: use compiled file if it exists, otherwise CDN
     $tailwind_file = MYCO_DIR . '/assets/css/tailwind-output.css';
+    $tailwind_ver  = file_exists($tailwind_file) ? filemtime($tailwind_file) : MYCO_VERSION;
+    $custom_file   = MYCO_DIR . '/assets/css/custom.css';
+    $custom_ver    = file_exists($custom_file) ? filemtime($custom_file) : MYCO_VERSION;
+    $typefix_file  = MYCO_DIR . '/assets/css/typography-fix.css';
+    $typefix_ver   = file_exists($typefix_file) ? filemtime($typefix_file) : MYCO_VERSION;
+
     if (file_exists($tailwind_file) && filesize($tailwind_file) > 0) {
         wp_enqueue_style(
             'myco-tailwind',
             MYCO_URI . '/assets/css/tailwind-output.css',
             ['google-fonts-inter'],
-            MYCO_VERSION
+            $tailwind_ver
         );
     }
 
@@ -37,7 +43,7 @@ function myco_enqueue_styles() {
         'myco-custom',
         MYCO_URI . '/assets/css/custom.css',
         ['google-fonts-inter'],
-        MYCO_VERSION
+        $custom_ver
     );
 
     // Typography fix - Remove chromatic aberration effects
@@ -45,7 +51,7 @@ function myco_enqueue_styles() {
         'myco-typography-fix',
         MYCO_URI . '/assets/css/typography-fix.css',
         ['myco-custom'],
-        MYCO_VERSION
+        $typefix_ver
     );
 
     // Page-specific styles (conditional loading)
