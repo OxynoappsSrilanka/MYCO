@@ -62,13 +62,15 @@ if (!$stats) $stats = $default_stats;
         <p class="story-intro">
             <?php echo esc_html($paragraph); ?>
         </p>
+        <p class="story-context-copy">
+            American Muslim youth are navigating complex identities shaped by family, school, faith, and society. Research shows that their development is influenced by multiple environments and when these environments are disconnected, youth can struggle with belonging and confidence.
+        </p>
 
         <!-- Two-column layout: text (55%) + images (45%) -->
         <div class="section-layout">
 
             <!-- LEFT: Text Content Column -->
             <div class="story-text-column">
-
                 <!-- Three Points: Problem, Difference, Outcome -->
                 <div class="story-points-stage">
                     <div class="story-points" role="list" aria-label="MYCO youth impact story points">

@@ -743,6 +743,7 @@ section {
 .story-section .section-container {
   padding-left: 0;
   padding-right: 0;
+  padding-bottom: 56px;
 }
 
 @media (max-width: 1024px) {
@@ -762,7 +763,7 @@ section {
   display: grid;
   grid-template-columns: minmax(0, 1.62fr) minmax(0, 0.7fr);
   gap: 56px;
-  align-items: center;
+  align-items: start;
 }
 
 /* Improve paddings for 1024px-1365px desktops */
@@ -810,6 +811,16 @@ section {
   flex-direction: column;
   gap: 28px;
   min-width: 0;
+}
+
+.story-context-copy {
+  max-width: 760px;
+  margin: 0 0 52px 0;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #5b6575;
+  text-align: left;
+  text-wrap: pretty;
 }
 
 /* Heading */
@@ -1108,7 +1119,7 @@ section {
     width: 130%;
     flex: 0 0 auto;
     margin-left: 0;
-    margin-top: 45px;
+    margin-top: -174px;
     transform: translateX(var(--story-image-shift));
   }
 }
