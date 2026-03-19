@@ -81,12 +81,25 @@ function myco_enqueue_styles() {
 }
 
 function myco_enqueue_scripts() {
+    $navigation_file = MYCO_DIR . '/assets/js/navigation.js';
+    $navigation_ver  = file_exists($navigation_file) ? filemtime($navigation_file) : MYCO_VERSION;
+    $testimonials_file = MYCO_DIR . '/assets/js/testimonials.js';
+    $testimonials_ver  = file_exists($testimonials_file) ? filemtime($testimonials_file) : MYCO_VERSION;
+    $gallery_file = MYCO_DIR . '/assets/js/gallery.js';
+    $gallery_ver  = file_exists($gallery_file) ? filemtime($gallery_file) : MYCO_VERSION;
+    $donate_file = MYCO_DIR . '/assets/js/donate.js';
+    $donate_ver  = file_exists($donate_file) ? filemtime($donate_file) : MYCO_VERSION;
+    $accordion_file = MYCO_DIR . '/assets/js/accordion.js';
+    $accordion_ver  = file_exists($accordion_file) ? filemtime($accordion_file) : MYCO_VERSION;
+    $newsletter_file = MYCO_DIR . '/assets/js/newsletter.js';
+    $newsletter_ver  = file_exists($newsletter_file) ? filemtime($newsletter_file) : MYCO_VERSION;
+
     // Mobile navigation (all pages)
     wp_enqueue_script(
         'myco-navigation',
         MYCO_URI . '/assets/js/navigation.js',
         [],
-        MYCO_VERSION,
+        $navigation_ver,
         true
     );
 
@@ -96,7 +109,7 @@ function myco_enqueue_scripts() {
             'myco-testimonials',
             MYCO_URI . '/assets/js/testimonials.js',
             [],
-            MYCO_VERSION,
+            $testimonials_ver,
             true
         );
     }
@@ -107,7 +120,7 @@ function myco_enqueue_scripts() {
             'myco-gallery',
             MYCO_URI . '/assets/js/gallery.js',
             [],
-            MYCO_VERSION,
+            $gallery_ver,
             true
         );
     }
@@ -125,7 +138,7 @@ function myco_enqueue_scripts() {
             'myco-donate',
             MYCO_URI . '/assets/js/donate.js',
             ['stripe-js'],
-            MYCO_VERSION,
+            $donate_ver,
             true
         );
         $stripeKeys = function_exists('myco_stripe_get_keys') ? myco_stripe_get_keys() : [];
@@ -144,7 +157,7 @@ function myco_enqueue_scripts() {
             'myco-accordion',
             MYCO_URI . '/assets/js/accordion.js',
             [],
-            MYCO_VERSION,
+            $accordion_ver,
             true
         );
     }
@@ -154,7 +167,7 @@ function myco_enqueue_scripts() {
         'myco-newsletter',
         MYCO_URI . '/assets/js/newsletter.js',
         [],
-        MYCO_VERSION,
+        $newsletter_ver,
         true
     );
     wp_localize_script('myco-newsletter', 'myco_ajax', [

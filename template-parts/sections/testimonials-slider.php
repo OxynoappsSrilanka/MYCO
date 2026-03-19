@@ -16,6 +16,7 @@ $defaults = [
 ];
 $use_defaults = empty($testimonials);
 $items = $use_defaults ? $defaults : $testimonials;
+$original_item_count = count($items);
 
 // Fill incomplete final slide so each page has the same number of cards
 $per_page = 3;
@@ -63,7 +64,7 @@ $star_svg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="#C8402E" aria
 
         <!-- Slider viewport -->
         <div class="overflow-hidden" id="testi-viewport" aria-live="polite">
-            <div class="testi-track" id="testi-track">
+            <div class="testi-track" id="testi-track" data-total-items="<?php echo esc_attr($original_item_count); ?>">
                 <?php foreach ($pages as $pi => $page) : ?>
                 <div class="testi-page">
                     <?php foreach ($page as $item) :

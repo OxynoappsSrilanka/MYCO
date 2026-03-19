@@ -294,6 +294,22 @@ a {
   transform: translateY(-6px) rotate(-45deg);
 }
 
+.mobile-brand-lockup {
+  display: none;
+}
+
+.mobile-bismillah-image {
+  width: auto;
+  height: 26px;
+  max-width: min(100%, 190px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mobile-bismillah-inline {
+  display: none;
+}
+
 /* ------------------------------------------------------------------
    6. CTA Buttons (MYCO Brand: Red #C8402E)
    ------------------------------------------------------------------ */
@@ -1732,15 +1748,35 @@ section {
 /* Mobile responsive */
 @media (max-width: 768px) {
   .sticky-donate-fab {
-    bottom: 16px;
-    right: 16px;
-    padding: 12px 24px;
-    font-size: 14px;
+    display: inline-flex !important;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
+    padding: 10px 18px;
+    font-size: 13px;
+    gap: 6px;
   }
 
   .sticky-donate-fab svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-surface {
+    padding-bottom: calc(42px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .sticky-donate-fab {
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    right: 10px;
+    padding: 9px 16px;
+    font-size: 12px;
+  }
+
+  .sticky-donate-fab svg {
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -1774,6 +1810,58 @@ p:not([class*="text-"]) {
 .site-header-inner {
   padding-top: 0.35rem;
   padding-bottom: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .site-header-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 0.75rem;
+  }
+
+  .mobile-brand-lockup {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .mobile-logo-link {
+    flex-shrink: 0;
+  }
+
+  .mobile-logo-link img {
+    max-height: 70px;
+  }
+
+  .mobile-bismillah-inline {
+    display: block;
+    height: 48px;
+    max-width: min(70vw, 340px);
+    flex: 0 1 auto;
+    transform: translateY(-16px);
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header-inner {
+    gap: 0.55rem;
+  }
+
+  .mobile-brand-lockup {
+    gap: 0.45rem;
+  }
+
+  .mobile-logo-link img {
+    max-height: 62px;
+  }
+
+  .mobile-bismillah-inline {
+    height: 39px;
+    max-width: min(64vw, 272px);
+    transform: translateY(-13px);
+  }
 }
 
 header .flex-shrink-0 img {
@@ -2845,5 +2933,469 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
 
   .vol-headline {
     font-size: clamp(1.9rem, 9vw, 2.6rem);
+  }
+}
+
+/* ------------------------------------------------------------------
+   HOMEPAGE MOBILE REFINEMENTS
+   Reduce excess spacing and keep mobile layouts compact and readable
+   ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .hero-home-container .hero-centerline-row {
+    padding-bottom: 20px !important;
+  }
+
+  .hero-centerline-right > p {
+    font-size: 0.98rem !important;
+    line-height: 1.72 !important;
+    text-align: left !important;
+  }
+
+  .hero-home-container > div:last-child {
+    padding-bottom: 32px !important;
+  }
+
+  .hero-img-wrap img {
+    height: clamp(240px, 68vw, 360px) !important;
+  }
+
+  .story-section .section-container {
+    padding-top: 0 !important;
+    padding-bottom: 56px !important;
+  }
+
+  .story-text-column {
+    gap: 22px;
+  }
+
+  .story-intro {
+    margin-bottom: 18px;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .story-context-copy {
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .section-layout {
+    gap: 28px !important;
+  }
+
+  .single-image-wrapper img {
+    width: min(100%, 420px) !important;
+  }
+
+  #programs-support {
+    padding-top: 48px !important;
+    padding-bottom: 54px !important;
+  }
+
+  #programs-support > div > div:first-child {
+    margin-bottom: 32px !important;
+    gap: 12px !important;
+  }
+
+  #programs-heading {
+    font-size: clamp(1.9rem, 9vw, 2.6rem) !important;
+  }
+
+  #programs-support > div > div:first-child p {
+    margin-top: 0 !important;
+    font-size: 0.98rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .homepage-program-card {
+    border-radius: 24px;
+  }
+
+  .homepage-program-card-media {
+    min-height: 124px;
+  }
+
+  .homepage-program-card-body {
+    padding: 16px !important;
+  }
+
+  .homepage-program-card-title {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+  }
+
+  .homepage-program-card-divider {
+    margin: 12px 0 10px;
+  }
+
+  #campaign-cta > .relative > .relative {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  #campaign-cta > .relative > .relative > div {
+    padding: 22px 18px !important;
+    gap: 16px !important;
+    border-radius: 22px !important;
+  }
+
+  #campaign-cta > .relative > .relative > div p {
+    max-width: none !important;
+    line-height: 1.65 !important;
+  }
+
+  #outcomes {
+    padding-top: 52px !important;
+    padding-bottom: 56px !important;
+  }
+
+  #outcomes .outcomes-container > div {
+    border-radius: 24px !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative {
+    padding: 14px !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div {
+    padding: 18px !important;
+    gap: 12px !important;
+    border-radius: 20px !important;
+  }
+
+  #outcomes-heading {
+    font-size: clamp(1.45rem, 7.4vw, 1.95rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.035em !important;
+    text-wrap: balance;
+  }
+
+  #outcomes-heading br {
+    display: none;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div span {
+    font-size: 0.78rem !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div p {
+    font-size: 0.92rem !important;
+    line-height: 1.58 !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div a {
+    font-size: 0.96rem !important;
+  }
+
+  #testimonials {
+    padding-top: 52px !important;
+    padding-bottom: 56px !important;
+  }
+
+  #testimonials .flex.flex-col.items-center.text-center {
+    margin-bottom: 32px !important;
+    gap: 10px !important;
+  }
+
+  #testi-viewport {
+    padding: 12px 0 !important;
+    margin: -12px 0 !important;
+  }
+
+  .testi-card {
+    padding: 20px !important;
+    min-height: auto;
+    gap: 14px;
+  }
+
+  .testi-dots {
+    margin-top: 18px;
+    justify-content: center;
+  }
+
+  #upcoming-events {
+    padding-top: 52px !important;
+  }
+
+  #upcoming-events > div:first-child > div:first-child {
+    gap: 24px !important;
+    margin-bottom: 36px !important;
+  }
+
+  #upcoming-events-heading {
+    font-size: clamp(2.15rem, 11vw, 3.2rem) !important;
+    line-height: 0.96 !important;
+  }
+
+  #upcoming-events .ue-row-new {
+    gap: 14px !important;
+    padding: 18px 0 !important;
+  }
+
+  #upcoming-events .ue-date-col {
+    min-width: 46px;
+  }
+
+  #upcoming-events .ue-pattern-title {
+    font-size: 1rem !important;
+  }
+
+  #upcoming-events .ue-meta-row {
+    gap: 6px !important;
+    font-size: 0.84rem !important;
+  }
+
+  #upcoming-events > div:last-child {
+    padding-bottom: 56px !important;
+  }
+
+  #upcoming-events .vol-card {
+    padding: 22px !important;
+    gap: 18px !important;
+    border-radius: 24px !important;
+  }
+
+  #upcoming-events .vol-card-text {
+    gap: 16px !important;
+  }
+
+  #upcoming-events .vol-card-text > .flex {
+    width: 100%;
+    gap: 12px !important;
+  }
+
+  #upcoming-events .vol-btn {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+    padding: 12px 18px;
+  }
+
+  #upcoming-events .vol-card-image {
+    max-height: 200px !important;
+    border-radius: 18px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 8px;
+    margin-top: 0;
+    padding-top: 10px;
+  }
+
+  .story-stat {
+    min-width: 0;
+    gap: 4px;
+  }
+
+  .story-stat-number {
+    font-size: clamp(1.3rem, 5.8vw, 1.55rem);
+  }
+
+  .story-stat-label {
+    font-size: 0.54rem;
+    letter-spacing: 0.05em;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 420px) {
+  .story-stat-number {
+    font-size: 1.18rem;
+  }
+
+  .story-stat-label {
+    font-size: 0.48rem;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div {
+    padding: 16px !important;
+  }
+
+  #outcomes-heading {
+    font-size: 1.34rem !important;
+  }
+
+  #outcomes .outcomes-container > div > .relative > div p {
+    font-size: 0.86rem !important;
+    line-height: 1.52 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-contact-bar {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    gap: 8px 12px !important;
+    justify-content: flex-start !important;
+    font-size: 0.75rem !important;
+    line-height: 1.35;
+  }
+
+  .footer-contact-location {
+    display: none !important;
+  }
+
+  .footer-main {
+    padding-top: 8px !important;
+    padding-bottom: 2px !important;
+  }
+
+  .footer-main-grid {
+    gap: 16px !important;
+  }
+
+  .footer-brand-logo {
+    height: 58px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .footer-brand .footer-description {
+    max-width: 30ch;
+    margin-bottom: 10px !important;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .footer-brand-social {
+    gap: 8px !important;
+  }
+
+  .dark-footer-social {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .footer-links-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 12px !important;
+  }
+
+  .footer-links-group {
+    min-width: 0;
+  }
+
+  .dark-footer-heading,
+  .dark-footer .footer-nav-heading {
+    margin-bottom: 8px !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  .dark-footer-link,
+  .dark-footer .footer-nav-link {
+    font-size: 0.8rem !important;
+    padding-top: 0.12rem !important;
+    padding-bottom: 0.12rem !important;
+  }
+
+  .footer-newsletter {
+    grid-column: 1 / -1;
+    padding-top: 0 !important;
+  }
+
+  .footer-newsletter-copy {
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    line-height: 1.42;
+  }
+
+  .dark-footer .newsletter-form {
+    max-width: none;
+    gap: 6px;
+    padding-top: 8px;
+  }
+
+  .dark-footer .footer-newsletter-input,
+  .dark-footer .footer-newsletter-button {
+    min-height: 38px;
+    border-radius: 11px !important;
+  }
+
+  .dark-footer .footer-newsletter-button {
+    min-width: 58px;
+    padding: 0 14px;
+  }
+
+  .dark-footer .newsletter-message {
+    margin-top: 4px !important;
+    min-height: 1em !important;
+    font-size: 0.7rem !important;
+  }
+
+  .footer-bottom-shell {
+    margin-top: 14px !important;
+    padding-top: 10px !important;
+  }
+
+  .footer-bottom-row {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  .footer-meta-links {
+    justify-content: flex-end;
+    gap: 10px !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap;
+  }
+
+  .footer-fine-print,
+  .footer-legal-link {
+    font-size: 0.74rem !important;
+  }
+
+  .footer-fine-print {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-surface {
+    padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .footer-brand-logo {
+    height: 52px !important;
+  }
+
+  .footer-links-grid {
+    gap: 14px 10px !important;
+  }
+
+  .dark-footer-link,
+  .dark-footer .footer-nav-link {
+    font-size: 0.76rem !important;
+  }
+
+  .dark-footer .newsletter-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .footer-contact-bar {
+    gap: 6px 8px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .footer-bottom-row {
+    gap: 6px !important;
+  }
+
+  .footer-meta-links {
+    gap: 8px !important;
+  }
+
+  .footer-fine-print,
+  .footer-legal-link {
+    font-size: 0.68rem !important;
   }
 }

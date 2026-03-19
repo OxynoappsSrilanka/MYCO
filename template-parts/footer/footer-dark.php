@@ -124,8 +124,8 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
     <?php endif; ?>
 
     <!-- Contact Bar -->
-    <div style="border-top: 1px solid rgba(20,25,67,0.16); border-bottom: 1px solid rgba(20,25,67,0.16);">
-        <div class="inner mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-8 text-sm" style="color: #5b6474;">
+    <div class="footer-contact-bar-shell" style="border-top: 1px solid rgba(20,25,67,0.16); border-bottom: 1px solid rgba(20,25,67,0.16);">
+        <div class="footer-contact-bar inner mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-8 text-sm" style="color: #5b6474;">
             <a href="mailto:<?php echo esc_attr($email); ?>" class="footer-contact-bar-link flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="2" y="4" width="20" height="16" rx="3"/>
@@ -139,7 +139,7 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                 </svg>
                 <?php echo esc_html($phone); ?>
             </a>
-            <span class="flex items-center gap-2">
+            <span class="footer-contact-location flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
                     <circle cx="12" cy="10" r="3"/>
@@ -150,20 +150,21 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
     </div>
 
     <!-- Main Footer Content -->
-    <div class="inner mx-auto px-4 pt-0 pb-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 lg:gap-16 items-stretch">
+    <div class="footer-main inner mx-auto px-4 pt-0 pb-4">
+        <div class="footer-main-grid grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 lg:gap-16 items-stretch">
 
             <!-- Col 1: Logo + Description -->
-            <div class="md:col-span-1">
+            <div class="footer-brand md:col-span-1">
                 <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
                     <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
                          alt="<?php bloginfo('name'); ?>"
+                         class="footer-brand-logo"
                          style="height:100px; width:auto; display:block; margin-bottom:4px;" />
                 </a>
                 <p class="footer-description" style="margin-top: 0; margin-bottom:12px;">
                     <?php echo esc_html($description); ?>
                 </p>
-                <div style="display:flex; gap:12px;">
+                <div class="footer-brand-social" style="display:flex; gap:12px;">
                     <a href="<?php echo esc_url($social['facebook']); ?>" class="dark-footer-social" aria-label="<?php esc_attr_e('Facebook', 'myco'); ?>">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                     </a>
@@ -177,11 +178,11 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
             </div>
 
             <!-- Grouped Columns 2, 3, 4 -->
-            <div class="md:col-span-3 flex flex-col justify-end">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 lg:gap-16 items-start">
+            <div class="footer-sections md:col-span-3 flex flex-col justify-end">
+                <div class="footer-links-grid grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 lg:gap-16 items-start">
 
                     <!-- Col 2: Quick Links -->
-                    <div class="flex flex-col">
+                    <div class="footer-links-group flex flex-col">
                         <p class="dark-footer-heading"><?php esc_html_e('Quick Links', 'myco'); ?></p>
                         <nav class="flex flex-col" aria-label="<?php esc_attr_e('Footer quick links', 'myco'); ?>">
                             <?php
@@ -204,7 +205,7 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                     </div>
 
                     <!-- Col 3: Get Involved -->
-                    <div class="flex flex-col">
+                    <div class="footer-links-group flex flex-col">
                         <p class="dark-footer-heading"><?php esc_html_e('Get Involved', 'myco'); ?></p>
                         <nav class="flex flex-col" aria-label="<?php esc_attr_e('Footer get involved', 'myco'); ?>">
                             <?php
@@ -250,10 +251,10 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
         </div>
 
         <!-- Bottom bar -->
-        <div style="border-top: 1px solid rgba(20,25,67,0.16); margin-top:24px; padding-top:16px;">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="footer-bottom-shell" style="border-top: 1px solid rgba(20,25,67,0.16); margin-top:24px; padding-top:16px;">
+            <div class="footer-bottom-row flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p class="footer-fine-print">&copy; <?php echo esc_html($copyright); ?></p>
-                <div class="flex gap-6" style="font-size:0.82rem;">
+                <div class="footer-meta-links flex gap-6" style="font-size:0.82rem;">
                     <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>" class="footer-legal-link"><?php esc_html_e('Privacy Policy', 'myco'); ?></a>
                     <a href="#" class="footer-legal-link"><?php esc_html_e('Terms of Use', 'myco'); ?></a>
                 </div>

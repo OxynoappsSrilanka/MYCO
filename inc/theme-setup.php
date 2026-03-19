@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 add_action('after_setup_theme', 'myco_theme_setup');
+add_filter('document_title_parts', 'myco_document_title_parts');
 
 function myco_theme_setup() {
     // Make theme available for translation
@@ -61,4 +62,25 @@ function myco_custom_image_sizes($sizes) {
         'myco-gallery'       => __('Gallery Image', 'myco'),
         'myco-gallery-thumb' => __('Gallery Thumbnail', 'myco'),
     ]);
+}
+
+function myco_document_title_parts($parts) {
+    $custom_site_title = 'MYCO - Muslim Community Youth Center';
+    $default_site_name = get_bloginfo('name');
+
+    $parts['site'] = $custom_site_title;
+
+    if (is_front_page() || is_home()) {
+        unset($parts['tagline']);
+
+        if (!empty($parts['title']) && trim((string) $parts['title']) === $default_site_name) {
+            unset($parts['title']);
+        }
+    }
+
+    if (!empty($parts['title']) && trim((string) $parts['title']) === $custom_site_title) {
+        unset($parts['title']);
+    }
+
+    return $parts;
 }

@@ -27,8 +27,19 @@ if (!defined('ABSPATH')) {
 
 <header class="w-full bg-white">
     <div class="site-header-inner w-full mx-auto px-8 sm:px-12 lg:px-16 flex items-center justify-between">
+        <div class="mobile-brand-lockup md:hidden">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="mobile-logo-link flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
+                <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
+                     alt="<?php bloginfo('name'); ?>"
+                     class="h-20 w-auto" />
+            </a>
+            <img src="<?php echo esc_url(MYCO_URI . '/assets/images/Bismillah.webp'); ?>"
+                 alt=""
+                 class="mobile-bismillah-image mobile-bismillah-inline" />
+        </div>
+
         <!-- Logo -->
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="hidden md:flex flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
             <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
                  alt="<?php bloginfo('name'); ?>"
                  class="h-20 sm:h-24 md:h-28 w-auto" />
@@ -38,7 +49,7 @@ if (!defined('ABSPATH')) {
         <nav class="hidden md:flex items-center" aria-label="<?php esc_attr_e('Primary navigation', 'myco'); ?>">
             <div class="pill-nav flex items-center" style="position: relative; z-index: 1; overflow: visible;">
                 <span class="pill-nav-bismillah" role="presentation" aria-hidden="true"
-                      style="position: relative; z-index: 3; margin-right: 8px; padding-left: 13px; padding-right: 1px;">
+                      style="position: relative; z-index: 3; margin-right: 8px; padding-left: 13px; padding-right: 12px;">
                     <img src="<?php echo esc_url(MYCO_URI . '/assets/images/Bismillah.webp'); ?>"
                          alt=""
                          class="pill-nav-bismillah-image"
