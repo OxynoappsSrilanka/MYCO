@@ -69,8 +69,11 @@ if (!$programs) $programs = $defaults;
                 $bg_image = !empty($p['image']) ? MYCO_URI . '/assets/images/Galleries/' . $p['image'] : '';
                 $card_number = str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT);
                 $card_tag = strtok((string) ($p['title'] ?? ''), ' ');
+                $program_url = function_exists('myco_get_program_detail_url')
+                    ? myco_get_program_detail_url($p['title'] ?? '')
+                    : home_url('/programs/' . sanitize_title($p['title'] ?? '') . '/');
             ?>
-            <article class="homepage-program-card">
+            <a href="<?php echo esc_url($program_url); ?>" class="homepage-program-card" aria-label="<?php echo esc_attr(sprintf(__('View details for %s', 'myco'), $p['title'] ?? __('program', 'myco'))); ?>">
                 <div class="homepage-program-card-media"<?php if ($bg_image) : ?> style="background-image: linear-gradient(180deg, rgba(20, 25, 67, 0.16) 0%, rgba(20, 25, 67, 0.72) 100%), url('<?php echo esc_url($bg_image); ?>');"<?php endif; ?>>
                     <span class="homepage-program-card-tag"><?php echo esc_html($card_tag ?: 'MYCO'); ?></span>
                     <span class="homepage-program-card-index" aria-hidden="true"><?php echo esc_html($card_number); ?></span>
@@ -85,7 +88,7 @@ if (!$programs) $programs = $defaults;
                         <span class="homepage-program-card-meta-icon" aria-hidden="true">&#8599;</span>
                     </div>
                 </div>
-            </article>
+            </a>
             <?php endforeach; ?>
         </div>
 

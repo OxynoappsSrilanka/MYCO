@@ -684,12 +684,16 @@
   margin-bottom: 50px;
 }
 
+.event-detail-section + .event-detail-section {
+  padding-top: 10px;
+}
+
 .event-detail-section:last-child {
   margin-bottom: 0;
 }
 
 .event-detail-section h2 {
-  margin-bottom: 20px;
+  margin: 0 0 20px;
   color: #141943;
   font-size: 36px;
   line-height: 1.2;
@@ -713,13 +717,18 @@
 .event-detail-expect-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .event-detail-expect-item {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  padding: 22px 24px;
+  border: 1px solid #e7ebf3;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+  box-shadow: 0 16px 34px rgba(20, 25, 67, 0.06);
 }
 
 .event-detail-expect-icon {
@@ -1156,6 +1165,25 @@
 
   .event-detail-section h2 {
     font-size: 28px;
+  }
+
+  .event-detail-expect-list {
+    gap: 14px;
+  }
+
+  .event-detail-expect-item {
+    gap: 14px;
+    padding: 18px 18px;
+    border-radius: 20px;
+  }
+
+  .event-detail-expect-item h3 {
+    margin-bottom: 4px;
+    font-size: 18px;
+  }
+
+  .event-detail-expect-item p {
+    font-size: 15px;
   }
 
   .event-detail-bring {

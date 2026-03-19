@@ -23,6 +23,7 @@ require_once MYCO_DIR . '/inc/widgets.php';
 require_once MYCO_DIR . '/inc/custom-post-types.php';
 require_once MYCO_DIR . '/inc/taxonomies.php';
 require_once MYCO_DIR . '/inc/helpers.php';
+require_once MYCO_DIR . '/inc/program-data.php';
 require_once MYCO_DIR . '/inc/customizer.php';
 
 // Auto-flush rewrite rules when theme version changes (ensures CPT slugs always work)
@@ -76,12 +77,17 @@ require_once MYCO_DIR . '/inc/auto-pages.php';
 add_action('template_redirect', function () {
     if (!is_404()) return;
 
-    $demo_slugs = [
-        'basketball-fitness-nights',
-        'youth-leadership-mentorship',
-        'spiritual-identity-program',
-        'community-development-service',
+    $program_blueprints = function_exists('myco_get_program_blueprints') ? myco_get_program_blueprints() : [];
+    $program_aliases = function_exists('myco_get_program_slug_aliases') ? myco_get_program_slug_aliases() : [];
+    $demo_slugs = !empty($program_blueprints) ? array_keys($program_blueprints) : [
+        'youth-leadership-development',
+        'spiritual-development',
+        'education-skill-building',
+        'athletics-training',
+        'social-cultural-activities',
+        'community-service-innovation',
     ];
+    $matchable_slugs = array_values(array_unique(array_merge($demo_slugs, array_keys($program_aliases))));
 
     $request = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
     // Strip WordPress subfolder prefix if present (e.g. "wordpress/")
@@ -92,7 +98,7 @@ add_action('template_redirect', function () {
     $request = trim($request, '/');
 
     $matched_slug = null;
-    foreach ($demo_slugs as $slug) {
+    foreach ($matchable_slugs as $slug) {
         if ($request === 'programs/' . $slug || $request === $slug) {
             $matched_slug = $slug;
             break;
@@ -101,18 +107,29 @@ add_action('template_redirect', function () {
 
     if (!$matched_slug) return;
 
+    $canonical_slug = function_exists('myco_normalize_program_slug')
+        ? myco_normalize_program_slug($matched_slug)
+        : $matched_slug;
+
+    if ($canonical_slug !== $matched_slug) {
+        wp_safe_redirect(function_exists('myco_get_program_detail_url') ? myco_get_program_detail_url($canonical_slug) : home_url('/programs/' . $canonical_slug . '/'), 301);
+        exit;
+    }
+
     // Build a real-looking transient post so body_class() and other WP functions work
     global $wp_query, $post;
+
+    $matched_blueprint = $program_blueprints[$canonical_slug] ?? null;
 
     $post_data = [
         // Use ID 0 for virtual demo posts so core does not try loading a real DB record.
         'ID'             => 0,
-        'post_title'     => ucwords(str_replace('-', ' ', $matched_slug)),
-        'post_name'      => $matched_slug,
+        'post_title'     => $matched_blueprint['title'] ?? ucwords(str_replace('-', ' ', $canonical_slug)),
+        'post_name'      => $canonical_slug,
         'post_type'      => 'program',
         'post_status'    => 'publish',
         'post_content'   => '',
-        'post_excerpt'   => '',
+        'post_excerpt'   => $matched_blueprint['summary'] ?? '',
         'post_author'    => 1,
         'post_date'      => current_time('mysql'),
         'post_date_gmt'  => current_time('mysql', 1),
@@ -135,7 +152,7 @@ add_action('template_redirect', function () {
     $wp_query->is_page           = false;
     $wp_query->is_archive        = false;
     $wp_query->query_vars['post_type'] = 'program';
-    $wp_query->query_vars['name']      = $matched_slug;
+    $wp_query->query_vars['name']      = $canonical_slug;
     unset($wp_query->query_vars['error'], $wp_query->query['error']);
 
     setup_postdata($post);
