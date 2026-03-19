@@ -92,7 +92,7 @@ $get_program_icon_url = static function (array $program) use ($program_icon_dir,
 };
 
 $programs_page = get_page_by_path('programs');
-$programs_url  = $programs_page ? get_permalink($programs_page) : home_url('/programs/');
+$programs_url  = $programs_page ? get_permalink($programs_page) : myco_get_page_url('programs', '/programs/');
 ?>
 <style>
   #approach .about-program-grid {

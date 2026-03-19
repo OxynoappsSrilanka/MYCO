@@ -171,8 +171,8 @@ $programs = new WP_Query([
         <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin-bottom: 24px;">Ready to Empower Your Future?</h2>
         <p style="font-size: 19px; color: rgba(255,255,255,0.7); max-width: 650px; margin: 0 auto 40px; line-height: 1.6;">Join hundreds of youth building skills, confidence, and community at MYCO.</p>
         <div style="display: flex; gap: 16px; justify-content: center;">
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="pill-primary">Register For A Program</a>
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="pill-secondary" style="border-color: rgba(255,255,255,0.3); color: #fff;">Contact Support</a>
+            <a href="<?php echo esc_url(myco_get_contact_page_url(['interest' => 'programs'])); ?>" class="pill-primary">Register For A Program</a>
+            <a href="<?php echo esc_url(myco_get_contact_page_url(['interest' => 'support'])); ?>" class="pill-secondary" style="border-color: rgba(255,255,255,0.3); color: #fff;">Contact Support</a>
         </div>
     </div>
 </section>

@@ -51,7 +51,7 @@ $category_name  = ($category_terms && !is_wp_error($category_terms)) ? $category
 $category_name  = $category_name ?: ($blueprint['category'] ?? 'Program Track');
 
 $summary = get_the_excerpt($program_id) ?: ($blueprint['summary'] ?? '');
-$image   = get_the_post_thumbnail_url($program_id, 'full') ?: ($blueprint['image'] ?? MYCO_URI . '/assets/images/Galleries/myco-youth-team-award-check-winners.jpg');
+$image   = get_the_post_thumbnail_url($program_id, 'full') ?: ($blueprint['image'] ?? myco_theme_asset_url('assets/images/Galleries/myco-youth-team-award-check-winners.jpg'));
 $accent  = '#C8402E';
 $soft    = 'rgba(200,64,46,0.10)';
 $navy    = '#141943';
@@ -116,8 +116,8 @@ $quick_facts = array_values(array_filter([
 }));
 
 $coordinator = !empty($blueprint['coordinator']) && is_array($blueprint['coordinator']) ? $blueprint['coordinator'] : [];
-$contact_url = add_query_arg('program', $program_slug, home_url('/contact/'));
-$programs_url = home_url('/programs/');
+$contact_url = myco_get_contact_page_url(['program' => $program_slug]);
+$programs_url = myco_get_page_url('programs', '/programs/');
 $related = [];
 foreach ($all_programs as $slug => $item) {
     if ($slug !== $program_slug) {

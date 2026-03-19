@@ -79,7 +79,7 @@ $star_svg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="#C8402E" aria
                             $role = myco_get_field('testimonial_role', $item->ID, '');
                             $image = myco_get_field('testimonial_image', $item->ID, '');
                         }
-                        $image_url = $image ? MYCO_URI . '/assets/images/Testimonials/' . $image : '';
+                        $image_url = $image ? myco_theme_asset_url('assets/images/Testimonials/' . $image) : '';
                     ?>
                     <div class="testi-card">
                         <span class="testi-watermark" aria-hidden="true">&#8220;&#8221;</span>

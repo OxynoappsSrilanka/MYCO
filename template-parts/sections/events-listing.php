@@ -44,8 +44,8 @@ $events_query = new WP_Query(
 $events_count  = (int) $events_query->found_posts;
 $count_label   = _n('event', 'events', $events_count, 'myco');
 $current_month = wp_date('Y-m');
-$updates_url   = home_url('/contact/');
-$volunteer_url = home_url('/volunteer/');
+$updates_url   = myco_get_contact_page_url(['interest' => 'events']);
+$volunteer_url = myco_get_page_url('volunteer', '/volunteer/');
 ?>
 
 <section class="events-hero">

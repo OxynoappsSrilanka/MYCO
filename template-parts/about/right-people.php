@@ -39,8 +39,8 @@ if (!$stats) $stats = $default_stats;
         </div>
 
         <div class="flex items-center gap-4 mt-8">
-          <a href="<?php echo esc_url(get_permalink(get_page_by_path('volunteer'))); ?>" class="btn-primary">Become a Mentor</a>
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn-secondary">Meet Our Team</a>
+          <a href="<?php echo esc_url(myco_get_page_url('volunteer', '/volunteer/')); ?>" class="btn-primary">Become a Mentor</a>
+          <a href="<?php echo esc_url(myco_get_contact_page_url()); ?>" class="btn-secondary">Meet Our Team</a>
         </div>
       </div>
 

@@ -156,7 +156,7 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
             <!-- Col 1: Logo + Description -->
             <div class="footer-brand md:col-span-1">
                 <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
-                    <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
+                    <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/myco-logo.png')); ?>"
                          alt="<?php bloginfo('name'); ?>"
                          class="footer-brand-logo"
                          style="height:100px; width:auto; display:block; margin-bottom:4px;" />
@@ -196,9 +196,9 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                             } else {
                                 echo '<a href="' . esc_url(home_url('/')) . '" class="dark-footer-link">Home</a>';
                                 echo '<a href="' . esc_url(home_url('/about/')) . '" class="dark-footer-link">About Us</a>';
-                                echo '<a href="' . esc_url(home_url('/programs/')) . '" class="dark-footer-link">Programs</a>';
+                                echo '<a href="' . esc_url(myco_get_page_url('programs', '/programs/')) . '" class="dark-footer-link">Programs</a>';
                                 echo '<a href="' . esc_url(home_url('/events/')) . '" class="dark-footer-link">Events</a>';
-                                echo '<a href="' . esc_url(home_url('/news/')) . '" class="dark-footer-link">News</a>';
+                                echo '<a href="' . esc_url(myco_get_page_url('news', '/news/')) . '" class="dark-footer-link">News</a>';
                             }
                             ?>
                         </nav>
@@ -217,10 +217,10 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                                     'walker'         => new Walker_Footer_Nav(),
                                 ]);
                             } else {
-                                echo '<a href="' . esc_url(home_url('/volunteer/')) . '" class="dark-footer-link">Volunteer</a>';
-                                echo '<a href="' . esc_url(home_url('/donate/')) . '" class="dark-footer-link">Donate</a>';
-                                echo '<a href="' . esc_url(home_url('/contact/')) . '" class="dark-footer-link">Contact Us</a>';
-                                echo '<a href="' . esc_url(home_url('/gallery/')) . '" class="dark-footer-link">Gallery</a>';
+                                echo '<a href="' . esc_url(myco_get_page_url('volunteer', '/volunteer/')) . '" class="dark-footer-link">Volunteer</a>';
+                                echo '<a href="' . esc_url(myco_get_page_url('donate', '/donate/')) . '" class="dark-footer-link">Donate</a>';
+                                echo '<a href="' . esc_url(myco_get_contact_page_url()) . '" class="dark-footer-link">Contact Us</a>';
+                                echo '<a href="' . esc_url(myco_get_page_url('gallery', '/gallery/')) . '" class="dark-footer-link">Gallery</a>';
                             }
                             ?>
                         </nav>

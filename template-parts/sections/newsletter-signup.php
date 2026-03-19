@@ -17,7 +17,7 @@
             <?php esc_html_e('Whether you choose to give once or become a recurring supporter, your donation plays a direct role in building MCYC.', 'myco'); ?>
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="<?php echo esc_url(home_url('/donate/')); ?>" class="btn-primary text-lg px-10 py-4">
+            <a href="<?php echo esc_url(myco_get_page_url('donate', '/donate/')); ?>" class="btn-primary text-lg px-10 py-4">
                 <?php esc_html_e('Donate Now', 'myco'); ?>
             </a>
             <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn-secondary text-lg px-10 py-4" style="border-color: rgba(255,255,255,0.3); color: #fff;">

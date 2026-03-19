@@ -41,7 +41,7 @@ $badge_text = myco_get_field('about_vision_badge_text') ?: "Years Serving\nOur C
           <?php echo esc_html(myco_get_field('about_vision_text_2') ?: 'Muslim Youth of Central Ohio is building a space where Muslim youth can grow spiritually, socially, academically, and physically. Our inclusive and supportive approach blends engaging and immersive programs with strong Islamic values and mentorship.'); ?>
         </p>
         <div class="flex flex-wrap items-center gap-3">
-          <a href="<?php echo esc_url(get_permalink(get_page_by_path('donate'))); ?>" class="btn-primary">Support Our Vision</a>
+          <a href="<?php echo esc_url(myco_get_page_url('donate', '/donate/')); ?>" class="btn-primary">Support Our Vision</a>
           <a href="#mission" class="btn-secondary">Our Mission</a>
         </div>
       </div>

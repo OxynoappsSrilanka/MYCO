@@ -66,7 +66,7 @@ if (!$programs) $programs = $defaults;
         <!-- 3x2 Cards Grid with Background Images -->
         <div class="homepage-programs-grid">
             <?php foreach ($programs as $index => $p) :
-                $bg_image = !empty($p['image']) ? MYCO_URI . '/assets/images/Galleries/' . $p['image'] : '';
+                $bg_image = !empty($p['image']) ? myco_theme_asset_url('assets/images/Galleries/' . $p['image']) : '';
                 $card_number = str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT);
                 $card_tag = strtok((string) ($p['title'] ?? ''), ' ');
                 $program_url = function_exists('myco_get_program_detail_url')

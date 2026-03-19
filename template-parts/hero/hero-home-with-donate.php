@@ -10,7 +10,7 @@
 $headline       = myco_get_field('hero_headline', false, '');
 $paragraph      = myco_get_field('hero_paragraph', false, 'Muslim Youth of Central Ohio (MYCO) is building a state of the art facility dedicated to supporting the next generation of Muslims through spiritual growth, leadership development, education, and athletics, providing a safe space for Muslim youth to thrive in Ohio for generations more to come.');
 $hero_image     = myco_get_field('hero_image');
-$hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : MYCO_URI . '/assets/images/hero-image.png';
+$hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : myco_theme_asset_url('assets/images/hero-image.png');
 ?>
 
 <section class="w-full relative overflow-hidden" style="background: linear-gradient(135deg, #0f1535 0%, #1a2555 50%, #2a3e6a 100%); min-height: 100vh; display: flex; align-items: center; padding: 80px 0;">
@@ -225,6 +225,6 @@ document.querySelectorAll('.donate-amount-btn').forEach(btn => {
 document.getElementById('hero-donate-form').addEventListener('submit', function(e) {
     e.preventDefault();
     // Redirect to full donate page or process donation
-    window.location.href = '<?php echo esc_url(home_url('/donate/')); ?>';
+    window.location.href = '<?php echo esc_url(myco_get_page_url('donate', '/donate/')); ?>';
 });
 </script>

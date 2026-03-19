@@ -35,7 +35,7 @@ get_header();
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
 
-                <a href="<?php echo esc_url(home_url('/programs/')); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
+                <a href="<?php echo esc_url(myco_get_page_url('programs', '/programs/')); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(200,64,46,0.1);">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8402E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                     </div>
@@ -55,7 +55,7 @@ get_header();
                     </div>
                 </a>
 
-                <a href="<?php echo esc_url(home_url('/news/')); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
+                <a href="<?php echo esc_url(myco_get_page_url('news', '/news/')); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(200,64,46,0.1);">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8402E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
                     </div>
@@ -75,7 +75,7 @@ get_header();
                     </div>
                 </a>
 
-                <a href="<?php echo esc_url(home_url('/volunteer/')); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
+                <a href="<?php echo esc_url(myco_get_page_url('volunteer', '/volunteer/')); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(200,64,46,0.1);">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8402E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
@@ -85,7 +85,7 @@ get_header();
                     </div>
                 </a>
 
-                <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
+                <a href="<?php echo esc_url(myco_get_contact_page_url()); ?>" class="group flex items-center gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors" style="text-decoration: none;">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(200,64,46,0.1);">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8402E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </div>

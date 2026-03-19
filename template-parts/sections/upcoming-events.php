@@ -12,7 +12,7 @@ $defaults = [
 ];
 $use_defaults = empty($events);
 $vol_image = myco_get_field('volunteer_card_image', false, '');
-$vol_img_url = $vol_image ? (is_array($vol_image) ? $vol_image['url'] : wp_get_attachment_url($vol_image)) : MYCO_URI . '/assets/images/volunteers.jpg';
+$vol_img_url = $vol_image ? (is_array($vol_image) ? $vol_image['url'] : wp_get_attachment_url($vol_image)) : myco_theme_asset_url('assets/images/volunteers.jpg');
 ?>
 
 <section id="upcoming-events" aria-labelledby="upcoming-events-heading"
@@ -121,10 +121,10 @@ $vol_img_url = $vol_image ? (is_array($vol_image) ? $vol_image['url'] : wp_get_a
                     <?php $vh = myco_get_field('volunteer_card_heading', false, ''); if ($vh) { echo nl2br(esc_html($vh)); } else { ?>Join Our<br />Volunteers<?php } ?>
                 </h2>
                 <div class="flex flex-col gap-3 items-start">
-                    <a href="<?php echo esc_url(myco_get_field('volunteer_card_btn_url', false, home_url('/volunteer/'))); ?>" class="vol-btn">
+                    <a href="<?php echo esc_url(myco_get_field('volunteer_card_btn_url', false, myco_get_page_url('volunteer', '/volunteer/'))); ?>" class="vol-btn">
                         <?php echo esc_html(myco_get_field('volunteer_card_btn_text', false, 'Register to Volunteer')); ?>
                     </a>
-                    <a href="<?php echo esc_url(myco_get_field('volunteer_card_link_url', false, home_url('/volunteer/'))); ?>" class="vol-link">
+                    <a href="<?php echo esc_url(myco_get_field('volunteer_card_link_url', false, myco_get_page_url('volunteer', '/volunteer/'))); ?>" class="vol-link">
                         <?php echo esc_html(myco_get_field('volunteer_card_link_text', false, 'Learn about volunteering')); ?> &rarr;
                     </a>
                 </div>

@@ -46,7 +46,7 @@ if (!$mission_points) $mission_points = $defaults;
           <?php endforeach; ?>
         </div>
 
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('programs'))); ?>" class="btn-primary">Explore Our Programs</a>
+        <a href="<?php echo esc_url(myco_get_page_url('programs', '/programs/')); ?>" class="btn-primary">Explore Our Programs</a>
       </div>
 
       <!-- RIGHT: Image -->

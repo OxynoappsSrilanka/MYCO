@@ -10,6 +10,48 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Get a versioned URL for a theme asset.
+ */
+function myco_theme_asset_url($relative_path = '') {
+    $relative_path = ltrim((string) $relative_path, '/');
+
+    if ($relative_path === '') {
+        return MYCO_URI;
+    }
+
+    $file_path = MYCO_DIR . '/' . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relative_path);
+    $asset_url = MYCO_URI . '/' . $relative_path;
+
+    if (file_exists($file_path)) {
+        return add_query_arg('ver', (string) filemtime($file_path), $asset_url);
+    }
+
+    return $asset_url;
+}
+
+/**
+ * Add a filemtime version to theme asset URLs that already use MYCO_URI.
+ */
+function myco_version_theme_url($url = '') {
+    $url = (string) $url;
+
+    if ($url === '') {
+        return '';
+    }
+
+    $theme_base = trailingslashit(MYCO_URI);
+
+    if (strpos($url, $theme_base) !== 0) {
+        return $url;
+    }
+
+    $relative_path = ltrim(substr($url, strlen($theme_base)), '/');
+    $relative_path = strtok($relative_path, '?#');
+
+    return myco_theme_asset_url($relative_path);
+}
+
+/**
  * Get featured image URL with fallback
  * Can be called as:
  *   myco_get_image_url()                   - current post, 'large' size
@@ -19,7 +61,7 @@ if (!defined('ABSPATH')) {
 function myco_get_image_url($post_id = null, $size = 'large', $fallback = '') {
     // If first argument is a string filename (not numeric), return theme asset URL
     if (is_string($post_id) && !is_numeric($post_id)) {
-        return MYCO_URI . '/assets/images/' . $post_id;
+        return myco_theme_asset_url('assets/images/' . ltrim($post_id, '/'));
     }
 
     if (!$post_id) {
@@ -34,7 +76,7 @@ function myco_get_image_url($post_id = null, $size = 'large', $fallback = '') {
         return $fallback;
     }
 
-    return MYCO_URI . '/assets/images/hero-image.png';
+    return myco_theme_asset_url('assets/images/hero-image.png');
 }
 
 /**
@@ -55,7 +97,7 @@ function myco_featured_image($post_id = null, $size = 'large', $attrs = []) {
     if (has_post_thumbnail($post_id)) {
         echo get_the_post_thumbnail($post_id, $size, $attrs);
     } else {
-        $fallback = MYCO_URI . '/assets/images/hero-image.png';
+        $fallback = myco_theme_asset_url('assets/images/hero-image.png');
         printf(
             '<img src="%s" alt="%s" class="%s" loading="%s" />',
             esc_url($fallback),
@@ -98,6 +140,96 @@ function myco_get_field($field_name, $post_id = false, $fallback = '') {
     }
 
     return $fallback;
+}
+
+/**
+ * Resolve a core site page URL from its MYCO page key or slug.
+ */
+function myco_get_page_url($key_or_slug = '', $fallback_path = '') {
+    static $cache = [];
+
+    $normalized = sanitize_title((string) $key_or_slug);
+    $cache_key  = $normalized . '|' . (string) $fallback_path;
+
+    if (isset($cache[$cache_key])) {
+        return $cache[$cache_key];
+    }
+
+    $page_config = null;
+    if (function_exists('myco_get_required_pages')) {
+        $required_pages = myco_get_required_pages();
+        $page_config    = $required_pages[$normalized] ?? null;
+    }
+
+    $candidate_slugs = [];
+
+    if (!empty($page_config['slug'])) {
+        $candidate_slugs[] = $page_config['slug'];
+    }
+
+    if ($normalized !== '') {
+        $candidate_slugs[] = $normalized;
+    }
+
+    $aliases = [
+        'contact'        => ['contact-us'],
+        'privacy-policy' => ['privacy'],
+    ];
+
+    if (isset($aliases[$normalized])) {
+        $candidate_slugs = array_merge($candidate_slugs, $aliases[$normalized]);
+    }
+
+    foreach (array_unique(array_filter($candidate_slugs)) as $slug) {
+        $page = get_page_by_path($slug, OBJECT, 'page');
+        if ($page instanceof WP_Post && $page->post_status === 'publish') {
+            $cache[$cache_key] = get_permalink($page);
+            return $cache[$cache_key];
+        }
+    }
+
+    if (!empty($page_config['template'])) {
+        $page_ids = get_posts([
+            'post_type'      => 'page',
+            'post_status'    => 'publish',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'meta_key'       => '_wp_page_template',
+            'meta_value'     => $page_config['template'],
+        ]);
+
+        if (!empty($page_ids[0])) {
+            $cache[$cache_key] = get_permalink((int) $page_ids[0]);
+            return $cache[$cache_key];
+        }
+    }
+
+    if ($fallback_path === '') {
+        $resolved_slug  = $page_config['slug'] ?? ($candidate_slugs[0] ?? '');
+        $fallback_path  = $resolved_slug !== '' ? '/' . trim($resolved_slug, '/') . '/' : '/';
+    }
+
+    $cache[$cache_key] = home_url($fallback_path);
+    return $cache[$cache_key];
+}
+
+/**
+ * Resolve the contact page URL with optional query args.
+ */
+function myco_get_contact_page_url($args = []) {
+    $url = myco_get_page_url('contact', '/contact/');
+
+    if (!empty($args)) {
+        $args = array_filter($args, static function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        if (!empty($args)) {
+            $url = add_query_arg($args, $url);
+        }
+    }
+
+    return $url;
 }
 
 /**

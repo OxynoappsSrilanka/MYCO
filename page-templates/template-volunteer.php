@@ -138,7 +138,7 @@ $cta_description = myco_get_field('volunteer_cta_description', false, 'Contact o
 $cta_button_text = myco_get_field('volunteer_cta_button_text', false, 'Contact Us');
 $cta_button_url  = myco_get_field('volunteer_cta_button_url', false, '');
 if (!$cta_button_url) {
-    $cta_button_url = home_url('/contact/');
+    $cta_button_url = myco_get_contact_page_url(['interest' => 'volunteer']);
 }
 ?>
 

@@ -27,7 +27,7 @@ $recent_articles = new WP_Query([
     <div class="inner mx-auto px-4 py-16 md:py-20 relative z-10">
         <?php myco_breadcrumb([
             ['label' => __('Home', 'myco'), 'url' => home_url('/')],
-            ['label' => __('News', 'myco'), 'url' => home_url('/news/')],
+            ['label' => __('News', 'myco'), 'url' => myco_get_page_url('news', '/news/')],
             ['label' => get_the_title(), 'url' => ''],
         ], 'dark'); ?>
         <?php if ($cat_name) : ?>

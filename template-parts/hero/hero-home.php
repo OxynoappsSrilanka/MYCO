@@ -9,11 +9,11 @@
 $headline       = myco_get_field('hero_headline', false, '');
 $paragraph      = myco_get_field('hero_paragraph', false, 'Muslim Youth of Central Ohio (MYCO) is building a state of the art facility dedicated to supporting the next generation of Muslims through spiritual growth, leadership development, education, and athletics, providing a safe space for Muslim youth to thrive in Ohio for generations more to come.');
 $cta1_text      = myco_get_field('hero_cta_primary_text', false, 'Donate Today');
-$cta1_url       = myco_get_field('hero_cta_primary_url', false, home_url('/donate/'));
+$cta1_url       = myco_get_field('hero_cta_primary_url', false, myco_get_page_url('donate', '/donate/'));
 $cta2_text      = myco_get_field('hero_cta_secondary_text', false, 'Explore Programs');
-$cta2_url       = myco_get_field('hero_cta_secondary_url', false, home_url('/programs/'));
+$cta2_url       = myco_get_field('hero_cta_secondary_url', false, myco_get_page_url('programs', '/programs/'));
 $hero_image     = myco_get_field('hero_image');
-$hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : MYCO_URI . '/assets/images/hero-image.png';
+$hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : myco_theme_asset_url('assets/images/hero-image.png');
 ?>
 
 <section class="w-full bg-white" aria-labelledby="hero-heading">

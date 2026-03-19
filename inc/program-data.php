@@ -313,6 +313,14 @@ function myco_get_program_blueprints() {
         ],
     ];
 
+    if (function_exists('myco_version_theme_url')) {
+        foreach ($blueprints as $slug => $blueprint) {
+            if (!empty($blueprint['image'])) {
+                $blueprints[$slug]['image'] = myco_version_theme_url($blueprint['image']);
+            }
+        }
+    }
+
     return $blueprints;
 }
 
@@ -368,7 +376,7 @@ function myco_get_program_detail_url($title_or_slug = '') {
     $normalized = sanitize_title((string) $title_or_slug);
 
     if ($normalized === '') {
-        return home_url('/programs/');
+        return myco_get_page_url('programs', '/programs/');
     }
 
     $program_post = get_page_by_path($normalized, OBJECT, 'program');

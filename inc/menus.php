@@ -128,19 +128,19 @@ function myco_fallback_menu() {
     $links = [
         ['url' => home_url('/'), 'label' => 'Home'],
         ['url' => home_url('/about/'), 'label' => 'About'],
-        ['url' => home_url('/programs/'), 'label' => 'Programs'],
-        ['url' => home_url('/events/'), 'label' => 'Events'],
-        ['url' => home_url('/volunteer/'), 'label' => 'Volunteer'],
-        ['url' => home_url('/news/'), 'label' => 'News'],
-        ['url' => home_url('/gallery/'), 'label' => 'Gallery'],
-        ['url' => home_url('/contact/'), 'label' => 'Contact'],
+        ['url' => myco_get_page_url('programs', '/programs/'), 'label' => 'Programs'],
+        ['url' => myco_get_page_url('events', '/events/'), 'label' => 'Events'],
+        ['url' => myco_get_page_url('volunteer', '/volunteer/'), 'label' => 'Volunteer'],
+        ['url' => myco_get_page_url('news', '/news/'), 'label' => 'News'],
+        ['url' => myco_get_page_url('gallery', '/gallery/'), 'label' => 'Gallery'],
+        ['url' => myco_get_contact_page_url(), 'label' => 'Contact'],
     ];
     foreach ($links as $i => $link) {
         $is_active = (trailingslashit($link['url']) === $current_url) || (is_front_page() && $link['label'] === 'Home');
         $class = $is_active ? ' class="active" aria-current="page"' : '';
         echo '<a href="' . esc_url($link['url']) . '"' . $class . '>' . esc_html($link['label']) . '</a>';
     }
-    echo '<a href="' . esc_url(home_url('/donate/')) . '" class="donate-btn">Donate</a>';
+    echo '<a href="' . esc_url(myco_get_page_url('donate', '/donate/')) . '" class="donate-btn">Donate</a>';
 }
 
 /**
@@ -151,12 +151,12 @@ function myco_fallback_mobile_menu() {
     $links = [
         ['url' => home_url('/'), 'label' => 'Home'],
         ['url' => home_url('/about/'), 'label' => 'About'],
-        ['url' => home_url('/programs/'), 'label' => 'Programs'],
-        ['url' => home_url('/events/'), 'label' => 'Events'],
-        ['url' => home_url('/volunteer/'), 'label' => 'Volunteer'],
-        ['url' => home_url('/news/'), 'label' => 'News'],
-        ['url' => home_url('/gallery/'), 'label' => 'Gallery'],
-        ['url' => home_url('/contact/'), 'label' => 'Contact'],
+        ['url' => myco_get_page_url('programs', '/programs/'), 'label' => 'Programs'],
+        ['url' => myco_get_page_url('events', '/events/'), 'label' => 'Events'],
+        ['url' => myco_get_page_url('volunteer', '/volunteer/'), 'label' => 'Volunteer'],
+        ['url' => myco_get_page_url('news', '/news/'), 'label' => 'News'],
+        ['url' => myco_get_page_url('gallery', '/gallery/'), 'label' => 'Gallery'],
+        ['url' => myco_get_contact_page_url(), 'label' => 'Contact'],
     ];
     foreach ($links as $link) {
         $is_active = (trailingslashit($link['url']) === $current_url) || (is_front_page() && $link['label'] === 'Home');
@@ -166,5 +166,5 @@ function myco_fallback_mobile_menu() {
             echo '<a href="' . esc_url($link['url']) . '" class="px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 text-sm font-medium transition-colors">' . esc_html($link['label']) . '</a>';
         }
     }
-    echo '<a href="' . esc_url(home_url('/donate/')) . '" class="mx-2 mb-1 mt-1 px-4 py-3 rounded-xl text-white font-semibold text-sm text-center" style="background: #c8402e; box-shadow: 0 3px 12px 0 rgba(200,64,46,0.35);">Donate</a>';
+    echo '<a href="' . esc_url(myco_get_page_url('donate', '/donate/')) . '" class="mx-2 mb-1 mt-1 px-4 py-3 rounded-xl text-white font-semibold text-sm text-center" style="background: #c8402e; box-shadow: 0 3px 12px 0 rgba(200,64,46,0.35);">Donate</a>';
 }

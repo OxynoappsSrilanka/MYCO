@@ -99,7 +99,7 @@ function myco_create_stripe_session(): void {
         $fund_label = $fund_labels[$fund] ?? ucfirst($fund) . ' Fund';
 
         // Determine donate page URL for redirects
-        $donate_page_url = home_url('/donate/');
+        $donate_page_url = myco_get_page_url('donate', '/donate/');
 
         $session_params = [
             'payment_method_types' => ['card'],

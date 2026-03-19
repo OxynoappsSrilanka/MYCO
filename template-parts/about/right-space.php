@@ -56,7 +56,7 @@ if (!$features) {
           <?php endforeach; ?>
         </div>
 
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('volunteer'))); ?>" class="btn-primary">Visit Our Space</a>
+        <a href="<?php echo esc_url(myco_get_page_url('volunteer', '/volunteer/')); ?>" class="btn-primary">Visit Our Space</a>
       </div>
 
     </div>

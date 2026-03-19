@@ -147,7 +147,7 @@ function myco_enqueue_scripts() {
             'nonce'          => wp_create_nonce('myco_donate_nonce'),
             'stripe_key'     => $stripeKeys['publishable'] ?? get_option('myco_stripe_publishable_key', ''),
             'fee_percentage' => get_option('myco_donate_fee_percentage', 3.5),
-            'return_url'     => get_permalink(get_page_by_path('donate')) ?: home_url('/donate/'),
+            'return_url'     => myco_get_page_url('donate', '/donate/'),
         ]);
     }
 

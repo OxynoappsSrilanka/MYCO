@@ -15,11 +15,11 @@
 $headline       = myco_get_field('hero_headline', false, '');
 $paragraph      = myco_get_field('hero_paragraph', false, 'Discover a welcoming community dedicated to building faith, fostering connections, and empowering Muslim youth with confidence for the future.');
 $cta1_text      = myco_get_field('hero_cta_primary_text', false, 'Donate Today');
-$cta1_url       = myco_get_field('hero_cta_primary_url', false, home_url('/donate/'));
+$cta1_url       = myco_get_field('hero_cta_primary_url', false, myco_get_page_url('donate', '/donate/'));
 $cta2_text      = myco_get_field('hero_cta_secondary_text', false, 'Explore Programs');
-$cta2_url       = myco_get_field('hero_cta_secondary_url', false, home_url('/programs/'));
+$cta2_url       = myco_get_field('hero_cta_secondary_url', false, myco_get_page_url('programs', '/programs/'));
 $hero_image     = myco_get_field('hero_image');
-$hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : MYCO_URI . '/assets/images/hero-image.png';
+$hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : myco_theme_asset_url('assets/images/hero-image.png');
 ?>
 
 <section class="hero-section w-full bg-white" aria-labelledby="hero-heading">

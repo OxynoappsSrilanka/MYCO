@@ -37,7 +37,7 @@ $display_cat_name  = $cat_name ? $cat_name . (stripos($cat_name, 'event') === fa
 $display_address   = $location_address ? $location_address : __('Columbus, OH', 'myco');
 $display_age_group = $age_group ? $age_group : __('MYCO Youth', 'myco');
 $display_cost      = $cost ? $cost : __('Free', 'myco');
-$register_url      = $registration_url ? $registration_url : home_url('/contact/');
+$register_url      = $registration_url ? $registration_url : myco_get_contact_page_url(['interest' => 'events']);
 $register_title    = $registration_url ? __('Register for Event', 'myco') : __('Interested in This Event?', 'myco');
 $register_button   = $registration_url ? __('Register Now', 'myco') : __('Contact Us', 'myco');
 $register_copy     = $registration_url ? sprintf(
@@ -292,7 +292,7 @@ if (empty($what_to_bring) || !is_array($what_to_bring)) {
                         </a>
                         <p class="event-register-help">
                             <?php esc_html_e('Questions?', 'myco'); ?>
-                            <a href="<?php echo esc_url(home_url('/contact/')); ?>"><?php esc_html_e('Contact us', 'myco'); ?></a>
+                            <a href="<?php echo esc_url(myco_get_contact_page_url(['interest' => 'events'])); ?>"><?php esc_html_e('Contact us', 'myco'); ?></a>
                         </p>
                     </div>
 

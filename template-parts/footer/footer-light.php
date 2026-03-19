@@ -23,7 +23,7 @@ $social      = myco_get_social_links();
             <div class="md:col-span-1">
                 <div style="max-width:360px;">
                     <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
-                        <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
+                        <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/myco-logo.png')); ?>"
                              alt="<?php bloginfo('name'); ?>"
                              style="height:150px; width:auto; display:block; margin-bottom:1px;" />
                     </a>
@@ -70,8 +70,8 @@ $social      = myco_get_social_links();
                             'Home'        => home_url('/'),
                             'About Us'    => home_url('/about/'),
                             'Events'      => home_url('/events/'),
-                            'Programs'    => home_url('/programs/'),
-                            'Get Involved' => home_url('/volunteer/'),
+                            'Programs'    => myco_get_page_url('programs', '/programs/'),
+                            'Get Involved' => myco_get_page_url('volunteer', '/volunteer/'),
                         ];
                         foreach ($footer_links as $label => $url) {
                             echo '<a href="' . esc_url($url) . '" class="footer-nav-link">' . esc_html($label) . '</a>';
@@ -95,11 +95,11 @@ $social      = myco_get_social_links();
                         ]);
                     } else {
                         $resource_links = [
-                            'Gallery'      => home_url('/gallery/'),
-                            'News'         => home_url('/news/'),
-                            'Donate'       => home_url('/donate/'),
+                            'Gallery'      => myco_get_page_url('gallery', '/gallery/'),
+                            'News'         => myco_get_page_url('news', '/news/'),
+                            'Donate'       => myco_get_page_url('donate', '/donate/'),
                             'Privacy Policy' => home_url('/privacy-policy/'),
-                            'Contact Us'   => home_url('/contact/'),
+                            'Contact Us'   => myco_get_contact_page_url(),
                         ];
                         foreach ($resource_links as $label => $url) {
                             echo '<a href="' . esc_url($url) . '" class="footer-nav-link">' . esc_html($label) . '</a>';

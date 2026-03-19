@@ -315,7 +315,7 @@ $use_default_gallery = !$gallery_query->have_posts();
       <?php echo esc_html(myco_get_field('gallery_cta_text') ?: 'Join us in creating more memorable moments and empowering the next generation of Muslim youth'); ?>
     </p>
     <div style="display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap;">
-      <a href="<?php echo esc_url(get_permalink(get_page_by_path('donate'))); ?>" style="
+      <a href="<?php echo esc_url(myco_get_page_url('donate', '/donate/')); ?>" style="
         display: inline-flex;
         align-items: center;
         justify-content: center;

@@ -161,7 +161,7 @@ $terms = get_terms([
         <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin-bottom: 24px;">Ready to Join Our Community?</h2>
         <p style="font-size: 19px; color: rgba(255,255,255,0.7); max-width: 650px; margin: 0 auto 40px; line-height: 1.6;">Take the first step towards a brighter future with MYCO's youth programs.</p>
         <div style="display: flex; gap: 16px; justify-content: center;">
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="pill-primary">Get Started Now</a>
+            <a href="<?php echo esc_url(myco_get_contact_page_url(['interest' => 'programs'])); ?>" class="pill-primary">Get Started Now</a>
             <a href="<?php echo esc_url(home_url('/about/')); ?>" class="pill-secondary" style="border-color: rgba(255,255,255,0.3); color: #fff;">Learn More</a>
         </div>
     </div>

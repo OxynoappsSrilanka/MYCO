@@ -16,8 +16,8 @@ if (!defined('ABSPATH')) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Favicon - Logo in Browser Tab -->
-    <link rel="icon" type="image/webp" href="<?php echo esc_url(MYCO_URI . '/assets/images/favicon.webp'); ?>" />
-    <link rel="apple-touch-icon" href="<?php echo esc_url(MYCO_URI . '/assets/images/favicon.webp'); ?>" />
+    <link rel="icon" type="image/webp" href="<?php echo esc_url(myco_theme_asset_url('assets/images/favicon.webp')); ?>" />
+    <link rel="apple-touch-icon" href="<?php echo esc_url(myco_theme_asset_url('assets/images/favicon.webp')); ?>" />
     
     <?php wp_head(); ?>
 </head>
@@ -29,18 +29,18 @@ if (!defined('ABSPATH')) {
     <div class="site-header-inner w-full mx-auto px-8 sm:px-12 lg:px-16 flex items-center justify-between">
         <div class="mobile-brand-lockup md:hidden">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="mobile-logo-link flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
-                <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
+                <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/myco-logo.png')); ?>"
                      alt="<?php bloginfo('name'); ?>"
                      class="h-20 w-auto" />
             </a>
-            <img src="<?php echo esc_url(MYCO_URI . '/assets/images/Bismillah.webp'); ?>"
+            <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/Bismillah.webp')); ?>"
                  alt=""
                  class="mobile-bismillah-image mobile-bismillah-inline" />
         </div>
 
         <!-- Logo -->
         <a href="<?php echo esc_url(home_url('/')); ?>" class="hidden md:flex flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
-            <img src="<?php echo esc_url(MYCO_URI . '/assets/images/myco-logo.png'); ?>"
+            <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/myco-logo.png')); ?>"
                  alt="<?php bloginfo('name'); ?>"
                  class="h-20 sm:h-24 md:h-28 w-auto" />
         </a>
@@ -50,7 +50,7 @@ if (!defined('ABSPATH')) {
             <div class="pill-nav flex items-center" style="position: relative; z-index: 1; overflow: visible;">
                 <span class="pill-nav-bismillah" role="presentation" aria-hidden="true"
                       style="position: relative; z-index: 3; margin-right: 8px; padding-left: 13px; padding-right: 12px;">
-                    <img src="<?php echo esc_url(MYCO_URI . '/assets/images/Bismillah.webp'); ?>"
+                    <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/Bismillah.webp')); ?>"
                          alt=""
                          class="pill-nav-bismillah-image"
                          style="position: relative; z-index: 4; height: 48px !important; width: auto; max-width: 320px !important;" />
@@ -107,7 +107,7 @@ if (!defined('ABSPATH')) {
 <!-- Sticky Donate FAB (Floating Action Button) - CRITICAL UX IMPROVEMENT -->
 <?php if (!is_page_template('page-templates/template-donate.php')) : ?>
 <button class="sticky-donate-fab" 
-        onclick="window.location.href='<?php echo esc_url(home_url('/donate/')); ?>'"
+        onclick="window.location.href='<?php echo esc_url(myco_get_page_url('donate', '/donate/')); ?>'"
         aria-label="<?php esc_attr_e('Donate to MYCO', 'myco'); ?>">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/>

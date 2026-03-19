@@ -26,7 +26,7 @@ get_header();
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D1D5DB" stroke-width="1.5" style="margin: 0 auto 20px;"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/></svg>
           <h3 style="font-size: 22px; font-weight: 800; color: #141943; margin-bottom: 12px;">No Articles Yet</h3>
           <p style="font-size: 16px; color: #6B7280; margin-bottom: 28px; max-width: 400px; margin-left: auto; margin-right: auto;">We're working on bringing you the latest MYCO news and community stories. Check back soon!</p>
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="pill-primary"><?php esc_html_e('Stay Connected', 'myco'); ?></a>
+          <a href="<?php echo esc_url(myco_get_contact_page_url()); ?>" class="pill-primary"><?php esc_html_e('Stay Connected', 'myco'); ?></a>
         </div>
       <?php endif; ?>
     </div>
