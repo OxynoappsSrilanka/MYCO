@@ -14,13 +14,16 @@ $cta2_text      = myco_get_field('hero_cta_secondary_text', false, 'Explore Prog
 $cta2_url       = myco_get_field('hero_cta_secondary_url', false, myco_get_page_url('programs', '/programs/'));
 $hero_image     = myco_get_field('hero_image');
 $hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : myco_theme_asset_url('assets/images/hero-image.png');
+$hero_video_rel = 'assets/images/muslimyoungster.mp4';
+$hero_video_url = myco_theme_asset_url($hero_video_rel);
+$hero_video_ok  = file_exists(get_theme_file_path($hero_video_rel));
 ?>
 
 <section class="w-full bg-white" aria-labelledby="hero-heading">
     <div class="hero-home-container mx-auto">
 
         <!-- Text row: Headline (left) + Paragraph+CTA (right) -->
-        <div class="hero-centerline-row flex flex-col gap-8 pt-0 pb-10 md:pt-0 md:pb-12">
+        <div class="hero-centerline-row flex flex-col gap-8 pt-0 pb-4 md:pt-0 md:pb-5">
             <!-- LEFT: Big headline -->
             <div class="hero-centerline-left">
                 <h1 id="hero-heading" class="font-inter font-extrabold leading-[1.08] tracking-tight text-navy"
@@ -57,11 +60,27 @@ $hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp
         <!-- Hero Image -->
         <div class="pb-12 md:pb-16">
             <div class="hero-img-wrap w-full">
-                <img src="<?php echo esc_url($hero_img_url); ?>"
-                     alt="<?php esc_attr_e('Muslim youth gathered together, laughing and building community', 'myco'); ?>"
-                     class="w-full object-cover object-center"
-                     style="height: clamp(280px, 46vw, 700px); display: block;"
-                     loading="eager" />
+                <?php if ($hero_video_ok) : ?>
+                    <video class="hero-home-media"
+                           autoplay
+                           muted
+                           loop
+                           playsinline
+                           preload="metadata"
+                           poster="<?php echo esc_url($hero_img_url); ?>"
+                           aria-label="<?php esc_attr_e('Muslim youth gathered together, building community', 'myco'); ?>">
+                        <source src="<?php echo esc_url($hero_video_url); ?>" type="video/mp4" />
+                        <img src="<?php echo esc_url($hero_img_url); ?>"
+                             alt="<?php esc_attr_e('Muslim youth gathered together, laughing and building community', 'myco'); ?>"
+                             class="hero-home-media"
+                             loading="eager" />
+                    </video>
+                <?php else : ?>
+                    <img src="<?php echo esc_url($hero_img_url); ?>"
+                         alt="<?php esc_attr_e('Muslim youth gathered together, laughing and building community', 'myco'); ?>"
+                         class="hero-home-media"
+                         loading="eager" />
+                <?php endif; ?>
             </div>
         </div>
 

@@ -165,12 +165,12 @@ $programs = new WP_Query([
 </section>
 
 <!-- Register CTA Section -->
-<section style="background: #141943; padding: 100px 0; position: relative; overflow: hidden;">
+<section class="programs-register-cta" style="background: #141943; padding: 100px 0; position: relative; overflow: hidden;">
     <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(200,64,46,0.1)); pointer-events: none;"></div>
     <div class="inner" style="position: relative; z-index: 2; text-align: center;">
         <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin-bottom: 24px;">Ready to Empower Your Future?</h2>
         <p style="font-size: 19px; color: rgba(255,255,255,0.7); max-width: 650px; margin: 0 auto 40px; line-height: 1.6;">Join hundreds of youth building skills, confidence, and community at MYCO.</p>
-        <div style="display: flex; gap: 16px; justify-content: center;">
+        <div class="programs-register-cta-actions">
             <a href="<?php echo esc_url(myco_get_contact_page_url(['interest' => 'programs'])); ?>" class="pill-primary">Register For A Program</a>
             <a href="<?php echo esc_url(myco_get_contact_page_url(['interest' => 'support'])); ?>" class="pill-secondary" style="border-color: rgba(255,255,255,0.3); color: #fff;">Contact Support</a>
         </div>

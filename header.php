@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header class="w-full bg-white">
+<header class="site-header w-full bg-white">
     <div class="site-header-inner w-full mx-auto px-8 sm:px-12 lg:px-16 flex items-center justify-between">
         <div class="mobile-brand-lockup md:hidden">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="mobile-logo-link flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">

@@ -6,8 +6,35 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
+    var root = document.documentElement;
+    var siteHeader = document.querySelector('.site-header');
+    var siteHeaderInner = siteHeader ? siteHeader.querySelector('.site-header-inner') : null;
     var hamburger = document.getElementById('hamburger');
     var mobileMenu = document.getElementById('mobile-menu');
+
+    function syncSiteHeaderOffset() {
+      if (!siteHeader) {
+        return;
+      }
+
+      var measuredHeader = siteHeaderInner || siteHeader;
+      var headerHeight = Math.ceil(measuredHeader.getBoundingClientRect().height);
+      var extraGap = window.innerWidth >= 1024 ? 4 : 10;
+
+      root.style.setProperty('--site-header-height', headerHeight + 'px');
+      root.style.setProperty('--site-header-offset', (headerHeight + extraGap) + 'px');
+    }
+
+    syncSiteHeaderOffset();
+    window.addEventListener('load', syncSiteHeaderOffset);
+
+    if (siteHeader && 'ResizeObserver' in window) {
+      var headerObserver = new ResizeObserver(function () {
+        syncSiteHeaderOffset();
+      });
+
+      headerObserver.observe(siteHeader);
+    }
 
     if (!hamburger || !mobileMenu) {
       return;
@@ -73,6 +100,8 @@
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
+        syncSiteHeaderOffset();
+
         if (window.innerWidth >= 768 && !mobileMenu.classList.contains('hidden')) {
           toggleMenu(true);
         }
@@ -98,7 +127,7 @@
         var target = document.querySelector(href);
         if (target) {
           e.preventDefault();
-          var headerOffset = 80;
+          var headerOffset = parseFloat(getComputedStyle(root).getPropertyValue('--site-header-height')) || 80;
           var elementPosition = target.getBoundingClientRect().top;
           var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 

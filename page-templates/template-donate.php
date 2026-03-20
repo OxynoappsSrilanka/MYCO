@@ -18,6 +18,7 @@ get_header();
 // --- Hero Section ---
 $hero_badge    = myco_get_field('donate_hero_badge', false, '100% TAX-DEDUCTIBLE');
 $hero_subtitle = myco_get_field('donate_hero_subtitle', false, 'Your generosity empowers the next generation of Muslim leaders through mentorship, education, and community programs');
+$hero_bg_image = myco_theme_asset_url('assets/images/Construction/Construction Update 1.jpg');
 
 $default_hero_stats = [
     ['number' => '$2.3M+', 'label' => 'Total Raised'],
@@ -197,7 +198,14 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
 <!-- ===============================================================
      SECTION 1 - HERO WITH INTEGRATED DONATE FORM (First View)
      =============================================================== -->
-<section class="w-full relative overflow-hidden" style="background: linear-gradient(135deg, #0f1535 0%, #1a2555 50%, #2a3e6a 100%); min-height: auto; display: flex; align-items: center; padding: 60px 0 80px 0;">
+<section class="w-full relative overflow-hidden" style="background: #141943; min-height: auto; display: flex; align-items: center; padding: 60px 0 80px 0;">
+    <div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <img src="<?php echo esc_url($hero_bg_image); ?>"
+             alt=""
+             class="w-full h-full object-cover"
+             style="opacity: 0.14; object-position: center 50%; filter: saturate(0.88) contrast(1.04);" />
+    </div>
+    <div class="absolute inset-0 z-0" style="background: linear-gradient(135deg, rgba(15,21,53,0.94) 0%, rgba(26,37,85,0.92) 50%, rgba(42,62,106,0.90) 100%);" aria-hidden="true"></div>
     
     <!-- Background Decoration -->
     <div class="absolute inset-0 z-0" style="opacity: 0.15;">
