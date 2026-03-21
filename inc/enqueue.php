@@ -236,6 +236,32 @@ JS, 'before');
             'gallery_url'   => myco_get_page_url('gallery', '/gallery/'),
             'fund'          => 'mcyc',
         ]);
+
+        // Stripe integration for MCYC donation widget
+        wp_enqueue_script(
+            'stripe-js',
+            'https://js.stripe.com/v3/',
+            [],
+            null,
+            true
+        );
+        $donate_file = MYCO_DIR . '/assets/js/donate.js';
+        $donate_ver  = file_exists($donate_file) ? filemtime($donate_file) : MYCO_VERSION;
+        wp_enqueue_script(
+            'myco-donate',
+            MYCO_URI . '/assets/js/donate.js',
+            ['stripe-js'],
+            $donate_ver,
+            true
+        );
+        $stripeKeys = function_exists('myco_stripe_get_keys') ? myco_stripe_get_keys() : [];
+        wp_localize_script('myco-donate', 'myco_donate', [
+            'ajax_url'       => admin_url('admin-ajax.php'),
+            'nonce'          => wp_create_nonce('myco_donate_nonce'),
+            'stripe_key'     => $stripeKeys['publishable'] ?? get_option('myco_stripe_publishable_key', ''),
+            'fee_percentage' => get_option('myco_donate_fee_percentage', 3.5),
+            'return_url'     => myco_get_page_url('mcyc', '/mcyc/'),
+        ]);
     }
 }
 
