@@ -190,12 +190,11 @@ function myco_get_primary_nav_items() {
             'url'   => myco_get_contact_page_url(),
         ],
         [
-            'type'     => 'link-dropdown',
-            'key'      => 'mcyc',
-            'label'    => __('MCYC', 'myco'),
-            'url'      => myco_get_page_url('mcyc', '/mcyc/'),
-            'classes'  => ['mcyc-btn'],
-            'children' => myco_get_mcyc_section_nav_items(),
+            'type'    => 'link',
+            'key'     => 'mcyc',
+            'label'   => __('MCYC', 'myco'),
+            'url'     => myco_get_page_url('mcyc', '/mcyc/'),
+            'classes' => ['mcyc-btn'],
         ],
         [
             'type'    => 'link',
@@ -325,6 +324,9 @@ function myco_render_primary_nav() {
 
         echo '<a href="' . esc_url($item['url']) . '" class="' . esc_attr(implode(' ', array_unique($classes))) . '"' . $aria_current . '>';
         echo esc_html($item['label']);
+        if (in_array('mcyc-btn', $classes, true)) {
+            echo '<span class="mcyc-btn-arrow" aria-hidden="true">›</span>';
+        }
         echo '</a>';
     }
 }

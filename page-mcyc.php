@@ -91,49 +91,51 @@ get_header();
 ?>
 
 <main id="mcyc-top" class="mcyc-page">
-    <section id="vision" class="mcyc-hero-stage pt-12 md:pt-16 pb-14 md:pb-20" style="--mcyc-hero-bg: url('<?php echo esc_url($hero_bg); ?>');">
+    <section id="vision" class="mcyc-hero-stage" style="--mcyc-hero-bg: url('<?php echo esc_url($hero_bg); ?>');">
         <div class="mcyc-hero-architectural-bg" aria-hidden="true"></div>
         <div class="mcyc-hero-grid-pattern" aria-hidden="true"></div>
 
-        <div class="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-[1.02fr_0.98fr] gap-14 xl:gap-20 items-center">
-                <div class="mcyc-fade-in">
-                    <div class="flex items-center gap-4 mb-8">
-                        <img src="<?php echo esc_url($mcyc_logo); ?>" alt="" class="mcyc-logo-mark" aria-hidden="true" />
-                        <p class="mcyc-eyebrow mb-0">Capital Campaign for the Future Home of MCYC</p>
-                    </div>
-
-                    <h1 class="text-navy font-extrabold leading-[0.92] tracking-tight text-[2.6rem] sm:text-[4rem] lg:text-[5.2rem] mb-8">
-                        Building a Place
-                        <span class="text-red block mt-3">to Belong.</span>
-                    </h1>
-
-                    <div class="max-w-2xl space-y-7 text-[1.08rem] leading-[1.85] text-gray-600">
-                        <p class="text-xl font-medium text-gray-700">MCYC is the vision for a dedicated youth centre where Muslim youth can return consistently for belonging, mentorship, faith, leadership, and growth.</p>
-                        <p>This is more than a building project. It is a long-term investment in a permanent home where community can gather with intention and where guidance can happen with consistency.</p>
-                    </div>
-
-                    <div class="mt-10 flex flex-wrap gap-4">
-                        <a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-primary">Help Build MCYC</a>
-                        <a href="#construction-update" class="mcyc-btn-secondary">View Progress</a>
-                    </div>
-
-                    <div class="mt-10 flex flex-wrap gap-3">
-                        <span class="mcyc-hero-info-chip">5509 Sunbury Road, Columbus, OH</span>
-                        <span class="mcyc-hero-info-chip">Structural steel completion milestone reached</span>
-                    </div>
+        <div class="mcyc-hero-inner relative z-10">
+            <!-- Text column -->
+            <div class="mcyc-hero-text mcyc-fade-in">
+                <div class="flex items-center gap-4 mb-8">
+                    <img src="<?php echo esc_url($mcyc_logo); ?>" alt="" class="mcyc-logo-mark" aria-hidden="true" />
+                    <p class="mcyc-eyebrow mb-0">Capital Campaign for the Future Home of MCYC</p>
                 </div>
 
-                <div class="mcyc-fade-in" style="transition-delay: 0.18s;">
-                    <div class="mcyc-hero-image-frame">
-                        <img src="<?php echo esc_url($hero_image); ?>" alt="Community members gathered around the MCYC project vision" class="w-full h-[340px] sm:h-[440px] lg:h-[520px] object-cover object-center" />
-                        <div class="absolute left-6 top-6 z-10">
-                            <span class="inline-flex items-center px-4 py-2 rounded-full bg-red text-white text-[0.72rem] tracking-[0.18em] uppercase font-extrabold">Campaign Momentum</span>
-                        </div>
-                        <div class="absolute left-6 bottom-6 z-10 max-w-md text-white">
-                            <p class="text-2xl font-extrabold leading-tight">The future home of MCYC is taking shape.</p>
-                            <p class="mt-2 text-sm text-white/85 leading-6">A dedicated youth-centred facility creates room for mentorship, formation, and community that can last for generations.</p>
-                        </div>
+                <h1 class="text-navy font-extrabold leading-[0.92] tracking-tight text-[2.6rem] sm:text-[4rem] lg:text-[5.2rem] mb-8">
+                    Building a Place
+                    <span class="text-red block mt-3">to Belong.</span>
+                </h1>
+
+                <div class="max-w-2xl space-y-7 text-[1.08rem] leading-[1.85] text-gray-600">
+                    <p class="text-xl font-medium text-gray-700">MCYC is the vision for a dedicated youth centre where Muslim youth can return consistently for belonging, mentorship, faith, leadership, and growth.</p>
+                    <p>This is more than a building project. It is a long-term investment in a permanent home where community can gather with intention and where guidance can happen with consistency.</p>
+                </div>
+
+                <div class="mt-10 flex flex-wrap gap-4">
+                    <a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-primary">Help Build MCYC</a>
+                    <a href="#construction-update" class="mcyc-btn-secondary">View Progress</a>
+                </div>
+
+                <div class="mt-10 flex flex-wrap gap-3">
+                    <span class="mcyc-hero-info-chip">5509 Sunbury Road, Columbus, OH</span>
+                    <span class="mcyc-hero-info-chip">Structural steel completion milestone reached</span>
+                </div>
+            </div>
+
+            <!-- Video column — absolutely positioned right half -->
+            <div class="mcyc-hero-video-col mcyc-fade-in" style="transition-delay: 0.18s;">
+                <div class="mcyc-hero-image-frame" style="border-radius: 28px 0 0 28px; height: 100%;">
+                    <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; object-position:center; position:relative; z-index:0; display:block;">
+                        <source src="<?php echo esc_url(myco_theme_asset_url('assets/images/construction.mp4')); ?>" type="video/mp4" />
+                    </video>
+                    <div class="absolute left-6 top-6 z-10">
+                        <span class="inline-flex items-center px-4 py-2 rounded-full bg-red text-white text-[0.72rem] tracking-[0.18em] uppercase font-extrabold">Building Momentum</span>
+                    </div>
+                    <div class="absolute left-6 bottom-6 z-10 max-w-md text-white">
+                        <p class="text-2xl font-extrabold leading-tight">The future home of MCYC is taking shape.</p>
+                        <p class="mt-2 text-sm text-white/85 leading-6">A dedicated youth-centred facility creates room for mentorship, formation, and community that can last for generations.</p>
                     </div>
                 </div>
             </div>
@@ -538,7 +540,7 @@ get_header();
     <section class="py-16 md:py-20 bg-white">
         <div class="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-8 mcyc-fade-in">
-                <p class="mcyc-eyebrow mb-4">The Building</p>
+                <p class="mcyc-eyebrow mb-4">MYYC Videos</p>
                 <h2 class="text-navy font-extrabold tracking-tight text-[2.4rem] sm:text-[3.2rem] leading-[0.98]">A space designed for <span class="text-red">formation and belonging</span></h2>
             </div>
 
