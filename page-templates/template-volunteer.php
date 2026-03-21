@@ -9,7 +9,6 @@
  */
 
 get_header();
-get_template_part('template-parts/hero/hero-breadcrumb-dark');
 
 /* ------------------------------------------------------------------
    ACF field values with static-content fallback defaults
@@ -142,6 +141,62 @@ if (!$cta_button_url) {
 }
 ?>
 
+<!-- Hero Banner Section with Full Width Blurred Background -->
+<section style="
+  background: url('<?php echo esc_url(myco_get_field('volunteer_banner_image') ?: get_template_directory_uri() . '/assets/images/volunteers.jpg'); ?>') center center / cover no-repeat;
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+">
+  <!-- Blur Overlay -->
+  <div style="
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(20, 25, 67, 0.75);
+    z-index: 1;
+  "></div>
+  
+  <!-- Content -->
+  <div style="position: relative; z-index: 2; text-align: center; max-width: 1200px; margin: 0 auto; padding: 0 40px;">
+    <!-- Breadcrumb -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px;">
+      <a href="<?php echo esc_url(home_url('/')); ?>" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">Home</a>
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+        <path d="M1 1l4 4-4 4" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-size: 14px; font-weight: 600; color: #ffffff;">Volunteer</span>
+    </div>
+    
+    <!-- Page Title -->
+    <h1 style="
+      font-size: 72px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    ">
+      <?php echo esc_html(myco_get_field('volunteer_hero_title') ?: 'Volunteer With Us'); ?>
+    </h1>
+    
+    <!-- Subtitle -->
+    <p style="
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 400;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    ">
+      <?php echo esc_html(myco_get_field('volunteer_hero_subtitle') ?: 'Join our team and make a lasting impact in the lives of young Muslims in our community'); ?>
+    </p>
+  </div>
+</section>
+
 <!-- ===============================================================
      SECTION 1 - WHY VOLUNTEER (Benefits) - REDESIGNED: More Compact
      =============================================================== -->
@@ -162,24 +217,24 @@ if (!$cta_button_url) {
         </div>
 
         <!-- Reasons grid - 2 columns for better readability -->
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 100%; margin: 0 auto;">
             <?php foreach ($why_reasons as $reason) : ?>
             <div style="
                 background: #ffffff;
-                border-radius: 16px;
-                padding: 28px;
+                border-radius: 20px;
+                padding: 48px 40px;
                 display: flex;
                 align-items: flex-start;
-                gap: 20px;
+                gap: 28px;
                 border: 1px solid #E2E6ED;
-                transition: box-shadow .2s ease, transform .2s ease;
-            " onmouseover="this.style.boxShadow='0 8px 24px rgba(20,25,67,.08)';this.style.transform='translateY(-2px)'"
-               onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)'">
+                transition: box-shadow .3s ease, transform .3s ease;
+            " onmouseover="this.style.boxShadow='0 12px 32px rgba(200,64,46,.12)';this.style.transform='translateY(-4px)';this.style.borderColor='#C8402E'"
+               onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)';this.style.borderColor='#E2E6ED'">
                 <div style="
-                    width: 48px;
-                    height: 48px;
-                    border-radius: 12px;
-                    background: linear-gradient(135deg, rgba(200,64,46,0.08) 0%, rgba(200,64,46,0.14) 100%);
+                    width: 68px;
+                    height: 68px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, rgba(200,64,46,0.1) 0%, rgba(200,64,46,0.18) 100%);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -187,15 +242,17 @@ if (!$cta_button_url) {
                 ">
                     <?php
                     if (!empty($reason['icon'])) {
-                        echo $reason['icon']; // SVG markup
+                        // Scale up the icon
+                        $scaled_icon = str_replace('width="28" height="28"', 'width="36" height="36"', $reason['icon']);
+                        echo $scaled_icon; // SVG markup
                     }
                     ?>
                 </div>
                 <div style="flex: 1;">
-                    <h3 style="font-size: 18px; font-weight: 800; color: #141943; margin-bottom: 6px;">
+                    <h3 style="font-size: 21px; font-weight: 800; color: #141943; margin-bottom: 12px; line-height: 1.3;">
                         <?php echo esc_html($reason['title']); ?>
                     </h3>
-                    <p style="font-size: 14px; color: #5B6575; line-height: 1.6;">
+                    <p style="font-size: 16px; color: #5B6575; line-height: 1.7;">
                         <?php echo esc_html($reason['description']); ?>
                     </p>
                 </div>
@@ -847,6 +904,182 @@ if (!$cta_button_url) {
         </div>
     </div>
 </div>
+
+<!-- Mobile Responsive Styles -->
+<style>
+/* Mobile Responsive Adjustments */
+@media (max-width: 1024px) {
+    /* Volunteer Opportunities - 2 columns on tablet */
+    .volunteer-opportunities {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+    }
+    
+    /* Impact Stats - 2 columns on tablet */
+    section[style*="background: linear-gradient(135deg, #141943"] .inner > div[style*="grid-template-columns: repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Section padding adjustments */
+    section[style*="padding: 90px 0"] {
+        padding: 50px 0 !important;
+    }
+    
+    section[style*="padding: 60px 0"] {
+        padding: 40px 0 !important;
+    }
+    
+    section[style*="padding: 100px 0"] {
+        padding: 60px 0 !important;
+    }
+    
+    /* Benefits section - stack cards */
+    section.section-bg-gray .inner > div[style*="display: grid; grid-template-columns: repeat(2"] {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    /* Volunteer Opportunities - 1 column on mobile */
+    .volunteer-opportunities {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    /* Impact Stats - 2 columns on mobile */
+    section[style*="background: linear-gradient(135deg, #141943"] .inner > div[style*="grid-template-columns: repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+    }
+    
+    /* Form grids - stack on mobile */
+    form div[style*="grid-template-columns: repeat(2"] {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    form div[style*="grid-template-columns: 2fr 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+    
+    form .checkbox-group[style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: 1fr !important;
+    }
+    
+    form .checkbox-group[style*="grid-template-columns: repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    /* Modal adjustments */
+    .volunteer-modal {
+        width: 95% !important;
+        max-width: 95% !important;
+        max-height: 90vh !important;
+        margin: 20px auto !important;
+    }
+    
+    .volunteer-modal-header {
+        padding: 24px 20px !important;
+    }
+    
+    .volunteer-modal-body {
+        padding: 24px 20px !important;
+    }
+    
+    /* Button adjustments */
+    button[onclick="openVolunteerModal()"] {
+        font-size: 16px !important;
+        padding: 14px 32px !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+    
+    button[onclick="openVolunteerModal()"] svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Typography adjustments */
+    h2[style*="font-size: clamp"] {
+        font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+    }
+    
+    /* Impact Stats - 1 column on small mobile */
+    section[style*="background: linear-gradient(135deg, #141943"] .inner > div[style*="grid-template-columns: repeat(4"] {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Checkbox groups - 1 column */
+    form .checkbox-group[style*="grid-template-columns: repeat(2"] {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Additional info text - stack */
+    p[style*="font-size: 14px; color: rgba(255,255,255,0.8)"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+    
+    /* Modal close button */
+    .volunteer-modal-close {
+        top: 16px !important;
+        right: 16px !important;
+    }
+    
+    /* Form padding adjustments */
+    form > div[style*="padding: 50px 60px"] {
+        padding: 30px 20px !important;
+    }
+}
+
+/* Horizontal scroll benefits section */
+@media (max-width: 1200px) {
+    section.section-bg-gray .inner > div[style*="display: flex"] {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        padding-bottom: 20px !important;
+    }
+    
+    section.section-bg-gray .inner > div[style*="display: flex"] > div {
+        scroll-snap-align: start !important;
+        min-width: 320px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    section.section-bg-gray .inner > div[style*="display: flex"] > div {
+        min-width: 280px !important;
+        padding: 32px 24px !important;
+    }
+    
+    section.section-bg-gray .inner > div[style*="display: flex"] > div h3 {
+        font-size: 17px !important;
+    }
+    
+    section.section-bg-gray .inner > div[style*="display: flex"] > div p {
+        font-size: 14px !important;
+    }
+}
+
+/* Ensure proper spacing on all devices */
+.inner {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+@media (min-width: 768px) {
+    .inner {
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+}
+</style>
 
 <!-- Modal JavaScript -->
 <script>
