@@ -186,21 +186,67 @@ $use_default_gallery = !$gallery_query->have_posts();
       </div>
     </div>
     
-    <!-- Results Count -->
-    <div style="margin-bottom: 32px;">
-      <p id="gallery-count" style="font-size: 15px; color: #6B7280; font-weight: 500;">
+    <!-- Toggle Button and Results Count -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
+      <!-- Photo/Video Toggle -->
+      <div style="display: inline-flex; background: #ffffff; border-radius: 9999px; padding: 4px; border: 2px solid #E5E7EB; box-shadow: 0 2px 8px rgba(20, 25, 67, 0.08);">
+        <button id="toggle-photos" class="media-toggle active" onclick="toggleMediaType('photos')" style="
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          height: 44px;
+          padding: 0 24px;
+          border-radius: 9999px;
+          border: none;
+          background: #C8402E;
+          color: #ffffff;
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all .2s;
+        ">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="7" cy="9" r="1.5" fill="currentColor"/>
+            <path d="M2 13l4-4 3 3 5-5 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Photos
+        </button>
+        <button id="toggle-videos" class="media-toggle" onclick="toggleMediaType('videos')" style="
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          height: 44px;
+          padding: 0 24px;
+          border-radius: 9999px;
+          border: none;
+          background: transparent;
+          color: #6B7280;
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all .2s;
+        ">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 7l6 4-6 4V7z" fill="currentColor"/>
+          </svg>
+          Videos
+        </button>
+      </div>
+      
+      <!-- Results Count -->
+      <p id="gallery-count" style="font-size: 15px; color: #6B7280; font-weight: 500; margin: 0;">
         Showing <span id="count-number">0</span> items
       </p>
     </div>
   </div>
 </section>
 
-<!-- Photos Section -->
-<section style="background: #F5F6FA; padding: 0 0 60px; position: relative;">
+<!-- Gallery Content Section -->
+<section style="background: #F5F6FA; padding: 0 0 100px; position: relative;">
   <div class="inner">
-    <h2 style="font-size: 32px; font-weight: 800; color: #141943; margin-bottom: 32px; letter-spacing: -0.01em;">
-      📸 Photos
-    </h2>
+    <!-- Photos Grid -->
     <div class="gallery-grid" id="gallery-photos" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
       <?php if ($use_default_gallery) : ?>
         <?php foreach ($default_gallery as $index => $item) : ?>
@@ -209,7 +255,7 @@ $use_default_gallery = !$gallery_query->have_posts();
              data-type="photo" 
              data-caption="<?php echo esc_attr($item['caption']); ?>" 
              data-src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/Galleries/' . $item['image']); ?>" 
-             style="aspect-ratio: 1 / 1; cursor: pointer;">
+             style="aspect-ratio: 1 / 1; cursor: pointer; position: relative;">
           <img data-src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/Galleries/' . $item['image']); ?>" 
                alt="<?php echo esc_attr($item['caption']); ?>" 
                class="lazy" 
@@ -252,7 +298,7 @@ $use_default_gallery = !$gallery_query->have_posts();
              data-type="photo" 
              data-caption="<?php echo esc_attr($caption); ?>" 
              data-src="<?php echo esc_url($image_full); ?>" 
-             style="aspect-ratio: 1 / 1; cursor: pointer;">
+             style="aspect-ratio: 1 / 1; cursor: pointer; position: relative;">
           <img data-src="<?php echo esc_url($image_url); ?>" 
                alt="<?php echo esc_attr($caption); ?>" 
                class="lazy" 
@@ -281,16 +327,9 @@ $use_default_gallery = !$gallery_query->have_posts();
         </div>
       <?php endif; ?>
     </div>
-  </div>
-</section>
-
-<!-- Videos Section -->
-<section style="background: #F5F6FA; padding: 0 0 100px; position: relative;">
-  <div class="inner">
-    <h2 style="font-size: 32px; font-weight: 800; color: #141943; margin-bottom: 32px; letter-spacing: -0.01em;">
-      🎥 Videos
-    </h2>
-    <div class="gallery-grid" id="gallery-videos" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+    
+    <!-- Videos Grid -->
+    <div class="gallery-grid" id="gallery-videos" style="display: none; grid-template-columns: repeat(3, 1fr); gap: 24px;">
       <!-- Video items will be populated here via JavaScript or PHP -->
       <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #ffffff; border-radius: 16px; border: 2px dashed #E5E7EB;">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin: 0 auto 16px;">
@@ -356,19 +395,21 @@ $use_default_gallery = !$gallery_query->have_posts();
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.95);
-  z-index: 9999;
+  z-index: 99999;
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 60px 40px 40px;
 ">
-  <div class="lightbox-content" style="position: relative; max-width: 90vw; max-height: 90vh;">
-    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close lightbox" style="
-      position: absolute;
-      top: -50px;
-      right: 0;
-      width: 44px;
-      height: 44px;
+  <div class="lightbox-content" style="position: relative; max-width: 90vw; max-height: 85vh; display: flex; flex-direction: column; align-items: center;">
+    
+    <!-- Close Button - Top Right Corner -->
+    <button class="lightbox-close" id="lightbox-close" onclick="closeLightbox()" aria-label="Close lightbox" style="
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.3);
@@ -378,19 +419,23 @@ $use_default_gallery = !$gallery_query->have_posts();
       align-items: center;
       justify-content: center;
       transition: all .2s;
-      z-index: 10001;
+      z-index: 100002;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     " onmouseover="this.style.background='#C8402E'; this.style.borderColor='#C8402E'; this.style.transform='rotate(90deg)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.3)'; this.style.transform='rotate(0)'">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
     </button>
-    <button class="lightbox-nav prev" onclick="navigateLightbox(-1)" aria-label="Previous image" style="
-      position: absolute;
+    
+    <!-- Navigation Buttons -->
+    <button class="lightbox-nav prev" id="lightbox-prev" onclick="navigateLightbox(-1)" aria-label="Previous image" style="
+      position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      left: -70px;
-      width: 50px;
-      height: 50px;
+      left: 30px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.3);
@@ -400,27 +445,32 @@ $use_default_gallery = !$gallery_query->have_posts();
       align-items: center;
       justify-content: center;
       transition: all .2s;
-      z-index: 10001;
-    " onmouseover="this.style.background='#C8402E'; this.style.borderColor='#C8402E'" onmouseout="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.3)'">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      z-index: 100001;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    " onmouseover="this.style.background='#C8402E'; this.style.borderColor='#C8402E'; this.style.transform='translateY(-50%) scale(1.1)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.3)'; this.style.transform='translateY(-50%) scale(1)'">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
         <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
-    <img id="lightbox-image" class="lightbox-image" src="" alt="" style="
+    
+    <!-- Image -->
+    <img id="lightbox-img" class="lightbox-image" src="" alt="" style="
       max-width: 100%;
-      max-height: 90vh;
+      max-height: 100%;
       object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border-radius: 12px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
       display: block;
     " />
-    <button class="lightbox-nav next" onclick="navigateLightbox(1)" aria-label="Next image" style="
-      position: absolute;
+    
+    <button class="lightbox-nav next" id="lightbox-next" onclick="navigateLightbox(1)" aria-label="Next image" style="
+      position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      right: -70px;
-      width: 50px;
-      height: 50px;
+      right: 30px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.3);
@@ -430,21 +480,34 @@ $use_default_gallery = !$gallery_query->have_posts();
       align-items: center;
       justify-content: center;
       transition: all .2s;
-      z-index: 10001;
-    " onmouseover="this.style.background='#C8402E'; this.style.borderColor='#C8402E'" onmouseout="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.3)'">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      z-index: 100001;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    " onmouseover="this.style.background='#C8402E'; this.style.borderColor='#C8402E'; this.style.transform='translateY(-50%) scale(1.1)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.3)'; this.style.transform='translateY(-50%) scale(1)'">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
         <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
+    
+    <!-- Caption - Bottom Center -->
     <div id="lightbox-caption" class="lightbox-caption" style="
-      position: absolute;
-      bottom: -60px;
-      left: 0;
-      right: 0;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 800px;
       text-align: center;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 16px;
-      font-weight: 500;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 16px 32px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      z-index: 100001;
     "></div>
   </div>
 </div>
@@ -506,6 +569,15 @@ $use_default_gallery = !$gallery_query->have_posts();
   border-color: #C8402E;
   color: #ffffff;
 }
+/* Media Toggle Styles */
+.media-toggle:hover {
+  background: rgba(200, 64, 46, 0.1);
+  color: #C8402E;
+}
+.media-toggle.active {
+  background: #C8402E !important;
+  color: #ffffff !important;
+}
 @media (max-width: 1100px) {
   .gallery-grid {
     grid-template-columns: repeat(3, 1fr) !important;
@@ -551,6 +623,36 @@ const imageObserver = new IntersectionObserver((entries, observer) => {
   });
 });
 lazyImages.forEach(img => imageObserver.observe(img));
+
+// Media Type Toggle
+function toggleMediaType(type) {
+  const photosGrid = document.getElementById('gallery-photos');
+  const videosGrid = document.getElementById('gallery-videos');
+  const photosToggle = document.getElementById('toggle-photos');
+  const videosToggle = document.getElementById('toggle-videos');
+  
+  if (type === 'photos') {
+    photosGrid.style.display = 'grid';
+    videosGrid.style.display = 'none';
+    photosToggle.classList.add('active');
+    videosToggle.classList.remove('active');
+    photosToggle.style.background = '#C8402E';
+    photosToggle.style.color = '#ffffff';
+    videosToggle.style.background = 'transparent';
+    videosToggle.style.color = '#6B7280';
+  } else {
+    photosGrid.style.display = 'none';
+    videosGrid.style.display = 'grid';
+    photosToggle.classList.remove('active');
+    videosToggle.classList.add('active');
+    photosToggle.style.background = 'transparent';
+    photosToggle.style.color = '#6B7280';
+    videosToggle.style.background = '#C8402E';
+    videosToggle.style.color = '#ffffff';
+  }
+  
+  updateCount();
+}
 
 // Gallery Filter
 function filterGallery(album, button) {
@@ -611,15 +713,46 @@ function initLightbox() {
   
   if (galleryPhotos) {
     galleryPhotos.addEventListener('click', (e) => {
+      console.log('Click detected on photos grid');
+      console.log('Click target:', e.target);
+      
       const galleryItem = e.target.closest('.gallery-item');
-      if (galleryItem && galleryItem.getAttribute('data-src')) {
-        e.preventDefault();
-        e.stopPropagation();
-        const allItems = Array.from(document.querySelectorAll('.gallery-item[data-type="photo"]'));
-        const index = allItems.indexOf(galleryItem);
-        if (index !== -1) {
-          openLightbox(index);
+      console.log('Gallery item found:', galleryItem);
+      
+      if (galleryItem) {
+        const dataSrc = galleryItem.getAttribute('data-src');
+        console.log('Data-src:', dataSrc);
+        
+        if (dataSrc) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Get all visible photo items
+          const allItems = Array.from(galleryPhotos.querySelectorAll('.gallery-item[data-type="photo"]')).filter(item => {
+            return item.style.display !== 'none';
+          });
+          
+          const index = allItems.indexOf(galleryItem);
+          console.log('Clicked item index:', index, 'Total items:', allItems.length);
+          
+          if (index !== -1) {
+            // Update gallery images with only visible items
+            galleryImages = allItems.map(item => ({
+              src: item.getAttribute('data-src'),
+              caption: item.getAttribute('data-caption') || 'Gallery Image',
+              element: item
+            }));
+            
+            console.log('Gallery images array:', galleryImages);
+            openLightbox(index);
+          } else {
+            console.error('Item not found in array');
+          }
+        } else {
+          console.error('No data-src attribute found');
         }
+      } else {
+        console.log('No gallery item found');
       }
     });
   }
@@ -630,9 +763,22 @@ function initLightbox() {
       if (galleryItem && galleryItem.getAttribute('data-src')) {
         e.preventDefault();
         e.stopPropagation();
-        const allItems = Array.from(document.querySelectorAll('.gallery-item'));
+        
+        // Get all visible video items
+        const allItems = Array.from(galleryVideos.querySelectorAll('.gallery-item')).filter(item => {
+          return item.style.display !== 'none';
+        });
+        
         const index = allItems.indexOf(galleryItem);
+        console.log('Clicked video index:', index, 'Total items:', allItems.length);
+        
         if (index !== -1) {
+          // Update gallery images with only visible items
+          galleryImages = allItems.map(item => ({
+            src: item.getAttribute('data-src'),
+            caption: item.getAttribute('data-caption') || 'Gallery Image',
+            element: item
+          }));
           openLightbox(index);
         }
       }
@@ -676,17 +822,30 @@ function updateGalleryImages() {
 }
 
 function updateCount() {
-  const visibleItems = Array.from(document.querySelectorAll('.gallery-item')).filter(item => {
-    return item.style.display !== 'none';
-  });
+  const photosGrid = document.getElementById('gallery-photos');
+  const videosGrid = document.getElementById('gallery-videos');
+  const isPhotosVisible = photosGrid.style.display !== 'none';
+  
+  let visibleItems;
+  if (isPhotosVisible) {
+    visibleItems = Array.from(photosGrid.querySelectorAll('.gallery-item')).filter(item => {
+      return item.style.display !== 'none';
+    });
+  } else {
+    visibleItems = Array.from(videosGrid.querySelectorAll('.gallery-item')).filter(item => {
+      return item.style.display !== 'none';
+    });
+  }
+  
   document.getElementById('count-number').textContent = visibleItems.length;
 }
 
 function openLightbox(index) {
-  updateGalleryImages(); // Refresh gallery images array
+  console.log('openLightbox called with index:', index);
+  console.log('galleryImages:', galleryImages);
   
   if (!galleryImages[index]) {
-    console.log('No image at index:', index);
+    console.error('No image at index:', index);
     return;
   }
   
@@ -696,7 +855,14 @@ function openLightbox(index) {
   const lightboxCaption = document.getElementById('lightbox-caption');
   const image = galleryImages[index];
   
+  console.log('Lightbox element:', lightbox);
+  console.log('Lightbox image element:', lightboxImage);
   console.log('Opening lightbox with image:', image);
+  
+  if (!lightbox || !lightboxImage) {
+    console.error('Lightbox elements not found!');
+    return;
+  }
   
   // Load the full resolution image
   lightboxImage.src = image.src;
@@ -706,6 +872,10 @@ function openLightbox(index) {
   lightbox.classList.add('active');
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  
+  console.log('Lightbox display:', lightbox.style.display);
+  console.log('Lightbox classes:', lightbox.className);
+  console.log('Lightbox opened successfully');
 }
 
 function closeLightbox() {
@@ -716,33 +886,43 @@ function closeLightbox() {
 }
 
 function navigateLightbox(direction) {
-  const visibleImages = galleryImages.filter(img => {
-    return img.element.style.display !== 'none';
-  });
+  if (galleryImages.length === 0) return;
   
-  if (visibleImages.length === 0) return;
+  currentImageIndex = currentImageIndex + direction;
   
-  const currentVisibleIndex = visibleImages.findIndex(img => img.src === galleryImages[currentImageIndex].src);
-  let newVisibleIndex = currentVisibleIndex + direction;
-  
-  if (newVisibleIndex < 0) {
-    newVisibleIndex = visibleImages.length - 1;
-  } else if (newVisibleIndex >= visibleImages.length) {
-    newVisibleIndex = 0;
+  if (currentImageIndex < 0) {
+    currentImageIndex = galleryImages.length - 1;
+  } else if (currentImageIndex >= galleryImages.length) {
+    currentImageIndex = 0;
   }
   
-  const newImage = visibleImages[newVisibleIndex];
-  currentImageIndex = galleryImages.findIndex(img => img.src === newImage.src);
-  
+  const image = galleryImages[currentImageIndex];
   const lightboxImage = document.getElementById('lightbox-image');
   const lightboxCaption = document.getElementById('lightbox-caption');
-  lightboxImage.src = newImage.src;
-  lightboxImage.alt = newImage.caption;
-  lightboxCaption.textContent = newImage.caption;
+  
+  lightboxImage.src = image.src;
+  lightboxImage.alt = image.caption;
+  lightboxCaption.textContent = image.caption;
+  
+  console.log('Navigated to image:', currentImageIndex);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Gallery page loaded');
   initLightbox();
+  
+  // Debug: Check if gallery items exist
+  const items = document.querySelectorAll('.gallery-item');
+  console.log('Total gallery items found:', items.length);
+  
+  // Ensure all gallery items are clickable
+  items.forEach((item, index) => {
+    console.log(`Item ${index}:`, {
+      hasDataSrc: !!item.getAttribute('data-src'),
+      dataSrc: item.getAttribute('data-src'),
+      caption: item.getAttribute('data-caption')
+    });
+  });
 });
 </script>
 
