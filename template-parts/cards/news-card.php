@@ -5,31 +5,31 @@
  * @package MYCO
  */
 
-$img_url   = myco_get_image_url(get_the_ID(), 'myco-card');
-$read_time = myco_get_field('article_read_time', false, '5 min read');
-$cats      = get_the_terms(get_the_ID(), 'news_category');
-$cat_name  = $cats && !is_wp_error($cats) ? $cats[0]->name : '';
+$img_url     = myco_get_image_url(get_the_ID(), 'myco-card');
+$read_time   = myco_get_field('article_read_time', false, '5 min read');
+$cats        = get_the_terms(get_the_ID(), 'news_category');
+$cat_name    = $cats && !is_wp_error($cats) ? $cats[0]->name : '';
+$excerpt     = has_excerpt() ? get_the_excerpt() : wp_trim_words(wp_strip_all_tags(get_the_content()), 22);
+$article_url = get_permalink();
 ?>
 
-<div class="bg-white rounded-2xl overflow-hidden transition-all duration-200"
-     style="box-shadow: 0 8px 24px rgba(20,25,67,0.08);"
-     onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(20,25,67,0.14)'"
-     onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(20,25,67,0.08)'">
-    <div class="aspect-[16/10] overflow-hidden">
+<article class="news-story-card">
+    <a href="<?php echo esc_url($article_url); ?>" class="news-story-card__media" aria-label="<?php echo esc_attr(get_the_title()); ?>">
         <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="w-full h-full object-cover" loading="lazy" />
-    </div>
-    <div class="p-6">
+    </a>
+    <div class="news-story-card__body">
         <?php if ($cat_name) : ?>
-        <span class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background: rgba(200,64,46,0.1); color: #C8402E;"><?php echo esc_html($cat_name); ?></span>
+        <span class="news-story-chip"><?php echo esc_html($cat_name); ?></span>
         <?php endif; ?>
-        <h3 class="text-lg font-bold mb-2" style="color: #141943;">
-            <a href="<?php the_permalink(); ?>" class="hover:text-myco-red transition-colors"><?php the_title(); ?></a>
+        <h3 class="news-story-card__title">
+            <a href="<?php echo esc_url($article_url); ?>" class="transition-colors"><?php the_title(); ?></a>
         </h3>
-        <p class="text-sm text-gray-500 leading-relaxed line-clamp-2 mb-4"><?php echo esc_html(get_the_excerpt()); ?></p>
-        <div class="flex items-center gap-4 text-xs text-gray-400">
+        <p class="news-story-card__excerpt line-clamp-3"><?php echo esc_html($excerpt); ?></p>
+        <div class="news-story-card__meta">
             <span><?php echo get_the_date(); ?></span>
             <span>&middot;</span>
             <span><?php echo esc_html($read_time); ?></span>
         </div>
+        <a href="<?php echo esc_url($article_url); ?>" class="news-story-card__cta pill-primary"><?php esc_html_e('Read Full Story', 'myco'); ?></a>
     </div>
-</div>
+</article>

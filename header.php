@@ -8,6 +8,8 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
+$is_mcyc_page = is_page('mcyc');
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -46,7 +48,14 @@ if (!defined('ABSPATH')) {
         </a>
 
         <!-- Desktop pill nav -->
-        <nav class="hidden md:flex items-center" aria-label="<?php esc_attr_e('Primary navigation', 'myco'); ?>">
+        <nav class="hidden md:flex items-center site-header-nav<?php echo $is_mcyc_page ? ' site-header-nav--mcyc' : ''; ?>" aria-label="<?php esc_attr_e('Primary navigation', 'myco'); ?>">
+            <?php if ($is_mcyc_page) : ?>
+                <a href="<?php echo esc_url(myco_get_page_url('mcyc', '/mcyc/')); ?>" class="pill-nav-mcyc-badge pill-nav-mcyc-badge--outside" aria-label="<?php esc_attr_e('MCYC page', 'myco'); ?>">
+                    <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/mcyc-logo.png')); ?>"
+                         alt="<?php esc_attr_e('MCYC', 'myco'); ?>"
+                         class="pill-nav-mcyc-badge-image" />
+                </a>
+            <?php endif; ?>
             <div class="pill-nav flex items-center" style="position: relative; z-index: 1; overflow: visible;">
                 <span class="pill-nav-bismillah" role="presentation" aria-hidden="true"
                       style="position: relative; z-index: 3; margin-right: 8px; padding-left: 13px; padding-right: 12px;">
@@ -55,18 +64,7 @@ if (!defined('ABSPATH')) {
                          class="pill-nav-bismillah-image"
                          style="position: relative; z-index: 4; height: 48px !important; width: auto; max-width: 320px !important;" />
                 </span>
-                <?php
-                if (has_nav_menu('primary')) {
-                    wp_nav_menu([
-                        'theme_location' => 'primary',
-                        'walker'         => new Walker_Pill_Nav(),
-                        'container'      => false,
-                        'items_wrap'     => '%3$s',
-                    ]);
-                } else {
-                    myco_fallback_menu();
-                }
-                ?>
+                <?php myco_render_primary_nav(); ?>
 
             </div>
         </nav>
@@ -87,18 +85,7 @@ if (!defined('ABSPATH')) {
     <div id="mobile-menu" class="hidden md:hidden px-8 pb-4" role="navigation" aria-label="<?php esc_attr_e('Mobile navigation', 'myco'); ?>">
         <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
             <nav class="flex flex-col p-2 gap-1">
-                <?php
-                if (has_nav_menu('primary')) {
-                    wp_nav_menu([
-                        'theme_location' => 'primary',
-                        'walker'         => new Walker_Mobile_Nav(),
-                        'container'      => false,
-                        'items_wrap'     => '%3$s',
-                    ]);
-                } else {
-                    myco_fallback_mobile_menu();
-                }
-                ?>
+                <?php myco_render_mobile_nav(); ?>
             </nav>
         </div>
     </div>

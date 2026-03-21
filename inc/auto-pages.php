@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 
 // Run on theme activation
 add_action('after_switch_theme', 'myco_setup_pages_and_menus');
+add_action('init', 'myco_sync_required_pages', 20);
 
 // Also provide an admin button to re-run setup
 add_action('admin_notices', 'myco_setup_admin_notice');
@@ -69,6 +70,12 @@ function myco_get_required_pages() {
             'template' => 'page-templates/template-contact.php',
             'content'  => 'Get in touch with MYCO.',
         ],
+        'mcyc' => [
+            'title'    => 'MCYC',
+            'slug'     => 'mcyc',
+            'template' => '',
+            'content'  => 'Learn more about MCYC. Full page design coming soon.',
+        ],
         'donate' => [
             'title'    => 'Donate',
             'slug'     => 'donate',
@@ -82,6 +89,35 @@ function myco_get_required_pages() {
             'content'  => 'MYCO Privacy Policy.',
         ],
     ];
+}
+
+/**
+ * Ensure newly introduced required pages exist on existing installs.
+ */
+function myco_sync_required_pages() {
+    $sync_version = '1.1';
+
+    if (get_option('myco_required_pages_sync_version') === $sync_version) {
+        return;
+    }
+
+    $pages         = myco_get_required_pages();
+    $created_pages = false;
+
+    foreach ($pages as $page_data) {
+        $existing = get_page_by_path($page_data['slug']);
+        $page_id  = myco_create_page_if_not_exists($page_data);
+
+        if (!$existing && !empty($page_id)) {
+            $created_pages = true;
+        }
+    }
+
+    if ($created_pages) {
+        flush_rewrite_rules();
+    }
+
+    update_option('myco_required_pages_sync_version', $sync_version);
 }
 
 /**
@@ -179,39 +215,86 @@ function myco_create_primary_menu($page_ids) {
         return;
     }
 
-    // Menu items in order
-    $menu_items = [
+    $position = 1;
+    $top_level_items = [
         'home'      => 'Home',
-        'about'     => 'About',
         'programs'  => 'Programs',
         'events'    => 'Events',
         'volunteer' => 'Volunteer',
-        'news'      => 'News',
-        'gallery'   => 'Gallery',
-        'contact'   => 'Contact',
-        'donate'    => 'Donate',
     ];
 
-    $position = 1;
-    foreach ($menu_items as $key => $label) {
-        if (!empty($page_ids[$key])) {
-            $item_data = [
+    foreach ($top_level_items as $key => $label) {
+        if (empty($page_ids[$key])) {
+            continue;
+        }
+
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-object-id' => $page_ids[$key],
+            'menu-item-object'    => 'page',
+            'menu-item-type'      => 'post_type',
+            'menu-item-title'     => $label,
+            'menu-item-status'    => 'publish',
+            'menu-item-position'  => $position++,
+        ]);
+    }
+
+    $about_parent_id = wp_update_nav_menu_item($menu_id, 0, [
+        'menu-item-type'     => 'custom',
+        'menu-item-url'      => '#',
+        'menu-item-title'    => 'About Us',
+        'menu-item-status'   => 'publish',
+        'menu-item-position' => $position++,
+    ]);
+
+    if (!is_wp_error($about_parent_id) && !empty($about_parent_id)) {
+        $about_children = [
+            'about'   => 'About',
+            'news'    => 'News',
+            'gallery' => 'Gallery',
+        ];
+
+        foreach ($about_children as $key => $label) {
+            if (empty($page_ids[$key])) {
+                continue;
+            }
+
+            wp_update_nav_menu_item($menu_id, 0, [
                 'menu-item-object-id' => $page_ids[$key],
                 'menu-item-object'    => 'page',
                 'menu-item-type'      => 'post_type',
                 'menu-item-title'     => $label,
                 'menu-item-status'    => 'publish',
-                'menu-item-position'  => $position,
-            ];
-
-            // Add special CSS class for Donate button
-            if ($key === 'donate') {
-                $item_data['menu-item-classes'] = 'donate-btn';
-            }
-
-            wp_update_nav_menu_item($menu_id, 0, $item_data);
-            $position++;
+                'menu-item-position'  => $position++,
+                'menu-item-parent-id' => $about_parent_id,
+            ]);
         }
+    }
+
+    $cta_items = [
+        ['key' => 'contact', 'label' => 'Contact'],
+        ['key' => 'mcyc', 'label' => 'MCYC', 'classes' => 'mcyc-btn'],
+        ['key' => 'donate', 'label' => 'Donate', 'classes' => 'donate-btn'],
+    ];
+
+    foreach ($cta_items as $item) {
+        if (empty($page_ids[$item['key']])) {
+            continue;
+        }
+
+        $item_data = [
+            'menu-item-object-id' => $page_ids[$item['key']],
+            'menu-item-object'    => 'page',
+            'menu-item-type'      => 'post_type',
+            'menu-item-title'     => $item['label'],
+            'menu-item-status'    => 'publish',
+            'menu-item-position'  => $position++,
+        ];
+
+        if (!empty($item['classes'])) {
+            $item_data['menu-item-classes'] = $item['classes'];
+        }
+
+        wp_update_nav_menu_item($menu_id, 0, $item_data);
     }
 
     // Assign menu to the primary location

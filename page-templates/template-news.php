@@ -38,22 +38,25 @@ $articles = new WP_Query([
             $cat_name = $cats && !is_wp_error($cats) ? $cats[0]->name : '';
         ?>
         <div class="mb-16">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-gray-50 rounded-3xl overflow-hidden" style="box-shadow: 0 8px 32px rgba(20,25,67,0.08);">
-                <div class="aspect-[16/10] overflow-hidden">
+            <div class="news-featured-panel">
+                <div class="news-featured-panel__media">
                     <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="w-full h-full object-cover" />
                 </div>
-                <div class="p-8 lg:p-10">
+                <div class="news-featured-panel__content">
                     <?php if ($cat_name) : ?>
-                    <span class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4" style="background: rgba(200,64,46,0.1); color: #C8402E;"><?php echo esc_html($cat_name); ?></span>
+                    <span class="news-story-chip"><?php echo esc_html($cat_name); ?></span>
                     <?php endif; ?>
-                    <h2 class="text-2xl lg:text-3xl font-black mb-4" style="color: #141943;">
+                    <h2 class="news-featured-panel__title">
                         <a href="<?php the_permalink(); ?>" class="hover:text-myco-red transition-colors"><?php the_title(); ?></a>
                     </h2>
-                    <p class="text-gray-500 leading-relaxed mb-6 line-clamp-3"><?php echo esc_html(get_the_excerpt()); ?></p>
-                    <div class="flex items-center gap-4 text-sm text-gray-400">
+                    <p class="news-featured-panel__excerpt line-clamp-3"><?php echo esc_html(get_the_excerpt()); ?></p>
+                    <div class="news-story-card__meta news-story-card__meta--featured">
                         <span><?php echo get_the_date(); ?></span>
                         <span>&middot;</span>
                         <span><?php echo esc_html($read_time); ?></span>
+                    </div>
+                    <div class="news-featured-panel__actions">
+                        <a href="<?php the_permalink(); ?>" class="pill-primary"><?php esc_html_e('Read Full Story', 'myco'); ?></a>
                     </div>
                 </div>
             </div>
@@ -71,7 +74,7 @@ $articles = new WP_Query([
         <?php endif; ?>
 
         <!-- News Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="news-grid">
+        <div class="news-grid" id="news-grid">
             <?php if ($articles->have_posts()) : while ($articles->have_posts()) : $articles->the_post();
                 $cats = get_the_terms(get_the_ID(), 'news_category');
                 $cat_slugs = $cats && !is_wp_error($cats) ? implode(' ', wp_list_pluck($cats, 'slug')) : '';
@@ -81,7 +84,7 @@ $articles = new WP_Query([
             </div>
             <?php endwhile; wp_reset_postdata();
             else : ?>
-            <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; background: #F5F6FA; border-radius: 24px;">
+            <div class="news-empty-state">
                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D1D5DB" stroke-width="1.5" style="margin: 0 auto 20px; display: block;"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
                 <h3 style="font-size: 22px; font-weight: 800; color: #141943; margin-bottom: 12px;"><?php esc_html_e('No Articles Yet', 'myco'); ?></h3>
                 <p style="font-size: 16px; color: #6B7280; margin-bottom: 28px; max-width: 400px; margin-left: auto; margin-right: auto;"><?php esc_html_e("We're working on bringing you the latest MYCO news and community stories. Check back soon!", 'myco'); ?></p>

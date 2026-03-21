@@ -36,6 +36,10 @@ function myco_enqueue_styles() {
     $gallery_ver   = file_exists($gallery_file) ? filemtime($gallery_file) : MYCO_VERSION;
     $accordion_file = MYCO_DIR . '/assets/css/accordion.css';
     $accordion_ver  = file_exists($accordion_file) ? filemtime($accordion_file) : MYCO_VERSION;
+    $mcyc_file      = MYCO_DIR . '/assets/css/mcyc.css';
+    $mcyc_ver       = file_exists($mcyc_file) ? filemtime($mcyc_file) : MYCO_VERSION;
+    $news_file      = MYCO_DIR . '/assets/css/news.css';
+    $news_ver       = file_exists($news_file) ? filemtime($news_file) : MYCO_VERSION;
 
     if (file_exists($tailwind_file) && filesize($tailwind_file) > 0) {
         wp_enqueue_style(
@@ -78,6 +82,14 @@ function myco_enqueue_styles() {
     if (is_page_template('page-templates/template-events.php') || is_post_type_archive('event') || is_singular('event')) {
         wp_enqueue_style('myco-events', MYCO_URI . '/assets/css/events.css', ['myco-custom'], $events_ver);
     }
+
+    if (is_page('mcyc')) {
+        wp_enqueue_style('myco-mcyc', MYCO_URI . '/assets/css/mcyc.css', ['myco-custom'], $mcyc_ver);
+    }
+
+    if (is_page_template('page-templates/template-news.php') || is_post_type_archive('news_article') || is_singular('news_article')) {
+        wp_enqueue_style('myco-news', MYCO_URI . '/assets/css/news.css', ['myco-custom'], $news_ver);
+    }
 }
 
 function myco_enqueue_scripts() {
@@ -93,6 +105,8 @@ function myco_enqueue_scripts() {
     $accordion_ver  = file_exists($accordion_file) ? filemtime($accordion_file) : MYCO_VERSION;
     $newsletter_file = MYCO_DIR . '/assets/js/newsletter.js';
     $newsletter_ver  = file_exists($newsletter_file) ? filemtime($newsletter_file) : MYCO_VERSION;
+    $mcyc_file       = MYCO_DIR . '/assets/js/mcyc.js';
+    $mcyc_ver        = file_exists($mcyc_file) ? filemtime($mcyc_file) : MYCO_VERSION;
 
     // Mobile navigation (all pages)
     wp_enqueue_script(
@@ -174,12 +188,65 @@ function myco_enqueue_scripts() {
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('myco_newsletter_nonce'),
     ]);
+
+    if (is_page('mcyc')) {
+        wp_register_script(
+            'myco-mcyc-tailwind',
+            'https://cdn.tailwindcss.com',
+            [],
+            null,
+            false
+        );
+        wp_add_inline_script('myco-mcyc-tailwind', <<<'JS'
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: "#141943",
+        "navy-dark": "#0D1230",
+        red: {
+          DEFAULT: "#C8402E",
+          hover: "#B03525"
+        }
+      },
+      fontFamily: {
+        inter: ["Inter", "sans-serif"]
+      },
+      boxShadow: {
+        panel: "0 18px 52px rgba(20,25,67,0.10)",
+        heavy: "0 28px 80px rgba(20,25,67,0.18)"
+      }
+    }
+  }
+};
+JS, 'before');
+        wp_enqueue_script('myco-mcyc-tailwind');
+
+        wp_enqueue_script(
+            'myco-mcyc',
+            MYCO_URI . '/assets/js/mcyc.js',
+            [],
+            $mcyc_ver,
+            true
+        );
+        wp_localize_script('myco-mcyc', 'myco_mcyc', [
+            'donate_url'    => myco_get_page_url('donate', '/donate/'),
+            'volunteer_url' => myco_get_page_url('volunteer', '/volunteer/'),
+            'contact_url'   => myco_get_contact_page_url(),
+            'gallery_url'   => myco_get_page_url('gallery', '/gallery/'),
+            'fund'          => 'mcyc',
+        ]);
+    }
 }
 
 // Tailwind CDN fallback: inject script if compiled CSS doesn't exist
 add_action('wp_head', 'myco_tailwind_cdn_fallback', 1);
 
 function myco_tailwind_cdn_fallback() {
+    if (is_page('mcyc')) {
+        return;
+    }
+
     $tailwind_file = MYCO_DIR . '/assets/css/tailwind-output.css';
     if (!file_exists($tailwind_file) || filesize($tailwind_file) === 0) {
         echo '<script src="https://cdn.tailwindcss.com"></script>' . "\n";

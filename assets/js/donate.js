@@ -1,28 +1,28 @@
-/**
+﻿/**
  * MYCO Donation Form + Stripe Integration
  *
  * Flow:
- *  Step 1 – User picks amount, fund, type  → clicks "Complete Donation"
- *  Step 2 – AJAX creates PaymentIntent     → Stripe Element mounts
- *  Step 3 – User fills card details        → clicks "Complete Donation"
- *  Step 4 – stripe.confirmPayment()        → redirects to ?donation=success
+ *  Step 1 – User picks amount, fund, type  ? clicks "Complete Donation"
+ *  Step 2 – AJAX creates PaymentIntent     ? Stripe Element mounts
+ *  Step 3 – User fills card details        ? clicks "Complete Donation"
+ *  Step 4 – stripe.confirmPayment()        ? redirects to ?donation=success
  */
 (function () {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
 
-    /* ── Guard: only run on donate page ────────────────────────── */
+    /* -- Guard: only run on donate page -------------------------- */
     var form = document.getElementById('donation-form');
     if (!form) return;
 
-    /* ── Config from wp_localize_script ────────────────────────── */
+    /* -- Config from wp_localize_script -------------------------- */
     var cfg = (typeof myco_donate !== 'undefined') ? myco_donate : {};
     var ajaxUrl   = cfg.ajax_url   || '/wp-admin/admin-ajax.php';
     var nonce     = cfg.nonce      || '';
     var stripeKey = cfg.stripe_key || '';
 
-    /* ── State ──────────────────────────────────────────────────── */
+    /* -- State ---------------------------------------------------- */
     var state = {
       donationType  : 'one-time',
       amount        : 0,
@@ -33,7 +33,7 @@
       step          : 1
     };
 
-    /* ── DOM refs ───────────────────────────────────────────────── */
+    /* -- DOM refs ------------------------------------------------- */
     var amountBtns        = document.querySelectorAll('.amt-btn');
     var customContainer   = document.getElementById('custom-amount-container');
     var customInput       = document.getElementById('custom-amount');
@@ -54,13 +54,20 @@
     var step1             = document.getElementById('donation-step-1');
     var step2             = document.getElementById('donation-step-2');
 
-    /* ── Stripe objects (set in Step 2) ─────────────────────────── */
+    if (fundSelect && fundSelect.value) {
+      state.fund = fundSelect.value;
+    }
+    if (coverFeesCheckbox) {
+      state.coverFees = coverFeesCheckbox.checked;
+    }
+
+    /* -- Stripe objects (set in Step 2) --------------------------- */
     var stripe   = null;
     var elements = null;
 
-    /* ─────────────────────────────────────────────────────────────
+    /* -------------------------------------------------------------
        STEP 1 — FORM INTERACTIONS
-    ───────────────────────────────────────────────────────────── */
+    ------------------------------------------------------------- */
 
     /* Donation type tabs */
     donationTabs.forEach(function (tab) {
@@ -134,7 +141,7 @@
       });
     }
 
-    /* ── Summary Calculator ──────────────────────────────────────── */
+    /* -- Summary Calculator ---------------------------------------- */
     function updateSummary() {
       var amount = state.amount;
       var fees   = state.coverFees ? Math.round(amount * state.feePercentage) / 100 : 0;
@@ -151,9 +158,9 @@
       }
     }
 
-    /* ─────────────────────────────────────────────────────────────
+    /* -------------------------------------------------------------
        "PROCEED TO PAYMENT" — Create PaymentIntent + Mount Element
-    ───────────────────────────────────────────────────────────── */
+    ------------------------------------------------------------- */
 
     if (proceedBtn) {
       proceedBtn.addEventListener('click', function (e) {
@@ -206,7 +213,7 @@
       });
     }
 
-    /* ── Mount Stripe Payment Element ───────────────────────────── */
+    /* -- Mount Stripe Payment Element ----------------------------- */
     function mountPaymentElement(clientSecret, totalAmount) {
       if (!stripeKey) {
         showError('Online donations are not configured right now. Please contact our team.');
@@ -268,7 +275,7 @@
       paymentElement.mount('#payment-element');
     }
 
-    /* ── Back to Form ───────────────────────────────────────────── */
+    /* -- Back to Form --------------------------------------------- */
     if (backBtn) {
       backBtn.addEventListener('click', function () {
         if (step2) step2.style.display = 'none';
@@ -280,9 +287,9 @@
       });
     }
 
-    /* ─────────────────────────────────────────────────────────────
+    /* -------------------------------------------------------------
        "COMPLETE DONATION" — Confirm Payment
-    ───────────────────────────────────────────────────────────── */
+    ------------------------------------------------------------- */
 
     if (completeBtn) {
       completeBtn.addEventListener('click', function (e) {
@@ -309,9 +316,9 @@
       });
     }
 
-    /* ─────────────────────────────────────────────────────────────
+    /* -------------------------------------------------------------
        HELPERS
-    ───────────────────────────────────────────────────────────── */
+    ------------------------------------------------------------- */
 
     function setLoading(btn, loading, text) {
       if (!btn) return;
@@ -341,7 +348,58 @@
       }
     }
 
-    /* ── Init ───────────────────────────────────────────────────── */
+    function applyPrefillFromQuery() {
+      var params = new URLSearchParams(window.location.search);
+      var requestedType = params.get('type');
+      var requestedFund = params.get('fund');
+      var requestedAmount = parseFloat(params.get('amount') || '0');
+
+      if (requestedType) {
+        donationTabs.forEach(function (tab) {
+          if (tab.dataset.type === requestedType) {
+            tab.click();
+          }
+        });
+      }
+
+      if (requestedFund && fundSelect) {
+        var hasFund = Array.prototype.some.call(fundSelect.options, function (option) {
+          return option.value === requestedFund;
+        });
+
+        if (hasFund) {
+          fundSelect.value = requestedFund;
+          state.fund = requestedFund;
+        }
+      }
+
+      if (requestedAmount > 0) {
+        var matchedButton = false;
+
+        amountBtns.forEach(function (btn) {
+          if (btn.dataset.amount !== 'custom' && parseFloat(btn.dataset.amount) === requestedAmount) {
+            btn.click();
+            matchedButton = true;
+          }
+        });
+
+        if (!matchedButton) {
+          var customBtn = document.querySelector('.amt-btn[data-amount="custom"]');
+          if (customBtn) {
+            customBtn.click();
+          }
+          if (customInput) {
+            customInput.value = requestedAmount;
+          }
+          state.amount = requestedAmount;
+        }
+      }
+    }
+
+    /* -- Init ----------------------------------------------------- */
+    applyPrefillFromQuery();
     updateSummary();
   });
 })();
+
+
