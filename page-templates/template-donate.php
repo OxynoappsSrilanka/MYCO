@@ -180,15 +180,30 @@ $trust_icon_allowed = [
 $render_trust_badge_icon = static function (string $label): string {
     $label = strtolower(trim($label));
 
+    // Tax Deductible — document with lines (matches reference)
     if (strpos($label, 'tax') !== false || strpos($label, 'deduct') !== false) {
-        return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="3" stroke="currentColor" stroke-width="1.9"/><path d="M9 8H15" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M9 12H15" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M9 16H13" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+        return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+             . '<path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+             . '<path d="M14 3v5h5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+             . '<path d="M10 13h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>'
+             . '<path d="M10 17h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>'
+             . '</svg>';
     }
 
+    // 501(c)(3) Nonprofit — building/house icon (matches reference)
     if (strpos($label, '501') !== false || strpos($label, 'nonprofit') !== false || strpos($label, 'charit') !== false) {
-        return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 20H20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 4L5 8H19L12 4Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M7 9V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 9V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M17 9V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+        return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+             . '<path d="M3 10.5L12 4l9 6.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+             . '<path d="M5 9.5V20h14V9.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+             . '<path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+             . '</svg>';
     }
 
-    return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3L5 6.5V11.2C5 15.64 8.02 19.8 12 20.65C15.98 19.8 19 15.64 19 11.2V6.5L12 3Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 11.6L11.3 13.4L14.9 9.8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    // SSL Encrypted — padlock (matches reference)
+    return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+         . '<rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+         . '<path d="M8 11V8a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+         . '</svg>';
 };
 
 // --- Donation Status (from Stripe redirect) ---
@@ -198,14 +213,14 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
 <!-- ===============================================================
      SECTION 1 - HERO WITH INTEGRATED DONATE FORM (First View)
      =============================================================== -->
-<section class="w-full relative overflow-hidden" style="background: #141943; min-height: auto; display: flex; align-items: center; padding: 60px 0 80px 0;">
+<section class="donate-hero-section w-full relative overflow-hidden" style="background: #141943; display: flex; align-items: center;">
     <div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         <img src="<?php echo esc_url($hero_bg_image); ?>"
              alt=""
              class="w-full h-full object-cover"
-             style="opacity: 0.14; object-position: center 50%; filter: saturate(0.88) contrast(1.04);" />
+             style="opacity: 0.38; object-position: center 50%; filter: saturate(0.9) contrast(1.05);" />
     </div>
-    <div class="absolute inset-0 z-0" style="background: linear-gradient(135deg, rgba(15,21,53,0.94) 0%, rgba(26,37,85,0.92) 50%, rgba(42,62,106,0.90) 100%);" aria-hidden="true"></div>
+    <div class="absolute inset-0 z-0" style="background: linear-gradient(135deg, rgba(15,21,53,0.78) 0%, rgba(26,37,85,0.72) 50%, rgba(42,62,106,0.68) 100%);" aria-hidden="true"></div>
     
     <!-- Background Decoration -->
     <div class="absolute inset-0 z-0" style="opacity: 0.15;">
@@ -213,7 +228,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
         <div style="position: absolute; bottom: 20%; right: 10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; filter: blur(80px);"></div>
     </div>
 
-    <div class="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+    <div class="max-w-[1380px] mx-auto relative z-10 w-full" style="padding-left: clamp(1.25rem, 4vw, 5rem); padding-right: clamp(1.25rem, 4vw, 5rem);">
         
         <!-- Two Column Layout: Content Left, Donate Form Right -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start">
@@ -244,7 +259,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
                 </p>
 
                 <!-- Stats Row -->
-                <div class="grid grid-cols-3 gap-5 mb-6">
+                <div class="donate-hero-stats grid grid-cols-3 gap-5 mb-6">
                     <?php foreach ($hero_stats as $stat) : ?>
                     <div class="text-center lg:text-left">
                         <div class="text-2xl md:text-3xl font-black text-white mb-1">
@@ -258,37 +273,26 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
                 </div>
 
                 <!-- Trust Indicators -->
-                <div class="donate-hero-trust-list">
-                    <?php foreach ($display_trust_badges as $badge) : ?>
-                    <div class="donate-hero-trust-item">
-                        <span class="donate-hero-trust-icon" aria-hidden="true">
-                            <?php echo wp_kses($render_trust_badge_icon($badge['label'] ?? ''), $trust_icon_allowed); ?>
-                        </span>
-                        <span class="donate-hero-trust-label">
-                            <?php echo esc_html($badge['label']); ?>
-                        </span>
+                <div class="trust-strip hero-trust-strip">
+                    <div class="trust-strip__inner">
+                        <?php foreach ($display_trust_badges as $badge) : ?>
+                        <div class="trust-item">
+                            <span class="trust-icon" aria-hidden="true">
+                                <?php echo wp_kses($render_trust_badge_icon($badge['label'] ?? ''), $trust_icon_allowed); ?>
+                            </span>
+                            <span class="trust-text">
+                                <?php echo esc_html($badge['label']); ?>
+                            </span>
+                        </div>
+                        <?php endforeach; ?>
                     </div>
-                    <?php endforeach; ?>
                 </div>
 
             </div>
 
             <!-- RIGHT COLUMN: Donate Form Widget -->
             <div class="flex items-center justify-center lg:justify-end">
-                <div id="donation-widget" class="donation-widget w-full max-w-full p-6" style="max-width: 680px;">
-                    
-                    <!-- Form Header -->
-                    <div class="text-center mb-5">
-                        <p class="text-xs font-bold text-red-600 uppercase tracking-wide mb-1">
-                            <?php esc_html_e('Make an Impact', 'myco'); ?>
-                        </p>
-                        <h2 class="text-xl font-black text-navy-800 mb-1">
-                            <?php echo esc_html($widget_title); ?>
-                        </h2>
-                        <p class="text-xs text-gray-600">
-                            <?php echo esc_html($widget_subtitle); ?>
-                        </p>
-                    </div>
+                <div id="donation-widget" class="donation-widget w-full" style="max-width: 680px;">
 
                     <!-- ── Success State ── -->
                     <?php
@@ -337,247 +341,109 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
                         </p>
                     </div>
 
-                    <!-- ── Main form area (hidden on success) ── -->
+                    <!-- ── Main form ── -->
                     <div id="donation-form" style="<?php echo ($donation_status === 'success') ? 'display: none;' : ''; ?>">
                         <?php wp_nonce_field('myco_donate_nonce', 'donate_nonce'); ?>
 
-                        <!-- ═══════════════════════════════════════════════
-                             STEP 1 — Two Column Layout: Form (Left) + Summary (Right)
-                        ═══════════════════════════════════════════════ -->
                         <div id="donation-step-1">
-                            
-                            <!-- Two Column Grid -->
-                            <div class="donation-form-grid" style="display: grid; grid-template-columns: 1fr 260px; gap: 32px; align-items: start;">
-                                
-                                <!-- ═══ LEFT COLUMN: Form Fields ═══ -->
-                                <div class="donation-form-panel" style="display: flex; flex-direction: column; gap: 16px;">
 
-                            <!-- Donation Type Tabs -->
-                            <div>
-                                <label class="form-label" style="font-size: 11px; font-weight: 600; margin-bottom: 6px; display: block; color: #6B7280;">
-                                    <?php esc_html_e('Donation Type', 'myco'); ?>
-                                </label>
-                                <div style="display: flex; gap: 4px; background: #F3F4F6; border-radius: 8px; padding: 3px;">
-                                    <button type="button" class="donation-tab active" id="one-time-tab" data-type="one-time" style="flex: 1; padding: 8px; border: none; background: transparent; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; color: inherit;">
-                                        <?php esc_html_e('One-Time', 'myco'); ?>
-                                    </button>
-                                    <button type="button" class="donation-tab" id="monthly-tab" data-type="monthly" style="flex: 1; padding: 8px; border: none; background: transparent; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; color: inherit;">
-                                        <?php esc_html_e('Monthly', 'myco'); ?>
-                                    </button>
+                            <!-- Widget Header: Title left, Tabs right -->
+                            <div class="dw-header">
+                                <div>
+                                    <h2 class="dw-title"><?php echo esc_html($widget_title); ?></h2>
+                                    <p class="dw-subtitle"><?php echo esc_html($widget_subtitle); ?></p>
+                                </div>
+                                <div class="dw-tabs">
+                                    <button type="button" class="dw-tab active" id="one-time-tab" data-type="one-time"><?php esc_html_e('One-time', 'myco'); ?></button>
+                                    <button type="button" class="dw-tab" id="monthly-tab" data-type="monthly"><?php esc_html_e('Monthly', 'myco'); ?></button>
                                 </div>
                             </div>
 
-                            <!-- Preset Amount Buttons -->
-                            <div>
-                                <label class="form-label" style="font-size: 11px; font-weight: 600; margin-bottom: 6px; display: block; color: #6B7280;">
-                                    <?php esc_html_e('Select Amount', 'myco'); ?>
-                                </label>
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 6px;">
-                                    <?php
-                                    $first_three = array_slice($preset_amounts, 0, 3);
-                                    foreach ($first_three as $preset) :
-                                        $raw = intval($preset['amount']); ?>
-                                    <button type="button" class="amt-btn" data-amount="<?php echo esc_attr($raw); ?>" style="padding: 10px 6px; border: 2px solid #E5E7EB; border-radius: 8px; background: white; color: #374151; font-weight: 700; font-size: 13px; cursor: pointer; transition: all .2s;">
-                                        $<?php echo number_format($raw); ?>
-                                    </button>
-                                    <?php endforeach; ?>
-                                </div>
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 6px;">
-                                    <?php
-                                    $next_three = array_slice($preset_amounts, 3, 3);
-                                    foreach ($next_three as $preset) :
-                                        $raw = intval($preset['amount']); ?>
-                                    <button type="button" class="amt-btn" data-amount="<?php echo esc_attr($raw); ?>" style="padding: 10px 6px; border: 2px solid #E5E7EB; border-radius: 8px; background: white; color: #374151; font-weight: 700; font-size: 13px; cursor: pointer; transition: all .2s;">
-                                        $<?php echo number_format($raw); ?>
-                                    </button>
-                                    <?php endforeach; ?>
-                                </div>
-                                <button type="button" class="amt-btn" data-amount="custom" style="width: 100%; padding: 10px; border: 2px solid #E5E7EB; border-radius: 8px; background: white; color: #374151; font-weight: 700; font-size: 12px; cursor: pointer; transition: all .2s;">
-                                    <?php esc_html_e('Custom Amount', 'myco'); ?>
-                                </button>
-                            </div>
+                            <!-- Two Column Body -->
+                            <div class="donation-form-grid">
 
-                            <!-- Custom Amount Input -->
-                            <div id="custom-amount-container" style="display: none;">
-                                <label class="form-label" for="custom-amount" style="font-size: 11px; font-weight: 600; margin-bottom: 6px; display: block; color: #6B7280;">
-                                    <?php esc_html_e('Enter Custom Amount', 'myco'); ?>
-                                </label>
-                                <div style="position: relative;">
-                                    <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; font-weight: 700; color: #6B7280;">$</span>
-                                    <input type="number" id="custom-amount" name="custom_amount" class="form-input"
-                                           placeholder="<?php esc_attr_e('Enter amount', 'myco'); ?>"
-                                           min="1" step="0.01" style="width: 100%; padding: 10px 10px 10px 34px; border: 2px solid #E5E7EB; border-radius: 8px; font-size: 16px; font-weight: 700;"/>
-                                </div>
-                            </div>
+                                <!-- LEFT: Amounts + Fund + Fees -->
+                                <div class="donation-form-panel">
 
-                            <!-- Fund Selection -->
-                            <div>
-                                <label class="form-label" for="fund-select" style="font-size: 11px; font-weight: 600; margin-bottom: 6px; display: block; color: #6B7280;">
-                                    <?php esc_html_e('Select Fund', 'myco'); ?>
-                                </label>
-                                <select id="fund-select" name="fund" class="form-select" style="width: 100%; padding: 10px 14px; border: 2px solid #E5E7EB; border-radius: 8px; font-size: 12px; font-weight: 600; background: white; color: #374151;">
-                                    <?php foreach ($donate_funds as $fund_item) : ?>
-                                    <option value="<?php echo esc_attr($fund_item['value']); ?>">
-                                        <?php echo esc_html($fund_item['label']); ?>
-                                    </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <!-- Cover Processing Fees -->
-                            <div class="donation-fee-card" style="padding: 10px 12px; background: rgba(200,64,46,0.06); border-radius: 8px; border: 1px solid rgba(200,64,46,0.15);">
-                                <label class="checkbox-label" style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
-                                    <input type="checkbox" id="cover-fees" name="cover_fees" value="1" checked style="margin-top: 1px; accent-color: #C8402E; width: 14px; height: 14px;"/>
-                                    <span style="font-size: 11px; line-height: 1.3; color: #374151;">
-                                        <strong style="color:#141943; display: block; margin-bottom: 1px;"><?php esc_html_e('Support processing costs', 'myco'); ?></strong>
-                                        <span style="color:#6B7280;">(+<?php echo esc_html($fee_percentage); ?>%) — <?php esc_html_e('so 100% goes to MYCO', 'myco'); ?></span>
-                                    </span>
-                                </label>
-                            </div>
-
-                                </div><!-- /LEFT COLUMN -->
-
-                                <!-- ═══ RIGHT COLUMN: Summary + Email + Button ═══ -->
-                                <div class="donation-side-panel" style="display: flex; flex-direction: column; gap: 10px;">
-
-                            <!-- Donation Summary Box -->
-                            <div>
-                                <label class="form-label" style="font-size: 11px; font-weight: 600; margin-bottom: 6px; display: block; color: #6B7280;">
-                                    <?php esc_html_e('Donation Summary', 'myco'); ?>
-                                </label>
-                            <div id="donation-summary" class="donation-summary donation-summary-card" style="padding: 14px 16px; border-radius: 10px;">
-                                <div class="summary-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                    <span style="font-size:11px; font-weight:600; color:#6B7280;"><?php esc_html_e('Donation:', 'myco'); ?></span>
-                                    <span id="summary-amount" style="font-size:16px; font-weight:800; color:#141943;">$0.00</span>
-                                </div>
-                                <div class="summary-row" id="fee-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                                    <span style="font-size:10px; font-weight:500; color:#6B7280;">
-                                        <?php printf(esc_html__('Processing support (%s%%):', 'myco'), esc_html($fee_percentage)); ?>
-                                    </span>
-                                    <span id="summary-fees" style="font-size:12px; font-weight:700; color:#6B7280;">$0.00</span>
-                                </div>
-                                <div class="summary-total" style="padding-top: 10px; border-top: 2px solid #D1D5DB;">
-                                    <div class="summary-row" style="display: flex; justify-content: space-between; align-items: center;">
-                                        <span style="font-size:12px; font-weight:700; color:#141943;"><?php esc_html_e('Total:', 'myco'); ?></span>
-                                        <span id="summary-total" style="font-size:24px; font-weight:900; color:#C8402E; line-height: 1;">$0.00</span>
+                                    <p class="dw-label"><?php esc_html_e('SELECT AMOUNT', 'myco'); ?></p>
+                                    <div class="dw-amounts">
+                                        <?php foreach ($preset_amounts as $preset) :
+                                            $raw = intval($preset['amount']); ?>
+                                        <button type="button" class="amt-btn" data-amount="<?php echo esc_attr($raw); ?>">$<?php echo number_format($raw); ?></button>
+                                        <?php endforeach; ?>
                                     </div>
-                                </div>
-                            </div>
-                            </div>
 
-                            <!-- Email Address -->
-                            <div>
-                                <label class="form-label" for="donor-email" style="font-size: 10px; font-weight: 600; margin-bottom: 5px; display: block; color: #374151;">
-                                    <?php esc_html_e('Email Address', 'myco'); ?>
-                                    <span style="font-weight:400; color:#9CA3AF; font-size:9px;"> — <?php esc_html_e('optional', 'myco'); ?></span>
-                                </label>
-                                <input type="email" id="donor-email" name="donor_email" class="form-input"
-                                       placeholder="<?php esc_attr_e('your@email.com', 'myco'); ?>"
-                                       autocomplete="email" style="width: 100%; padding: 8px 10px; border: 2px solid #E5E7EB; border-radius: 7px; font-size: 12px;"/>
-                                <p style="font-size:9px; color:#9CA3AF; margin-top:3px; line-height:1.2;">
-                                    <?php esc_html_e('For your tax receipt', 'myco'); ?>
-                                </p>
-                            </div>
+                                    <p class="dw-label" style="margin-top:14px;"><?php esc_html_e('CUSTOM AMOUNT', 'myco'); ?></p>
+                                    <div class="dw-custom-wrap">
+                                        <span class="dw-dollar">$</span>
+                                        <input type="number" id="custom-amount" name="custom_amount" class="dw-input"
+                                               placeholder="<?php esc_attr_e('Enter amount', 'myco'); ?>"
+                                               min="1" step="0.01" />
+                                    </div>
 
-                            <!-- Monthly Notice -->
-                            <div id="monthly-notice" style="display:none; background:rgba(200,64,46,.06); border:1px solid rgba(200,64,46,.18); border-radius:7px; padding:6px 8px;">
-                                <p style="font-size:9px; color:#374151; margin:0; line-height:1.3;">
-                                    <strong style="color:#C8402E;"><?php esc_html_e('Monthly', 'myco'); ?></strong> —
-                                    <?php esc_html_e('Renews each month', 'myco'); ?>
-                                </p>
-                            </div>
+                                    <p class="dw-label" style="margin-top:14px;"><?php esc_html_e('SELECT FUND', 'myco'); ?></p>
+                                    <select id="fund-select" name="fund" class="dw-select">
+                                        <?php foreach ($donate_funds as $fund_item) : ?>
+                                        <option value="<?php echo esc_attr($fund_item['value']); ?>"><?php echo esc_html($fund_item['label']); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
 
-                            <!-- Complete Donation Button -->
-                            <button type="button" id="complete-donation" class="pill-primary"
-                                    style="width:100%; font-size:13px; padding:10px; opacity:0.5; cursor:not-allowed; border-radius: 8px; font-weight: 700;" disabled>
-                                <?php esc_html_e('Continue to Donate', 'myco'); ?>
-                            </button>
+                                    <div class="dw-fee-card">
+                                        <label class="dw-fee-label">
+                                            <input type="checkbox" id="cover-fees" name="cover_fees" value="1" checked />
+                                            <span class="dw-fee-text">
+                                                <strong><?php esc_html_e('Support processing costs', 'myco'); ?></strong>
+                                                <span>(+<?php echo esc_html($fee_percentage); ?>%) — <?php esc_html_e('so 100% goes to MYCO', 'myco'); ?></span>
+                                            </span>
+                                        </label>
+                                    </div>
 
-                            <!-- Secured Badge -->
-                            <p style="font-size:9px; color:#9CA3AF; text-align:center; margin:0;">
-                                🔒 <?php esc_html_e('Secure donation processing by Stripe', 'myco'); ?>
-                            </p>
+                                </div><!-- /LEFT -->
 
-                                </div><!-- /RIGHT COLUMN -->
+                                <!-- RIGHT: Summary + Email + Button -->
+                                <div class="donation-side-panel">
 
-                            </div><!-- /Two Column Grid -->
+                                    <div id="donation-summary" class="dw-summary">
+                                        <p class="dw-label"><?php esc_html_e('SUMMARY', 'myco'); ?></p>
+                                        <div class="dw-summary-row">
+                                            <span><?php esc_html_e('Donation:', 'myco'); ?></span>
+                                            <strong id="summary-amount">$0.00</strong>
+                                        </div>
+                                        <div class="dw-summary-row" id="fee-row">
+                                            <span><?php printf(esc_html__('Processing (%s%%):', 'myco'), esc_html($fee_percentage)); ?></span>
+                                            <span id="summary-fees" class="dw-fee-val">$0.00</span>
+                                        </div>
+                                        <div class="dw-summary-total">
+                                            <span><?php esc_html_e('Total:', 'myco'); ?></span>
+                                            <span id="summary-total">$0.00</span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="dw-email-label" for="donor-email">
+                                            <?php esc_html_e('Email', 'myco'); ?> <span class="dw-optional">— <?php esc_html_e('optional', 'myco'); ?></span>
+                                        </label>
+                                        <input type="email" id="donor-email" name="donor_email" class="dw-input"
+                                               placeholder="<?php esc_attr_e('your@email.com', 'myco'); ?>"
+                                               autocomplete="email" />
+                                        <p class="dw-hint"><?php esc_html_e('For your tax receipt', 'myco'); ?></p>
+                                    </div>
+
+                                    <div id="monthly-notice" class="dw-monthly-notice" style="display:none;">
+                                        <strong><?php esc_html_e('Monthly', 'myco'); ?></strong> — <?php esc_html_e('Renews each month', 'myco'); ?>
+                                    </div>
+
+                                    <button type="button" id="complete-donation" class="dw-cta" disabled>
+                                        <?php esc_html_e('Continue to Donate', 'myco'); ?>
+                                    </button>
+
+                                    <p class="dw-secure">🔒 <?php esc_html_e('Secure processing by Stripe', 'myco'); ?></p>
+
+                                </div><!-- /RIGHT -->
+
+                            </div><!-- /grid -->
 
                         </div><!-- /#donation-step-1 -->
-
-                        <!-- Responsive CSS + Button Hover Effects -->
-                        <style>
-                            /* Hero section responsive padding */
-                            @media (max-width: 1024px) {
-                                section[style*="padding: 60px 0 80px 0"] {
-                                    padding: 50px 0 60px 0 !important;
-                                }
-                            }
-                            
-                            @media (max-width: 768px) {
-                                section[style*="padding: 60px 0 80px 0"] {
-                                    padding: 40px 0 50px 0 !important;
-                                }
-                            }
-                            
-                            /* Two-column grid alignment fix */
-                            #donation-step-1 > div[style*="grid-template-columns"] {
-                                display: grid;
-                                grid-template-columns: 1fr 260px;
-                                gap: 32px;
-                                align-items: start; /* Critical: prevents vertical centering */
-                            }
-                            
-                            /* Ensure both columns start at same baseline */
-                            #donation-step-1 > div > div {
-                                margin-top: 0;
-                                padding-top: 0;
-                            }
-                            
-                            /* Amount button hover effects */
-                            .amt-btn:hover {
-                                border-color: #C8402E !important;
-                                background: rgba(200, 64, 46, 0.05) !important;
-                                transform: translateY(-2px);
-                                box-shadow: 0 4px 12px rgba(200, 64, 46, 0.15);
-                            }
-                            .amt-btn.active {
-                                border-color: #C8402E !important;
-                                background: #C8402E !important;
-                                color: white !important;
-                            }
-                            
-                            /* Donation tab hover effects */
-                            .donation-tab:hover {
-                                background: rgba(200, 64, 46, 0.05) !important;
-                                color: #C8402E !important;
-                            }
-                            .donation-tab.active {
-                                background: linear-gradient(135deg, #C8402E 0%, #DF5A46 100%) !important;
-                                color: #fff !important;
-                                box-shadow: 0 8px 18px rgba(200, 64, 46, 0.24) !important;
-                            }
-                            
-                            /* Responsive layout */
-                            @media (max-width: 768px) {
-                                #donation-step-1 > div[style*="grid-template-columns"] {
-                                    grid-template-columns: 1fr !important;
-                                    gap: 24px !important;
-                                }
-                                
-                                /* Maintain alignment on mobile */
-                                #donation-step-1 > div > div {
-                                    margin-top: 0 !important;
-                                }
-                            }
-                            
-                            @media (max-width: 480px) {
-                                #donation-step-1 > div[style*="grid-template-columns"] {
-                                    gap: 20px !important;
-                                }
-                            }
-                                }
-                            }
-                        </style>
 
                         <!-- ═══════════════════════════════════════════════
                              STEP 2 — Stripe Donation Processing
@@ -634,7 +500,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
 <!-- ===============================================================
      SECTION 2 - WHY GIVE (Impact Cards)
      =============================================================== -->
-<section class="w-full section-bg-gray" style="padding: 100px 0; position: relative;">
+<section class="donate-why-section w-full section-bg-gray" style="padding: 100px 0; position: relative;">
     <div class="inner mx-auto px-4">
 
         <!-- Section Header -->
@@ -701,7 +567,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
 <!-- ===============================================================
      SECTION 3 - DONOR TESTIMONIAL
      =============================================================== -->
-<section class="w-full relative overflow-hidden" style="background: linear-gradient(135deg, #141943 0%, #1e2a5a 100%); padding: 100px 0;">
+<section class="donate-testimonial-section w-full relative overflow-hidden" style="background: linear-gradient(135deg, #141943 0%, #1e2a5a 100%); padding: 100px 0;">
     <!-- Wave decoration -->
     <div aria-hidden="true" class="absolute inset-0 pointer-events-none" style="opacity: 0.06; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='400' fill='none'%3E%3Cpath d='M-60 80 C400 -20 800 180 1300 60 S1700 -40 1980 80' stroke='white' stroke-width='1.2'/%3E%3Cpath d='M-60 160 C400 60 800 260 1300 140 S1700 40 1980 160' stroke='white' stroke-width='1.2'/%3E%3Cpath d='M-60 240 C400 140 800 340 1300 220 S1700 120 1980 240' stroke='white' stroke-width='1.2'/%3E%3Cpath d='M-60 320 C400 220 800 420 1300 300 S1700 200 1980 320' stroke='white' stroke-width='1.2'/%3E%3C/svg%3E&quot;); background-size: 1920px 400px; background-repeat: no-repeat;"></div>
 
@@ -719,13 +585,15 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
             </p>
 
             <!-- Author -->
-            <div style="display: flex; align-items: center; justify-content: center; gap: 16px;">
+            <div class="donate-testimonial-author" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
                 <?php if ($testimonial_avatar) : ?>
                 <img src="<?php echo esc_url($testimonial_avatar); ?>"
                      alt="<?php echo esc_attr($testimonial_name); ?>"
-                     style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.3);" />
+                     style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid rgba(255,255,255,0.35); flex-shrink: 0;" />
                 <?php else : ?>
-                <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0;"></div>
+                <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/volunteers.jpg')); ?>"
+                     alt="<?php echo esc_attr($testimonial_name); ?>"
+                     style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid rgba(255,255,255,0.35); flex-shrink: 0;" />
                 <?php endif; ?>
                 <div style="text-align: left;">
                     <div style="font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px;">
@@ -744,7 +612,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
 <!-- ===============================================================
      SECTION 4 - OTHER WAYS TO GIVE
      =============================================================== -->
-<section class="w-full" style="background: #ffffff; padding: 100px 0; position: relative;">
+<section class="donate-other-ways-section w-full" style="background: #ffffff; padding: 100px 0; position: relative;">
     <div class="inner mx-auto px-4">
 
         <!-- Section Header -->
@@ -761,7 +629,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
         </div>
 
         <!-- Method Cards -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto;">
+        <div class="donate-other-ways-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto;">
             <?php foreach ($other_ways as $way) : ?>
             <div style="background: #ffffff; border-radius: 20px; padding: 40px 32px; box-shadow: 0 8px 24px rgba(20,25,67,0.08); border: 1px solid rgba(20,25,67,0.07); transition: transform .25s, box-shadow .25s; text-align: center;"
                  onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(20,25,67,0.14)'"
@@ -802,22 +670,20 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
      SECTION 5 - TRUST BADGES
      =============================================================== -->
 <section class="donate-trust-section">
-    <div class="inner donate-trust-inner">
-        <p class="donate-trust-heading">
-            <?php esc_html_e('Trusted &amp; Secure', 'myco'); ?>
-        </p>
-
-        <div class="donate-trust-list">
-            <?php foreach ($display_trust_badges as $badge) : ?>
-            <div class="donate-trust-item">
-                <span class="donate-trust-icon" aria-hidden="true">
-                    <?php echo wp_kses($render_trust_badge_icon($badge['label'] ?? ''), $trust_icon_allowed); ?>
-                </span>
-                <span class="donate-trust-label">
-                    <?php echo esc_html($badge['label']); ?>
-                </span>
+    <div class="inner">
+        <div class="trust-strip">
+            <div class="trust-strip__inner">
+                <?php foreach ($display_trust_badges as $badge) : ?>
+                <div class="trust-item">
+                    <span class="trust-icon" aria-hidden="true">
+                        <?php echo wp_kses($render_trust_badge_icon($badge['label'] ?? ''), $trust_icon_allowed); ?>
+                    </span>
+                    <span class="trust-text">
+                        <?php echo esc_html($badge['label']); ?>
+                    </span>
+                </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
         </div>
     </div>
 </section>

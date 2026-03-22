@@ -171,7 +171,7 @@ get_header();
                             </div>
 
                             <!-- Two-column layout: form left, summary right -->
-                            <div style="display:grid; grid-template-columns:1fr 220px; gap:16px; align-items:stretch; flex:1; min-height:0;">
+                            <div class="mcyc-donate-inner-grid" style="display:grid; grid-template-columns:1fr 220px; gap:16px; align-items:stretch; flex:1; min-height:0;">
                                 <div style="display:flex; flex-direction:column; gap:12px; height:100%;">
 
                                     <!-- Preset amounts: 3+3 grid -->

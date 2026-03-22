@@ -1,210 +1,433 @@
 /* ─── Donate Page Styles ─────────────────────────────────────── */
 
+/* ── Donation Widget Card ─────────────────────────────────────── */
 .donation-widget {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 246, 255, 0.98) 100%);
-  border: 1px solid rgba(184, 198, 230, 0.5);
-  border-radius: 24px;
-  box-shadow: 0 28px 80px rgba(9, 15, 45, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  padding: 40px 36px;
-  backdrop-filter: blur(18px);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 32px rgba(20, 25, 67, 0.14);
+  padding: 32px 28px;
+  width: 100%;
+  border-top: 5px solid #C8402E;
 }
 
-.donation-widget::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at top right, rgba(200, 64, 46, 0.12), transparent 34%),
-    radial-gradient(circle at bottom left, rgba(20, 25, 67, 0.08), transparent 38%);
-  pointer-events: none;
-}
-
-.donation-widget > * {
-  position: relative;
-  z-index: 1;
-}
-
-.donation-form-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
-  gap: 32px;
-  align-items: start;
-}
-
-.donation-form-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  position: relative;
-  overflow: hidden;
-  padding: 22px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(248, 251, 255, 0.58) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 16px 36px rgba(20, 25, 67, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-.donation-side-panel {
+/* ── Widget Header: title + subtitle, tabs below ─────────────── */
+.dw-header {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  position: relative;
-  overflow: hidden;
-  padding: 20px 18px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, rgba(238, 244, 255, 0.62) 0%, rgba(249, 251, 255, 0.56) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.68);
-  box-shadow: 0 16px 32px rgba(20, 25, 67, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  margin-bottom: 24px;
 }
 
-.donation-fee-card {
-  padding: 14px 14px !important;
-  border-radius: 16px !important;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 244, 242, 0.72) 100%) !important;
-  border: 1px solid rgba(200, 64, 46, 0.18) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+.dw-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #141943;
+  line-height: 1.15;
+  margin: 0 0 4px;
 }
 
-.donation-form-panel::before,
-.donation-side-panel::before,
-.donation-summary::before,
-.donation-payment-step::before,
-.donation-payment-summary::before,
-.donation-payment-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0.18) 100%);
-  pointer-events: none;
+.dw-subtitle {
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin: 0;
 }
 
-.donation-form-panel > *,
-.donation-side-panel > *,
-.donation-summary > *,
-.donation-payment-step > *,
-.donation-payment-summary > *,
-.donation-payment-frame > * {
-  position: relative;
-  z-index: 1;
+/* ── One-time / Monthly pill tabs ────────────────────────────── */
+.dw-tabs {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.donation-form-panel .form-label,
-.donation-side-panel .form-label {
-  display: block;
-  margin-bottom: 10px !important;
-  padding-top: 2px;
-  letter-spacing: 0.01em;
-  text-align: center;
-}
-
-.donation-form-panel .amt-btn,
-.donation-form-panel .form-input,
-.donation-form-panel .form-select,
-.donation-side-panel .form-input {
-  background: rgba(255, 255, 255, 0.84) !important;
-  border-color: rgba(186, 196, 219, 0.9) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 6px 14px rgba(20, 25, 67, 0.04);
-}
-
-.donation-form-panel > div,
-.donation-side-panel > div {
-  padding-top: 2px;
-}
-
-.donation-form-panel .amt-btn {
-  border-radius: 12px !important;
-}
-
-.donation-form-panel .form-input,
-.donation-form-panel .form-select,
-.donation-side-panel .form-input {
-  border-radius: 12px !important;
-}
-
-.donation-form-panel .amt-btn.active {
-  background: linear-gradient(135deg, #c8402e 0%, #df5a46 100%) !important;
-  color: #fff !important;
-  box-shadow: 0 10px 24px rgba(200, 64, 46, 0.22) !important;
-}
-
-.donation-form-panel .amt-btn:hover {
-  box-shadow: 0 8px 18px rgba(200, 64, 46, 0.12);
-}
-
-.donation-tab {
-  flex: 1;
-  padding: 12px 0;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
+.dw-tab {
+  padding: 10px 22px;
+  border-radius: 9999px;
+  border: 2px solid #E5E7EB;
+  background: #ffffff;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
-  border-radius: 12px;
-  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-  background: transparent;
-  color: #6b7280;
-  box-shadow: none;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
 }
 
-.donation-tab.active {
-  background: linear-gradient(135deg, #c8402e 0%, #df5a46 100%) !important;
-  color: #fff !important;
-  box-shadow: 0 8px 18px rgba(200, 64, 46, 0.24) !important;
+.dw-tab.active {
+  background: #141943;
+  border-color: #141943;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(20, 25, 67, 0.25);
 }
 
-.donation-tab:not(.active):hover {
-  background: rgba(200, 64, 46, 0.08);
-  color: #c8402e;
+.dw-tab:not(.active):hover {
+  border-color: #141943;
+  color: #141943;
 }
 
-.donation-form-panel .form-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 40px !important;
-  padding-left: 12px !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  line-height: 1.3 !important;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1.5 1.5L6 6L10.5 1.5' stroke='%23C8402E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.84) 100%) !important;
-  background-position:
-    right 14px center,
-    0 0 !important;
-  background-size: 12px 8px, 100% 100% !important;
-  background-repeat: no-repeat !important;
-  cursor: pointer;
+/* ── Section labels ───────────────────────────────────────────── */
+.dw-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #9CA3AF;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+/* ── Amount buttons grid ──────────────────────────────────────── */
+.dw-amounts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }
 
 .amt-btn {
-  flex: 1;
-  padding: 14px 0;
-  border: 2px solid #e5e7eb;
-  border-radius: 14px;
-  background: #fff;
+  padding: 13px 8px;
+  border: 2px solid #E5E7EB;
+  border-radius: 10px;
+  background: #ffffff;
   color: #141943;
+  font-size: 0.95rem;
   font-weight: 700;
-  font-size: 1.05rem;
   cursor: pointer;
-  transition: border-color 0.18s, background 0.18s, color 0.18s, box-shadow 0.18s;
+  transition: border-color 0.18s, background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.15s;
 }
 
 .amt-btn:hover {
   border-color: #C8402E;
   color: #C8402E;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200, 64, 46, 0.12);
 }
 
 .amt-btn.active {
+  background: #C8402E;
   border-color: #C8402E;
-  background: rgba(200, 64, 46, 0.06);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(200, 64, 46, 0.3);
+}
+
+/* ── Custom amount + inputs ───────────────────────────────────── */
+.dw-custom-wrap {
+  position: relative;
+}
+
+.dw-dollar {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #9CA3AF;
+  pointer-events: none;
+}
+
+.dw-input {
+  width: 100%;
+  padding: 11px 14px 11px 30px;
+  border: 2px solid #E5E7EB;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #141943;
+  background: #ffffff;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  box-sizing: border-box;
+}
+
+.dw-input:focus {
+  outline: none;
+  border-color: #C8402E;
+  box-shadow: 0 0 0 3px rgba(200, 64, 46, 0.1);
+}
+
+/* email input — no dollar prefix */
+input[type="email"].dw-input {
+  padding-left: 14px;
+}
+
+/* ── Fund select ──────────────────────────────────────────────── */
+.dw-select {
+  width: 100%;
+  padding: 11px 36px 11px 14px;
+  border: 2px solid #E5E7EB;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #141943;
+  background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1.5 1.5L6 6L10.5 1.5' stroke='%23C8402E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: border-color 0.18s;
+  box-sizing: border-box;
+}
+
+.dw-select:focus {
+  outline: none;
+  border-color: #C8402E;
+}
+
+/* ── Fee checkbox card ────────────────────────────────────────── */
+.dw-fee-card {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(200, 64, 46, 0.05);
+  border: 1px solid rgba(200, 64, 46, 0.18);
+  border-radius: 10px;
+}
+
+.dw-fee-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.dw-fee-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: #C8402E;
+  flex-shrink: 0;
+}
+
+.dw-fee-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.82rem;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.dw-fee-text strong {
+  color: #141943;
+  font-weight: 700;
+}
+
+/* ── Summary box ──────────────────────────────────────────────── */
+.dw-summary {
+  background: #F8F9FC;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.dw-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #6B7280;
+  padding: 5px 0;
+}
+
+.dw-summary-row strong {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #141943;
+}
+
+.dw-fee-val {
+  font-weight: 600;
+  color: #6B7280;
+}
+
+.dw-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #E5E7EB;
+  margin-top: 8px;
+  padding-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #141943;
+}
+
+.dw-summary-total span:last-child {
+  font-size: 1.5rem;
+  font-weight: 900;
   color: #C8402E;
-  box-shadow: 0 2px 12px rgba(200, 64, 46, 0.12);
+}
+
+/* ── Email label / hint ───────────────────────────────────────── */
+.dw-email-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.dw-optional {
+  font-weight: 400;
+  color: #9CA3AF;
+  font-size: 0.8rem;
+}
+
+.dw-hint {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  margin: 4px 0 0;
+}
+
+/* ── Monthly notice ───────────────────────────────────────────── */
+.dw-monthly-notice {
+  background: rgba(200, 64, 46, 0.06);
+  border: 1px solid rgba(200, 64, 46, 0.18);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  color: #374151;
+}
+
+/* ── CTA Button ───────────────────────────────────────────────── */
+.dw-cta {
+  width: 100%;
+  padding: 15px;
+  background: #C8402E;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.15s, opacity 0.18s;
+  box-shadow: 0 4px 18px rgba(200, 64, 46, 0.35);
+}
+
+.dw-cta:hover:not(:disabled) {
+  background: #b33526;
+  box-shadow: 0 6px 24px rgba(200, 64, 46, 0.45);
+  transform: translateY(-1px);
+}
+
+.dw-cta:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: #C8402E;
+}
+
+/* ── Secure badge ─────────────────────────────────────────────── */
+.dw-secure {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  text-align: center;
+  margin: 8px 0 0;
+}
+
+/* ── Form grid ────────────────────────────────────────────────── */
+.donation-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 24px;
+  align-items: start;
+}
+
+.donation-form-panel,
+.donation-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .donation-form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .donation-widget {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+  .dw-header {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .dw-title {
+    font-size: 1.15rem;
+  }
+  .dw-subtitle {
+    font-size: 0.78rem;
+  }
+  .dw-tab {
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
+  .dw-label {
+    font-size: 0.62rem;
+    margin-bottom: 5px;
+  }
+  .dw-amounts {
+    gap: 5px;
+  }
+  .amt-btn {
+    padding: 9px 4px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
+  .dw-input,
+  .dw-select {
+    padding: 8px 10px 8px 26px;
+    font-size: 0.82rem;
+    border-radius: 8px;
+  }
+  input[type="email"].dw-input {
+    padding-left: 10px;
+  }
+  .dw-dollar {
+    font-size: 0.85rem;
+    left: 10px;
+  }
+  .dw-summary {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .dw-summary-row {
+    font-size: 0.75rem;
+    padding: 3px 0;
+  }
+  .dw-summary-row strong {
+    font-size: 0.85rem;
+  }
+  .dw-summary-total {
+    font-size: 0.78rem;
+    padding-top: 7px;
+    margin-top: 5px;
+  }
+  .dw-summary-total span:last-child {
+    font-size: 1.15rem;
+  }
+  .dw-email-label {
+    font-size: 0.78rem;
+  }
+  .dw-hint {
+    font-size: 0.68rem;
+  }
+  .dw-cta {
+    padding: 11px;
+    font-size: 0.85rem;
+  }
+  .dw-secure {
+    font-size: 0.68rem;
+  }
+  .dw-fee-card {
+    padding: 8px 10px;
+    margin-top: 8px;
+  }
+  .dw-fee-text {
+    font-size: 0.72rem;
+  }
+  .donation-form-panel,
+  .donation-side-panel {
+    gap: 8px;
+  }
 }
 
 .impact-card {
@@ -399,10 +622,137 @@
 
 .donate-trust-section {
   position: relative;
-  padding: 54px 0;
-  background: #f5f6fa;
+  padding: 40px 0 48px;
+  background: #ffffff;
 }
 
+/* ── Trust strip card ─────────────────────────────────────────────── */
+.trust-strip {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.trust-strip__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.trust-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 74px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  color: #141943;
+  background: #f8f9fc;
+  border: 1px solid rgba(20, 25, 67, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  overflow: hidden;
+}
+
+.trust-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20, 25, 67, 0.1);
+  border-color: rgba(20, 25, 67, 0.14);
+}
+
+.trust-icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: visible;
+}
+
+.trust-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #141943;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+  margin-bottom: 2px;
+}
+
+.trust-text {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #141943;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .trust-strip__inner {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .trust-item {
+    padding: 10px 8px;
+    min-height: 52px;
+    gap: 8px;
+    overflow: visible;
+  }
+  .trust-icon,
+  .hero-trust-strip .trust-icon {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 8px;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .trust-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 1.7;
+  }
+  .trust-text {
+    white-space: normal;
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-item {
+    padding: 8px 6px;
+    min-height: 48px;
+    gap: 6px;
+  }
+  .trust-icon,
+  .hero-trust-strip .trust-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    border-radius: 7px;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .trust-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.6;
+  }
+  .trust-text {
+    font-size: 0.65rem;
+  }
+}
+
+/* ── Keep hero trust list styles (used in hero column) ───────────── */
 .donate-hero-trust-list {
   display: flex;
   flex-wrap: wrap;
@@ -414,94 +764,64 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 0;
 }
 
 .donate-hero-trust-icon {
-  display: inline-grid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 30px;
   height: 30px;
-  place-items: center;
   border-radius: 999px;
-  background: rgba(200, 64, 46, 0.16);
-  color: #f5f7ff;
+  background: rgba(200, 64, 46, 0.18);
+  color: #fff;
   flex-shrink: 0;
-  line-height: 0;
 }
 
 .donate-hero-trust-icon svg {
-  display: block;
   width: 14px;
   height: 14px;
-  overflow: visible;
-  flex-shrink: 0;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .donate-hero-trust-label {
-  font-family: var(--myco-font-body, "Sora", "Inter", sans-serif);
-  font-size: 0.96rem;
-  line-height: 1.25;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0;
   color: #edf2ff;
 }
 
-.donate-trust-inner {
-  text-align: center;
+/* ── Hero trust strip overrides (dark bg variant) ────────────────── */
+.hero-trust-strip {
+  width: 100%;
 }
 
-.donate-trust-heading {
-  margin-bottom: 24px;
-  color: #6b7280;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.hero-trust-strip .trust-item {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
 }
 
-.donate-trust-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px 28px;
-  flex-wrap: wrap;
+.hero-trust-strip .trust-item:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: none;
 }
 
-.donate-trust-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0;
-  color: #4b5563;
+.hero-trust-strip .trust-icon {
+  background: rgba(255, 255, 255, 0.12);
 }
 
-.donate-trust-icon {
-  display: inline-grid;
-  width: 30px;
-  height: 30px;
-  place-items: center;
-  border-radius: 999px;
-  background: rgba(200, 64, 46, 0.1);
-  color: #c8402e;
-  flex-shrink: 0;
-  line-height: 0;
-}
-
-.donate-trust-icon svg {
-  display: block;
-  width: 14px;
-  height: 14px;
+.hero-trust-strip .trust-icon svg {
+  stroke: #ffffff;
   overflow: visible;
-  flex-shrink: 0;
 }
 
-.donate-trust-label {
-  font-family: var(--myco-font-body, "Sora", "Inter", sans-serif);
-  font-size: 0.96rem;
-  line-height: 1.25;
-  font-weight: 600;
-  letter-spacing: 0;
-  color: #25304d;
+.hero-trust-strip .trust-text {
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -531,7 +851,7 @@
 
   .donate-trust-list {
     gap: 18px 22px;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .donate-hero-trust-list {
@@ -553,3 +873,336 @@
   }
 }
 
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   DONATE PAGE — FULL RESPONSIVE OVERRIDES
+   Breakpoints: 480px | 640px | 768px | 1024px | 1280px
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Prevent horizontal overflow ─────────────────────────────────── */
+.template-donate,
+.page-template-template-donate {
+  overflow-x: hidden;
+}
+.template-donate *,
+.page-template-template-donate * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* ── Hero section ─────────────────────────────────────────────────── */
+.donate-hero-section {
+  padding: 90px 0 110px !important;
+  min-height: 600px !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1279px) {
+  .donate-hero-section {
+    padding: 72px 0 90px !important;
+    min-height: 520px !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .donate-hero-section {
+    padding: 56px 0 72px !important;
+    min-height: auto !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .donate-hero-section {
+    padding: 40px 0 52px !important;
+  }
+  /* Stats row — tighten on mobile */
+  .donate-hero-stats {
+    gap: 12px !important;
+  }
+  .donate-hero-stats > div {
+    text-align: center !important;
+  }
+  /* Trust list — stack tighter */
+  .donate-hero-trust-list {
+    gap: 8px 16px;
+  }
+  .donate-hero-trust-label {
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 479px) {
+  /* Stats — 3 cols still fine but shrink numbers */
+  .donate-hero-stats .text-2xl,
+  .donate-hero-stats .text-3xl {
+    font-size: 1.4rem !important;
+  }
+}
+
+/* ── Donation widget ──────────────────────────────────────────────── */
+.donation-widget {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .donation-widget {
+    padding: 28px 24px;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .donation-widget {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+}
+
+/* ── Donation form grid (1fr 260px → single col) ─────────────────── */
+/* The inline style uses grid-template-columns: 1fr 260px.
+   .donation-form-grid class already exists — we override it. */
+.donation-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .donation-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  /* Side panel becomes full-width below the form */
+  .donation-side-panel {
+    width: 100%;
+  }
+}
+
+/* ── Donation form panel ──────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .donation-form-panel,
+  .donation-side-panel,
+  .donation-payment-step {
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+  .donation-payment-summary,
+  .donation-payment-frame {
+    padding: 14px !important;
+    border-radius: 14px !important;
+  }
+  /* Amount buttons — keep 3-col but smaller text */
+  .amt-btn {
+    font-size: 0.9rem !important;
+    padding: 10px 4px !important;
+  }
+  /* Donation type tabs */
+  .donation-tab {
+    font-size: 0.85rem;
+    padding: 9px 0;
+  }
+  /* Summary total */
+  #summary-total,
+  #s2-amount {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .donation-widget {
+    padding: 16px 12px;
+    border-radius: 14px;
+  }
+  .donation-form-panel,
+  .donation-side-panel {
+    padding: 12px !important;
+  }
+  /* Donation type header row — stack */
+  .donation-widget .text-center.mb-5 {
+    margin-bottom: 14px !important;
+  }
+}
+
+/* ── Section 2 — Impact cards (repeat(3,1fr) → responsive) ───────── */
+.impact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+@media (max-width: 1023px) {
+  .impact-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 28px !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .impact-cards {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .impact-card {
+    padding: 24px 20px !important;
+  }
+}
+
+/* ── Section 2 — padding ─────────────────────────────────────────── */
+.donate-why-section {
+  padding: 100px 0 !important;
+}
+
+@media (max-width: 1023px) {
+  .donate-why-section {
+    padding: 70px 0 !important;
+  }
+  .donate-why-section > .inner > div:first-child {
+    margin-bottom: 48px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .donate-why-section {
+    padding: 48px 0 !important;
+  }
+  .donate-why-section > .inner > div:first-child {
+    margin-bottom: 32px !important;
+  }
+  .donate-why-section h2 {
+    font-size: clamp(1.6rem, 6vw, 2.4rem) !important;
+  }
+  .donate-why-section p[style*="font-size: 19px"] {
+    font-size: 16px !important;
+  }
+}
+
+/* ── Section 3 — Testimonial ─────────────────────────────────────── */
+.donate-testimonial-section {
+  padding: 100px 0 !important;
+}
+
+@media (max-width: 1023px) {
+  .donate-testimonial-section {
+    padding: 64px 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .donate-testimonial-section {
+    padding: 48px 0 !important;
+  }
+  .donate-testimonial-section p[style*="clamp"] {
+    font-size: clamp(1.05rem, 4vw, 1.3rem) !important;
+  }
+  /* Author row — stack on very small screens */
+  .donate-testimonial-author {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+  .donate-testimonial-author > div {
+    text-align: center !important;
+  }
+}
+
+/* ── Section 4 — Other Ways to Give ─────────────────────────────── */
+.donate-other-ways-section {
+  padding: 100px 0 !important;
+}
+
+.donate-other-ways-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1023px) {
+  .donate-other-ways-section {
+    padding: 64px 0 !important;
+  }
+  .donate-other-ways-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .donate-other-ways-section {
+    padding: 48px 0 !important;
+  }
+  .donate-other-ways-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .donate-other-ways-grid > div {
+    padding: 28px 20px !important;
+  }
+  .donate-other-ways-section h2 {
+    font-size: clamp(1.6rem, 6vw, 2.4rem) !important;
+  }
+}
+
+/* ── Section 5 — Trust badges ────────────────────────────────────── */
+@media (max-width: 767px) {
+  .donate-trust-section {
+    padding: 36px 0 !important;
+  }
+}
+
+/* ── Inline-style section padding overrides (fallback) ───────────── */
+/* Sections use inline padding:100px 0 — we target them via adjacent
+   selectors where class hooks aren't present */
+@media (max-width: 1023px) {
+  .w-full.section-bg-gray[style*="padding: 100px"],
+  .w-full[style*="padding: 100px 0"] {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+  .w-full.section-bg-gray[style*="margin-bottom: 70px"] > .inner > div,
+  .w-full[style*="margin-bottom: 70px"] {
+    margin-bottom: 48px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .w-full.section-bg-gray[style*="padding: 100px"],
+  .w-full[style*="padding: 100px 0"],
+  .w-full.relative.overflow-hidden[style*="padding: 100px"] {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+  /* Impact cards inline grid */
+  div.impact-cards[style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  /* Other ways inline grid */
+  div[style*="grid-template-columns: repeat(3, 1fr)"][style*="max-width: 1200px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  /* Section header margin */
+  div[style*="margin-bottom: 70px"],
+  div[style*="margin-bottom: 60px"] {
+    margin-bottom: 32px !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* Impact cards inline grid — 2 col on tablet */
+  div.impact-cards[style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+  }
+  /* Other ways inline grid — 2 col on tablet */
+  div[style*="grid-template-columns: repeat(3, 1fr)"][style*="max-width: 1200px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+  }
+}

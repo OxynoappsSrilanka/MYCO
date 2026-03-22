@@ -39,7 +39,7 @@
     var customInput       = document.getElementById('custom-amount');
     var fundSelect        = document.getElementById('fund-select');
     var coverFeesCheckbox = document.getElementById('cover-fees');
-    var donationTabs      = document.querySelectorAll('.donation-tab');
+    var donationTabs      = document.querySelectorAll('.dw-tab');
     var emailInput        = document.getElementById('donor-email');
     var monthlyNotice     = document.getElementById('monthly-notice');
     var summaryAmount     = document.getElementById('summary-amount');
