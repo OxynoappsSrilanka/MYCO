@@ -269,18 +269,7 @@ $video_query = new WP_Query(array(
                alt="<?php echo esc_attr($item['caption']); ?>" 
                class="lazy" 
                style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; cursor: pointer;" />
-          <div class="gallery-item-overlay" style="
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-            opacity: 0;
-            transition: opacity .3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            pointer-events: none;
-          ">
+          <div class="gallery-item-overlay">
             <div class="gallery-item-title" style="color: #ffffff; font-size: 16px; font-weight: 700; margin-bottom: 4px;">
               <?php echo esc_html($item['caption']); ?>
             </div>
@@ -312,18 +301,7 @@ $video_query = new WP_Query(array(
                alt="<?php echo esc_attr($caption); ?>" 
                class="lazy" 
                style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; cursor: pointer;" />
-          <div class="gallery-item-overlay" style="
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-            opacity: 0;
-            transition: opacity .3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            pointer-events: none;
-          ">
+          <div class="gallery-item-overlay">
             <div class="gallery-item-title" style="color: #ffffff; font-size: 16px; font-weight: 700; margin-bottom: 4px;">
               <?php echo esc_html($caption); ?>
             </div>
@@ -413,18 +391,7 @@ $video_query = new WP_Query(array(
               </svg>
             </div>
           </div>
-          <div class="gallery-item-overlay" style="
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-            opacity: 0;
-            transition: opacity .3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            pointer-events: none;
-          ">
+          <div class="gallery-item-overlay">
             <div class="gallery-item-title" style="color: #ffffff; font-size: 16px; font-weight: 700; margin-bottom: 4px;">
               <?php echo esc_html($caption); ?>
             </div>
@@ -714,8 +681,31 @@ $video_query = new WP_Query(array(
 .gallery-item:hover img {
   transform: scale(1.08);
 }
+.gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0;
+  transition: opacity .3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  pointer-events: none;
+}
 .gallery-item:hover .gallery-item-overlay {
   opacity: 1;
+}
+.gallery-item-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  transform: translateY(10px);
+  transition: transform .3s ease-out;
+}
+.gallery-item:hover .gallery-item-title {
+  transform: translateY(0);
 }
 /* Video Item Styles */
 .video-item:hover .video-play-overlay {
@@ -724,6 +714,32 @@ $video_query = new WP_Query(array(
 .video-item:hover .play-button {
   transform: scale(1.15);
   background: #C8402E;
+}
+.video-item .gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  opacity: 0;
+  transition: opacity .3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  pointer-events: none;
+}
+.video-item:hover .gallery-item-overlay {
+  opacity: 1;
+}
+.video-item .gallery-item-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  transform: translateY(10px);
+  transition: transform .3s ease-out;
+}
+.video-item:hover .gallery-item-title {
+  transform: translateY(0);
 }
 .gallery-item.loading {
   background: linear-gradient(90deg, #E5E7EB 0%, #F3F4F6 50%, #E5E7EB 100%);
