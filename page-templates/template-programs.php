@@ -22,22 +22,60 @@ $programs = new WP_Query([
 ]);
 ?>
 
-<!-- Hero Section (Center Aligned as per Ref) -->
-<section class="page-hero-bg" style="background: linear-gradient(135deg, #141943 0%, #1e2a5a 50%, #141943 100%); padding: 120px 0 100px; text-align: center; position: relative; overflow: hidden;">
-    <!-- Abstract background elements -->
-    <div style="position: absolute; width: 600px; height: 600px; background: rgba(5,150,105,0.05); filter: blur(120px); border-radius: 50%; top: -200px; right: -100px; pointer-events: none;"></div>
-    <div style="position: absolute; width: 400px; height: 400px; background: rgba(200,64,46,0.07); filter: blur(100px); border-radius: 50%; bottom: -100px; left: -50px; pointer-events: none;"></div>
-
-    <div class="inner" style="position: relative; z-index: 2;">
-        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 24px; color: rgba(255,255,255,0.7); font-weight: 500; font-size: 14px;">
-            <a href="<?php echo esc_url(home_url('/')); ?>" style="color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.2s;">Home</a>
-            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span style="color: #fff; font-weight: 600;">Our Programs</span>
-        </div>
-        
-        <h1 style="font-size: clamp(1.4rem, 6vw, 2rem); font-weight: 900; color: #ffffff; line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 24px;">Our Programs</h1>
-        <p style="font-size: 20px; color: #BFC9D3; max-width: 800px; margin: 0 auto; line-height: 1.6;">Comprehensive youth development through mentorship, athletics, academics, and community service.</p>
+<!-- Hero Banner Section with Full Width Blurred Background -->
+<section class="page-hero-bg" style="
+  background: url('<?php echo esc_url(myco_get_field('programs_banner_image') ?: get_template_directory_uri() . '/assets/images/volunteers.jpg'); ?>') center center / cover no-repeat;
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+">
+  <!-- Blur Overlay -->
+  <div style="
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(20, 25, 67, 0.75);
+    z-index: 1;
+  "></div>
+  
+  <!-- Content -->
+  <div style="position: relative; z-index: 2; text-align: center; max-width: 1200px; margin: 0 auto; padding: 0 40px;">
+    <!-- Breadcrumb -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px;">
+      <a href="<?php echo esc_url(home_url('/')); ?>" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">Home</a>
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+        <path d="M1 1l4 4-4 4" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-size: 14px; font-weight: 600; color: #ffffff;">Our Programs</span>
     </div>
+    
+    <!-- Page Title -->
+    <h1 style="
+      font-size: 72px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    ">
+      <?php echo esc_html(myco_get_field('programs_title') ?: 'Our Programs'); ?>
+    </h1>
+    
+    <!-- Subtitle -->
+    <p style="
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 400;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    ">
+      <?php echo esc_html(myco_get_field('programs_subtitle') ?: 'Comprehensive youth development through mentorship, athletics, academics, and community service'); ?>
+    </p>
+  </div>
 </section>
 
 <!-- Filter & Programs Section -->
