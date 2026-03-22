@@ -20,7 +20,7 @@
             <a href="<?php echo esc_url(myco_get_page_url('donate', '/donate/')); ?>" class="btn-primary text-lg px-10 py-4">
                 <?php esc_html_e('Donate Now', 'myco'); ?>
             </a>
-            <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn-secondary text-lg px-10 py-4" style="border-color: rgba(255,255,255,0.3); color: #fff;">
+            <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn-secondary text-lg px-10 py-4" style="border-color: rgba(255,255,255,0.3); color: #141943;">
                 <?php esc_html_e('Learn More', 'myco'); ?>
             </a>
         </div>

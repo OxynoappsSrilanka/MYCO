@@ -3073,14 +3073,6 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
   margin-bottom: 50px;
 }
 
-@media (max-width: 1024px) {
-  .filter-search-container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 20px;
-  }
-}
-
 .filter-group {
   display: flex;
   align-items: center;
@@ -3117,13 +3109,9 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
   position: relative;
   width: 380px;
   flex-shrink: 0;
-}
-
-@media (max-width: 1024px) {
-  .search-wrapper {
-    max-width: 100%;
-    width: 100%;
-  }
+  align-self: center;
+  display: flex;
+  align-items: center;
 }
 
 .search-icon svg {
@@ -3144,6 +3132,7 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
   font-weight: 400;
   transition: border-color 0.2s, box-shadow 0.2s;
   background: white;
+  flex: 1;
 }
 
 .program-search-input:focus {

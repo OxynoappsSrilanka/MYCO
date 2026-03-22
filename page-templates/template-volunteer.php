@@ -61,46 +61,47 @@ $roles_label       = myco_get_field('volunteer_roles_label', false, 'Get Involve
 $roles_heading     = myco_get_field('volunteer_roles_heading', false, 'Volunteer Opportunities');
 $roles_description = myco_get_field('volunteer_roles_description', false, 'Choose from various roles that match your skills and interests');
 
+$vol_img_base = get_template_directory_uri() . '/assets/images/Volunteers/';
 $default_roles = [
     [
         'title'       => 'Youth Mentor',
         'description' => 'Guide and inspire young Muslims through one-on-one mentorship, helping them navigate challenges and achieve their goals.',
-        'icon'        => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8ZM4 28c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'image'       => $vol_img_base . 'Youth Mentor.webp',
         'time'        => '2-4 hours/week',
         'requirement' => 'Background check required',
     ],
     [
         'title'       => 'Sports Coach',
         'description' => 'Lead basketball, soccer, or other athletic programs while teaching teamwork, discipline, and sportsmanship.',
-        'icon'        => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="#fff" stroke-width="2.5"/><path d="M16 4v24M4 16h24M9 7l14 18M23 7L9 25" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>',
+        'image'       => $vol_img_base . 'Sports Coach.webp',
         'time'        => '3-5 hours/week',
         'requirement' => 'Coaching experience preferred',
     ],
     [
         'title'       => 'Academic Tutor',
         'description' => 'Help students excel academically by providing tutoring in math, science, English, or test preparation.',
-        'icon'        => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 12l12-8 12 8v12a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V12Z" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 28V16h8v12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'image'       => $vol_img_base . 'Academic Tutor.webp',
         'time'        => '2-3 hours/week',
         'requirement' => 'Subject expertise required',
     ],
     [
         'title'       => 'Event Coordinator',
         'description' => 'Plan and execute community events, workshops, and social gatherings that bring our community together.',
-        'icon'        => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="24" height="20" rx="2" stroke="#fff" stroke-width="2.5"/><path d="M4 12h24M10 2v8M22 2v8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>',
+        'image'       => $vol_img_base . 'Event Coordinator.webp',
         'time'        => 'Flexible hours',
         'requirement' => 'Organizational skills needed',
     ],
     [
         'title'       => 'Program Assistant',
         'description' => 'Support program coordinators with administrative tasks, registration, and day-to-day operations.',
-        'icon'        => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M28 8H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2Z" stroke="#fff" stroke-width="2.5"/><path d="M2 12h28M10 8V4M22 8V4" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>',
+        'image'       => $vol_img_base . 'Program Assistant.webp',
         'time'        => '4-6 hours/week',
         'requirement' => 'Detail-oriented',
     ],
     [
         'title'       => 'Community Outreach',
         'description' => 'Connect with local organizations, promote MYCO programs, and help expand our community impact.',
-        'icon'        => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 28c6.627 0 12-5.373 12-12S22.627 4 16 4 4 9.373 4 16s5.373 12 12 12Z" stroke="#fff" stroke-width="2.5"/><path d="M4 16h24M16 4c2.5 3 4 7 4 12s-1.5 9-4 12c-2.5-3-4-7-4-12s1.5-9 4-12Z" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>',
+        'image'       => $vol_img_base . 'Community Outreach.webp',
         'time'        => 'Flexible schedule',
         'requirement' => 'Strong communication skills',
     ],
@@ -216,43 +217,34 @@ if (!$cta_button_url) {
             </p>
         </div>
 
-        <!-- Reasons grid - 2 columns for better readability -->
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 100%; margin: 0 auto;">
+        <!-- Reasons grid - compact 3-col -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 100%; margin: 0 auto;">
             <?php foreach ($why_reasons as $reason) : ?>
             <div style="
                 background: #ffffff;
-                border-radius: 20px;
-                padding: 48px 40px;
+                border-radius: 14px;
+                padding: 28px 26px;
                 display: flex;
-                align-items: flex-start;
-                gap: 28px;
+                align-items: center;
+                gap: 20px;
                 border: 1px solid #E2E6ED;
-                transition: box-shadow .3s ease, transform .3s ease;
-            " onmouseover="this.style.boxShadow='0 12px 32px rgba(200,64,46,.12)';this.style.transform='translateY(-4px)';this.style.borderColor='#C8402E'"
-               onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)';this.style.borderColor='#E2E6ED'">
+                transition: box-shadow .25s, border-color .25s;
+            " onmouseover="this.style.boxShadow='0 6px 20px rgba(200,64,46,.1)';this.style.borderColor='#C8402E'"
+               onmouseout="this.style.boxShadow='none';this.style.borderColor='#E2E6ED'">
                 <div style="
-                    width: 68px;
-                    height: 68px;
-                    border-radius: 16px;
-                    background: linear-gradient(135deg, rgba(200,64,46,0.1) 0%, rgba(200,64,46,0.18) 100%);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    width: 54px; height: 54px;
+                    border-radius: 12px;
+                    background: rgba(200,64,46,0.1);
+                    display: flex; align-items: center; justify-content: center;
                     flex-shrink: 0;
                 ">
-                    <?php
-                    if (!empty($reason['icon'])) {
-                        // Scale up the icon
-                        $scaled_icon = str_replace('width="28" height="28"', 'width="36" height="36"', $reason['icon']);
-                        echo $scaled_icon; // SVG markup
-                    }
-                    ?>
+                    <?php if (!empty($reason['icon'])) echo str_replace(['width="28" height="28"'], ['width="26" height="26"'], $reason['icon']); ?>
                 </div>
-                <div style="flex: 1;">
-                    <h3 style="font-size: 21px; font-weight: 800; color: #141943; margin-bottom: 12px; line-height: 1.3;">
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 800; color: #141943; margin: 0 0 6px; line-height: 1.3;">
                         <?php echo esc_html($reason['title']); ?>
                     </h3>
-                    <p style="font-size: 16px; color: #5B6575; line-height: 1.7;">
+                    <p style="font-size: 14px; color: #6B7280; line-height: 1.55; margin: 0;">
                         <?php echo esc_html($reason['description']); ?>
                     </p>
                 </div>
@@ -284,72 +276,73 @@ if (!$cta_button_url) {
 
         <!-- Roles grid -->
         <div class="volunteer-opportunities" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
-            <?php foreach ($volunteer_roles as $role) : ?>
+            <?php foreach ($volunteer_roles as $role) : 
+                $role_img = !empty($role['image']) ? $role['image'] : (!empty($role['icon']) ? '' : '');
+            ?>
             <div style="
                 background: #ffffff;
                 border: 1px solid #E2E6ED;
                 border-radius: 20px;
-                padding: 36px 32px;
+                overflow: hidden;
                 display: flex;
                 flex-direction: column;
                 transition: box-shadow .25s ease, transform .25s ease;
             " onmouseover="this.style.boxShadow='0 16px 40px rgba(20,25,67,.12)';this.style.transform='translateY(-4px)'"
                onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)'">
 
-                <!-- Icon -->
+                <!-- Image top half -->
+                <?php if (!empty($role_img)) : ?>
                 <div style="
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 16px;
-                    background: linear-gradient(135deg, #141943 0%, #2a3e6a 100%);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-bottom: 20px;
+                    width: 100%;
+                    height: 200px;
+                    overflow: hidden;
                     flex-shrink: 0;
                 ">
-                    <?php
-                    if (!empty($role['icon'])) {
-                        echo $role['icon']; // SVG markup
-                    }
-                    ?>
+                    <img src="<?php echo esc_url($role_img); ?>" alt="<?php echo esc_attr($role['title']); ?>"
+                         loading="lazy"
+                         style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                 </div>
+                <?php endif; ?>
 
-                <!-- Title -->
-                <h3 style="font-size: 24px; font-weight: 800; color: #141943; margin-bottom: 12px;">
-                    <?php echo esc_html($role['title']); ?>
-                </h3>
+                <!-- Card body -->
+                <div style="padding: 28px 28px 28px; display: flex; flex-direction: column; flex: 1;">
 
-                <!-- Description -->
-                <p style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 20px; flex: 1;">
-                    <?php echo esc_html($role['description']); ?>
-                </p>
+                    <!-- Title -->
+                    <h3 style="font-size: 22px; font-weight: 800; color: #141943; margin-bottom: 10px;">
+                        <?php echo esc_html($role['title']); ?>
+                    </h3>
 
-                <!-- Requirements -->
-                <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 20px; border-top: 1px solid #E2E6ED; margin-bottom: 20px;">
-                    <?php if (!empty($role['time'])) : ?>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z" stroke="#9CA3AF" stroke-width="1.5"/>
-                            <path d="M8 4v4l2 2" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        <span style="font-size: 14px; color: #6B7280; font-weight: 500;"><?php echo esc_html($role['time']); ?></span>
+                    <!-- Description -->
+                    <p style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 20px; flex: 1;">
+                        <?php echo esc_html($role['description']); ?>
+                    </p>
+
+                    <!-- Requirements -->
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px 20px; padding-top: 16px; border-top: 1px solid #E2E6ED; margin-bottom: 20px;">
+                        <?php if (!empty($role['time'])) : ?>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z" stroke="#9CA3AF" stroke-width="1.5"/>
+                                <path d="M8 4v4l2 2" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            <span style="font-size: 14px; color: #6B7280; font-weight: 500;"><?php echo esc_html($role['time']); ?></span>
+                        </div>
+                        <?php endif; ?>
+                        <?php if (!empty($role['requirement'])) : ?>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 2v12M2 8h12" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            <span style="font-size: 14px; color: #6B7280; font-weight: 500;"><?php echo esc_html($role['requirement']); ?></span>
+                        </div>
+                        <?php endif; ?>
                     </div>
-                    <?php endif; ?>
-                    <?php if (!empty($role['requirement'])) : ?>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M8 2v12M2 8h12" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        <span style="font-size: 14px; color: #6B7280; font-weight: 500;"><?php echo esc_html($role['requirement']); ?></span>
-                    </div>
-                    <?php endif; ?>
+
+                    <!-- Apply Now CTA -->
+                    <a href="#volunteer-registration" class="pill-primary" style="text-align: center; justify-content: center;">
+                        <?php esc_html_e('Apply Now', 'myco'); ?>
+                    </a>
                 </div>
-
-                <!-- Apply Now CTA -->
-                <a href="#volunteer-registration" class="pill-primary" style="text-align: center; justify-content: center;">
-                    <?php esc_html_e('Apply Now', 'myco'); ?>
-                </a>
             </div>
             <?php endforeach; ?>
         </div>
