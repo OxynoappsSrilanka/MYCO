@@ -33,7 +33,7 @@ $construction_images = [
 ];
 $sports_image    = myco_theme_asset_url('assets/images/sports.jpg');
 $video_poster    = myco_theme_asset_url('assets/images/Galleries/myco-youth-community-center-groundbreaking-ceremony.jpg');
-$video_src       = myco_theme_asset_url('assets/images/muslimyoungster.mp4');
+$video_src       = myco_theme_asset_url('assets/images/construction.mp4');
 $quote_image     = myco_theme_asset_url('assets/images/Galleries/myco-youth-team-award-check-winners.jpg');
 
 $quick_links = [
@@ -124,12 +124,12 @@ get_header();
                 </div>
             </div>
 
-            <!-- Video column — absolutely positioned right half -->
-            <div class="mcyc-hero-video-col mcyc-fade-in" style="transition-delay: 0.18s;">
-                <div class="mcyc-hero-image-frame" style="border-radius: 28px 0 0 28px; height: 100%;">
-                    <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; object-position:center; position:relative; z-index:0; display:block;">
-                        <source src="<?php echo esc_url(myco_theme_asset_url('assets/images/construction.mp4')); ?>" type="video/mp4" />
-                    </video>
+            <!-- Image column — absolutely positioned right half -->
+            <div class="mcyc-hero-video-col mcyc-fade-in" style="transition-delay: 0.18s; padding: 16px 48px 16px 0;">
+                <div class="mcyc-hero-image-frame" style="border-radius: 28px; height: 100%; overflow: hidden;">
+                    <img src="<?php echo esc_url($hero_image); ?>"
+                         alt="MYCO youth community center groundbreaking ceremony"
+                         style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;" />
                     <div class="absolute left-6 top-6 z-10">
                         <span class="inline-flex items-center px-4 py-2 rounded-full bg-red text-white text-[0.72rem] tracking-[0.18em] uppercase font-extrabold">Building Momentum</span>
                     </div>
@@ -419,121 +419,37 @@ get_header();
         </div>
     </section>
 
-    <section id="community-voices" class="py-14 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section id="community-voices" class="py-16 md:py-24 bg-white">
         <div class="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-[1fr_0.82fr] gap-12 xl:gap-16 items-start">
 
-                <!-- Left: heading + voice cards -->
-                <div class="mcyc-fade-in">
-                    <p class="mcyc-eyebrow mb-5">Community Stories</p>
-                    <h2 class="text-navy font-extrabold tracking-tight text-[2.4rem] sm:text-[3.2rem] leading-[1] mb-5">Hear From Our <span class="text-red">Community</span></h2>
-                    <p class="text-lg leading-[1.8] text-gray-600 mb-10 max-w-2xl">A dedicated youth centre matters because it gives real people a space they can count on. These perspectives reflect the kind of impact the project is meant to create.</p>
-
-                    <div class="grid gap-5">
-                        <?php foreach ($voice_cards as $voice) : ?>
-                            <article class="mcyc-voice-card<?php echo $voice['initial'] === 'D' ? ' is-featured' : ''; ?> p-6">
-                                <p class="text-base leading-[1.8]"><?php echo esc_html($voice['quote']); ?></p>
-                                <div class="mt-5 flex items-center gap-3">
-                                    <img src="<?php echo esc_url($voice['image']); ?>" alt="<?php echo esc_attr($voice['title']); ?>" style="width:44px; height:44px; border-radius:50%; object-fit:cover; object-position:top; border:2px solid rgba(200,64,46,0.25); flex-shrink:0;" />
-                                    <div><p class="font-extrabold text-sm"><?php echo esc_html($voice['title']); ?></p><p class="mcyc-voice-role text-xs"><?php echo esc_html($voice['role']); ?></p></div>
-                                </div>
-                            </article>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
-                <!-- Right: podcast player -->
-                <div class="mcyc-fade-in" style="transition-delay: 0.18s;">
-                    <div class="mcyc-podcast-player" id="mcyc-podcast-player-2">
-
-                        <div class="mcyc-podcast-hero">
-                            <img id="mcyc-ep-cover-2" src="<?php echo esc_url(myco_theme_asset_url('assets/images/Testimonials/Br_Abdurahman_Abdala.png')); ?>" alt="Episode cover" class="mcyc-podcast-cover" style="border-radius:50%; object-position:top;" />
-                            <div class="mcyc-podcast-meta">
-                                <span class="mcyc-podcast-badge">Community Voice</span>
-                                <h3 id="mcyc-ep-title-2" class="mcyc-podcast-title">Br. Abdurahman Abdala</h3>
-                                <p id="mcyc-ep-subtitle-2" class="mcyc-podcast-desc" style="color:rgba(200,64,46,0.8); font-weight:600; font-size:12px;">Parent Voice</p>
-                            </div>
-                        </div>
-
-                        <div class="mcyc-waveform-wrap">
-                            <div class="mcyc-waveform" id="mcyc-waveform-2" aria-hidden="true">
-                                <?php for ($b = 0; $b < 60; $b++) :
-                                    $h2 = 20 + rand(10, 70);
-                                    $delay2 = round($b * 0.04, 2);
-                                ?>
-                                <div class="mcyc-waveform-bar" style="height:<?php echo $h2; ?>px; animation-delay:<?php echo $delay2; ?>s;"></div>
-                                <?php endfor; ?>
-                            </div>
-                            <div class="mcyc-progress-track" id="mcyc-progress-track-2">
-                                <div class="mcyc-progress-fill" id="mcyc-progress-fill-2" style="width:32%;"></div>
-                                <div class="mcyc-progress-thumb" id="mcyc-progress-thumb-2" style="left:32%;"></div>
-                            </div>
-                        </div>
-
-                        <div class="mcyc-time-row">
-                            <span id="mcyc-time-cur-2" class="mcyc-time-label">1:02</span>
-                            <span id="mcyc-time-tot-2" class="mcyc-time-label">3:12</span>
-                        </div>
-
-                        <div class="mcyc-controls">
-                            <button class="mcyc-ctrl-btn mcyc-ctrl-skip" id="mcyc-skip-back-2" title="Rewind 15s">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/><text x="7" y="20" font-size="5" fill="currentColor" stroke="none">15</text></svg>
-                            </button>
-                            <button class="mcyc-ctrl-btn mcyc-ctrl-prev" id="mcyc-ep-prev-2" title="Previous">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-                            </button>
-                            <button class="mcyc-ctrl-btn mcyc-ctrl-play" id="mcyc-play-btn-2" title="Play / Pause">
-                                <svg id="mcyc-play-icon-2" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                                <svg id="mcyc-pause-icon-2" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                            </button>
-                            <button class="mcyc-ctrl-btn mcyc-ctrl-next" id="mcyc-ep-next-2" title="Next">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2.5-6 8.5 6V6z"/></svg>
-                            </button>
-                            <button class="mcyc-ctrl-btn mcyc-ctrl-skip" id="mcyc-skip-fwd-2" title="Forward 15s">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.5"/><text x="7" y="20" font-size="5" fill="currentColor" stroke="none">15</text></svg>
-                            </button>
-                            <div class="mcyc-volume-wrap">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:rgba(255,255,255,0.5); flex-shrink:0;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-                                <input type="range" class="mcyc-volume-slider" id="mcyc-volume-2" min="0" max="100" value="80" />
-                            </div>
-                        </div>
-
-                        <div class="mcyc-episode-list">
-                            <p class="mcyc-ep-list-label">Community Members</p>
-                            <div class="mcyc-ep-list-track" id="mcyc-ep-track-2">
-                                <?php
-                                $members = [
-                                    ['img' => myco_theme_asset_url('assets/images/Testimonials/Br_Abdurahman_Abdala.png'), 'name' => 'Br. Abdurahman Abdala', 'position' => 'Parent Voice',        'dur' => '3:12', 'active' => true],
-                                    ['img' => myco_theme_asset_url('assets/images/Testimonials/Nasser_Karimian.png'),      'name' => 'Nasser Karimian',         'position' => 'Campaign Supporter', 'dur' => '2:34', 'active' => false],
-                                    ['img' => myco_theme_asset_url('assets/images/Testimonials/Sh_Nasir_Jungda.png'),      'name' => 'Sh. Nasir Jungda',        'position' => 'Community Leader',   'dur' => '4:08', 'active' => false],
-                                    ['img' => myco_theme_asset_url('assets/images/Testimonials/Mufti_Kamani.png'),         'name' => 'Mufti Kamani',            'position' => 'Scholar & Advisor',  'dur' => '1:58', 'active' => false],
-                                    ['img' => myco_theme_asset_url('assets/images/Testimonials/Suhaib_Webb.png'),          'name' => 'Suhaib Webb',             'position' => 'Mentor & Educator',  'dur' => '3:45', 'active' => false],
-                                ];
-                                foreach ($members as $mi => $member) : ?>
-                                <div class="mcyc-ep-item<?php echo $member['active'] ? ' is-active' : ''; ?>"
-                                     data-index="<?php echo $mi; ?>"
-                                     data-title="<?php echo esc_attr($member['name']); ?>"
-                                     data-cover="<?php echo esc_url($member['img']); ?>"
-                                     data-dur="<?php echo esc_attr($member['dur']); ?>"
-                                     data-position="<?php echo esc_attr($member['position']); ?>">
-                                    <img src="<?php echo esc_url($member['img']); ?>" alt="<?php echo esc_attr($member['name']); ?>" class="mcyc-ep-thumb" style="border-radius:50%; border:2px solid rgba(200,64,46,0.3);" />
-                                    <div class="mcyc-ep-info">
-                                        <p class="mcyc-ep-name" style="white-space:normal; font-size:13px;"><?php echo esc_html($member['name']); ?></p>
-                                        <span class="mcyc-ep-num" style="font-size:10px; color:rgba(255,255,255,0.45); text-transform:none; letter-spacing:0;"><?php echo esc_html($member['position']); ?></span>
-                                    </div>
-                                    <span class="mcyc-ep-dur"><?php echo esc_html($member['dur']); ?></span>
-                                    <div class="mcyc-ep-play-icon">
-                                        <svg width="8" height="10" viewBox="0 0 8 10" fill="white"><path d="M1 1l6 4-6 4V1z"/></svg>
-                                    </div>
-                                </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
+            <!-- Section header -->
+            <div class="text-center mb-12 mcyc-fade-in">
+                <p class="mcyc-eyebrow mb-4">Construction Progress</p>
+                <h2 class="text-navy font-extrabold tracking-tight text-[2.4rem] sm:text-[3.2rem] leading-[1.05] mb-5">
+                    Watch the <span class="text-red">Building Rise</span>
+                </h2>
+                <p class="text-lg text-gray-600 leading-[1.8] max-w-2xl mx-auto">
+                    From groundbreaking to structural steel — see the MCYC facility taking shape in real time. Every beam placed is a step closer to a permanent home for Muslim youth in Central Ohio.
+                </p>
             </div>
+
+            <!-- Video -->
+            <div class="mcyc-fade-in" style="transition-delay:0.12s; border-radius:28px; overflow:hidden; box-shadow:0 24px 70px rgba(20,25,67,0.14); position:relative; background:#000;">
+                <video autoplay muted loop playsinline
+                       style="width:100%; display:block; max-height:700px; object-fit:cover;">
+                    <source src="<?php echo esc_url($video_src); ?>" type="video/mp4" />
+                </video>
+                <!-- Bottom overlay -->
+                <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(20,25,67,0.55) 0%, transparent 50%); pointer-events:none;"></div>
+                <div style="position:absolute; bottom:32px; left:40px; right:40px; z-index:2; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                    <div>
+                        <p class="text-white font-extrabold text-2xl md:text-3xl leading-tight">MCYC — 5509 Sunbury Road, Columbus, OH</p>
+                        <p class="text-white/80 text-sm mt-1">Structural steel completion milestone reached</p>
+                    </div>
+                    <a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-primary" style="flex-shrink:0;">Support the Build</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
