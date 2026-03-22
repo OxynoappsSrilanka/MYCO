@@ -48,31 +48,67 @@ $updates_url   = myco_get_contact_page_url(['interest' => 'events']);
 $volunteer_url = myco_get_page_url('volunteer', '/volunteer/');
 ?>
 
-<section class="events-hero">
-    <div class="inner events-hero-inner" style="padding-top: 120px; padding-bottom: 80px; text-align: center;">
-        <div class="events-breadcrumb events-breadcrumb--center">
-            <?php foreach ($args['breadcrumb'] as $index => $crumb) : ?>
-                <?php if ($index > 0) : ?>
-                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true">
-                        <path d="M1 1l4 4-4 4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                <?php endif; ?>
-                <?php if (!empty($crumb['url'])) : ?>
-                    <a href="<?php echo esc_url($crumb['url']); ?>"><?php echo esc_html($crumb['label']); ?></a>
-                <?php else : ?>
-                    <span><?php echo esc_html($crumb['label']); ?></span>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </div>
-
-        <h1 class="events-hero-title">
-            <?php echo esc_html($args['hero_title']); ?>
-        </h1>
-
-        <p class="events-hero-copy">
-            <?php echo esc_html($args['hero_copy']); ?>
-        </p>
+<!-- Hero Banner Section with Full Width Blurred Background -->
+<section class="page-hero-bg" style="
+  background: url('<?php echo esc_url(myco_get_field('events_banner_image') ?: get_template_directory_uri() . '/assets/images/sports.jpg'); ?>') center center / cover no-repeat;
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+">
+  <!-- Blur Overlay -->
+  <div style="
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(20, 25, 67, 0.75);
+    z-index: 1;
+  "></div>
+  
+  <!-- Content -->
+  <div style="position: relative; z-index: 2; text-align: center; max-width: 1200px; margin: 0 auto; padding: 0 40px;">
+    <!-- Breadcrumb -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px;">
+      <?php foreach ($args['breadcrumb'] as $index => $crumb) : ?>
+        <?php if ($index > 0) : ?>
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+            <path d="M1 1l4 4-4 4" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        <?php endif; ?>
+        <?php if (!empty($crumb['url'])) : ?>
+          <a href="<?php echo esc_url($crumb['url']); ?>" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.75)'"><?php echo esc_html($crumb['label']); ?></a>
+        <?php else : ?>
+          <span style="font-size: 14px; font-weight: 600; color: #ffffff;"><?php echo esc_html($crumb['label']); ?></span>
+        <?php endif; ?>
+      <?php endforeach; ?>
     </div>
+    
+    <!-- Page Title -->
+    <h1 style="
+      font-size: 72px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    ">
+      <?php echo esc_html($args['hero_title']); ?>
+    </h1>
+    
+    <!-- Subtitle -->
+    <p style="
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 400;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    ">
+      <?php echo esc_html($args['hero_copy']); ?>
+    </p>
+  </div>
 </section>
 
 <section class="events-page-shell">

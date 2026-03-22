@@ -6,11 +6,61 @@
 get_header();
 ?>
 
-<!-- Hero Section -->
-<?php get_template_part('template-parts/hero/hero-breadcrumb-dark', null, array(
-    'title' => 'Get In Touch',
-    'subtitle' => 'We\'d love to hear from you. Reach out with any questions about our programs or community initiatives',
-)); ?>
+<!-- Hero Banner Section with Full Width Blurred Background -->
+<section class="page-hero-bg" style="
+  background: url('<?php echo esc_url(myco_get_field('contact_banner_image') ?: get_template_directory_uri() . '/assets/images/meeting.jpg'); ?>') center center / cover no-repeat;
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+">
+  <!-- Blur Overlay -->
+  <div style="
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(20, 25, 67, 0.75);
+    z-index: 1;
+  "></div>
+  
+  <!-- Content -->
+  <div style="position: relative; z-index: 2; text-align: center; max-width: 1200px; margin: 0 auto; padding: 0 40px;">
+    <!-- Breadcrumb -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px;">
+      <a href="<?php echo esc_url(home_url('/')); ?>" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">Home</a>
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+        <path d="M1 1l4 4-4 4" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-size: 14px; font-weight: 600; color: #ffffff;">Contact</span>
+    </div>
+    
+    <!-- Page Title -->
+    <h1 style="
+      font-size: 72px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    ">
+      <?php echo esc_html(myco_get_field('contact_title') ?: 'Get In Touch'); ?>
+    </h1>
+    
+    <!-- Subtitle -->
+    <p style="
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 400;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    ">
+      <?php echo esc_html(myco_get_field('contact_subtitle') ?: "We'd love to hear from you. Reach out with any questions about our programs or community initiatives"); ?>
+    </p>
+  </div>
+</section>
 
 <!-- Contact Info Cards -->
 <section style="background: #F5F6FA; padding: 90px 0 60px; position: relative;">
