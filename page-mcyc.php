@@ -130,10 +130,10 @@ get_header();
                     <img src="<?php echo esc_url($hero_image); ?>"
                          alt="MYCO youth community center groundbreaking ceremony"
                          style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;" />
-                    <div class="absolute left-6 top-6 z-10">
+                    <div class="absolute left-6 top-6 z-10 mcyc-hero-badge-overlay">
                         <span class="inline-flex items-center px-4 py-2 rounded-full bg-red text-white text-[0.72rem] tracking-[0.18em] uppercase font-extrabold">Building Momentum</span>
                     </div>
-                    <div class="absolute left-6 bottom-6 z-10 max-w-md text-white">
+                    <div class="absolute left-6 bottom-6 z-10 max-w-md text-white mcyc-hero-text-overlay">
                         <p class="text-2xl font-extrabold leading-tight">The future home of MCYC is taking shape.</p>
                         <p class="mt-2 text-sm text-white/85 leading-6">A dedicated youth-centred facility creates room for mentorship, formation, and community that can last for generations.</p>
                     </div>
@@ -441,7 +441,7 @@ get_header();
                 </video>
                 <!-- Bottom overlay -->
                 <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(20,25,67,0.55) 0%, transparent 50%); pointer-events:none;"></div>
-                <div style="position:absolute; bottom:32px; left:40px; right:40px; z-index:2; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                <div style="position:absolute; bottom:32px; left:40px; right:40px; z-index:2; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px;" class="mcyc-construction-overlay">
                     <div>
                         <p class="text-white font-extrabold text-2xl md:text-3xl leading-tight">MCYC — 5509 Sunbury Road, Columbus, OH</p>
                         <p class="text-white/80 text-sm mt-1">Structural steel completion milestone reached</p>
