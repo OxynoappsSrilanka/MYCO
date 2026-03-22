@@ -63,7 +63,7 @@ $video_query = new WP_Query(array(
 ?>
 
 <!-- Hero Banner Section with Full Width Blurred Background -->
-<section style="
+<section class="page-hero-bg" style="
   background: url('<?php echo esc_url(myco_get_field('gallery_banner_image') ?: get_template_directory_uri() . '/assets/images/study.jpg'); ?>') center center / cover no-repeat;
   padding: 140px 0;
   position: relative;
@@ -121,9 +121,9 @@ $video_query = new WP_Query(array(
 <!-- Filter Tabs Section -->
 <section style="background: #F5F6FA; padding: 60px 0 0; position: relative;">
   <div class="inner">
-    <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; flex-wrap: wrap;">
+    <div class="gallery-filter-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; flex-wrap: wrap;">
       <!-- Filter Tabs -->
-      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex: 1;">
+      <div class="gallery-filter-tabs" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex: 1;">
         <button class="album-tab active" data-filter="all" onclick="filterGallery('all', this)" style="
           height: 48px;
           padding: 0 28px;
@@ -198,7 +198,7 @@ $video_query = new WP_Query(array(
     <!-- Toggle Button and Results Count -->
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
       <!-- Photo/Video Toggle -->
-      <div style="display: inline-flex; background: #ffffff; border-radius: 9999px; padding: 4px; border: 2px solid #E5E7EB; box-shadow: 0 2px 8px rgba(20, 25, 67, 0.08);">
+      <div class="gallery-media-toggle" style="display: inline-flex; background: #ffffff; border-radius: 9999px; padding: 4px; border: 2px solid #E5E7EB; box-shadow: 0 2px 8px rgba(20, 25, 67, 0.08);">
         <button id="toggle-photos" class="media-toggle active" onclick="toggleMediaType('photos')" style="
           display: flex;
           align-items: center;

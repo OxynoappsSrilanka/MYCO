@@ -44,7 +44,7 @@ $articles = new WP_Query([
 ?>
 
 <!-- Hero Banner Section with Full Width Blurred Background -->
-<section style="
+<section class="page-hero-bg" style="
   background: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/about.png'); ?>') center center / cover no-repeat;
   padding: 140px 0;
   position: relative;
@@ -136,9 +136,9 @@ $articles = new WP_Query([
         <?php endwhile; wp_reset_postdata(); endif; ?>
 
         <!-- Filter Tabs and Search Bar -->
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; flex-wrap: wrap;">
+        <div class="news-filter-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; flex-wrap: wrap;">
             <!-- Category Filter Tabs -->
-            <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex: 1;">
+            <div class="news-filter-tabs" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex: 1;">
                 <button class="filter-tab active" onclick="filterNews('all', this)" style="
                     height: 48px;
                     padding: 0 28px;

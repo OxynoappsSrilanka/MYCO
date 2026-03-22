@@ -147,3 +147,85 @@
     });
   });
 })();
+
+/**
+ * Mobile Search Expand
+ * On mobile (≤767px), clicking the search button expands an input overlay
+ * over the filter tabs. Works for gallery, news, and events filter bars.
+ */
+(function () {
+  'use strict';
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.innerWidth > 1024) return;
+
+    var configs = [
+      {
+        barSel: '.gallery-filter-bar',
+        tabsSel: '.gallery-filter-tabs',
+        inputId: 'gallery-search',
+        btnSel: '.gallery-filter-bar div[style*="width: 380px"] button',
+      },
+      {
+        barSel: '.news-filter-bar',
+        tabsSel: '.news-filter-tabs',
+        inputId: 'news-search',
+        btnSel: '.news-filter-bar div[style*="width: 380px"] button',
+      },
+      {
+        barSel: '.filter-search-container',
+        tabsSel: '.filter-group',
+        inputId: 'program-search',
+        btnSel: '.programs-search-btn',
+      },
+      {
+        barSel: '.events-controls',
+        tabsSel: '.events-filter-tabs',
+        inputId: 'events-search-input',
+        btnSel: null, // events uses a label/input, no separate button
+      },
+    ];
+
+    configs.forEach(function (cfg) {
+      var bar = document.querySelector(cfg.barSel);
+      var tabs = document.querySelector(cfg.tabsSel);
+      var input = cfg.inputId ? document.getElementById(cfg.inputId) : null;
+      var btn = cfg.btnSel ? document.querySelector(cfg.btnSel) : null;
+
+      if (!bar || !input) return;
+
+      // For gallery/news: button toggles expand
+      if (btn) {
+        btn.addEventListener('click', function (e) {
+          var isOpen = bar.classList.contains('search-expanded');
+          if (isOpen) {
+            // collapse
+            bar.classList.remove('search-expanded');
+            input.style.display = 'none';
+            input.value = '';
+            // trigger clear search
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('keyup'));
+          } else {
+            // expand
+            bar.classList.add('search-expanded');
+            input.style.display = 'block';
+            input.focus();
+          }
+          e.stopPropagation();
+        });
+
+        // Collapse on outside click
+        document.addEventListener('click', function (e) {
+          if (bar.classList.contains('search-expanded') && !bar.contains(e.target)) {
+            bar.classList.remove('search-expanded');
+            input.style.display = 'none';
+            input.value = '';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('keyup'));
+          }
+        });
+      }
+    });
+  });
+})();

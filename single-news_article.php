@@ -54,7 +54,7 @@ if (!$related_articles->have_posts()) {
 <main class="nsd-page">
 
     <!-- ── HERO BANNER WITH BLURRED BACKGROUND (Gallery Style) ── -->
-    <section style="
+    <section class="page-hero-bg" style="
         background: url('<?php echo esc_url(has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'full') : get_template_directory_uri() . '/assets/images/hero-image.png'); ?>') center center / cover no-repeat;
         padding: 140px 0;
         position: relative;

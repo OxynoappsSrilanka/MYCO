@@ -23,7 +23,7 @@ $programs = new WP_Query([
 ?>
 
 <!-- Hero Section (Center Aligned as per Ref) -->
-<section style="background: linear-gradient(135deg, #141943 0%, #1e2a5a 50%, #141943 100%); padding: 120px 0 100px; text-align: center; position: relative; overflow: hidden;">
+<section class="page-hero-bg" style="background: linear-gradient(135deg, #141943 0%, #1e2a5a 50%, #141943 100%); padding: 120px 0 100px; text-align: center; position: relative; overflow: hidden;">
     <!-- Abstract background elements -->
     <div style="position: absolute; width: 600px; height: 600px; background: rgba(5,150,105,0.05); filter: blur(120px); border-radius: 50%; top: -200px; right: -100px; pointer-events: none;"></div>
     <div style="position: absolute; width: 400px; height: 400px; background: rgba(200,64,46,0.07); filter: blur(100px); border-radius: 50%; bottom: -100px; left: -50px; pointer-events: none;"></div>
@@ -35,7 +35,7 @@ $programs = new WP_Query([
             <span style="color: #fff; font-weight: 600;">Our Programs</span>
         </div>
         
-        <h1 style="font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 900; color: #ffffff; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px;">Our Programs</h1>
+        <h1 style="font-size: clamp(1.4rem, 6vw, 2rem); font-weight: 900; color: #ffffff; line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 24px;">Our Programs</h1>
         <p style="font-size: 20px; color: #BFC9D3; max-width: 800px; margin: 0 auto; line-height: 1.6;">Comprehensive youth development through mentorship, athletics, academics, and community service.</p>
     </div>
 </section>
@@ -68,6 +68,9 @@ $programs = new WP_Query([
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#94A3B8" stroke-width="2"/><path d="M13.5 13.5L17 17" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/></svg>
                 </div>
                 <input type="text" id="program-search" class="program-search-input" placeholder="Search programs..." />
+                <button class="programs-search-btn" aria-label="Search programs">
+                    <svg width="15" height="15" viewBox="0 0 18 18" fill="none"><circle cx="8" cy="8" r="5.5" stroke="white" stroke-width="2"/><path d="M12 12l4 4" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
             </div>
         </div>
 

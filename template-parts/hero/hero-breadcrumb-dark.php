@@ -66,7 +66,7 @@ if (!empty($args['breadcrumb'])) {
 }
 ?>
 
-<section class="w-full relative overflow-hidden" style="background: linear-gradient(135deg, #141943 0%, #1e2a5a 50%, #2a3e6a 100%);">
+<section class="page-inner-hero w-full relative overflow-hidden" style="background: linear-gradient(135deg, #141943 0%, #1e2a5a 50%, #2a3e6a 100%);">
     <!-- Wave decoration -->
     <div aria-hidden="true" class="absolute inset-0 pointer-events-none opacity-[0.06]"
          style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='300' fill='none'%3E%3Cpath d='M-60 80 C400 -20 800 180 1300 60 S1700 -40 1980 80' stroke='white' stroke-width='1.2'/%3E%3Cpath d='M-60 160 C400 60 800 260 1300 140 S1700 40 1980 160' stroke='white' stroke-width='1.2'/%3E%3C/svg%3E&quot;); background-size: 1920px 300px; background-repeat: no-repeat;"></div>

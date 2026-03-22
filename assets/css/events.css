@@ -1085,11 +1085,11 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .events-hero,
   .event-detail-hero {
-    padding-top: 64px !important;
-    padding-bottom: 48px !important;
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
   }
 
   .events-page-shell {
@@ -1121,13 +1121,13 @@
   .events-hero-title,
   .events-cta-title,
   .event-detail-title {
-    font-size: clamp(2.4rem, 10vw, 4rem);
+    font-size: clamp(1.4rem, 6vw, 2rem);
   }
 
   .events-hero-copy,
   .events-cta-copy {
-    margin-bottom: 32px;
-    font-size: 17px;
+    margin-bottom: 0;
+    font-size: 0.875rem;
   }
 
   .events-controls {

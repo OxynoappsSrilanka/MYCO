@@ -142,7 +142,7 @@ if (!$cta_button_url) {
 ?>
 
 <!-- Hero Banner Section with Full Width Blurred Background -->
-<section style="
+<section class="page-hero-bg" style="
   background: url('<?php echo esc_url(myco_get_field('volunteer_banner_image') ?: get_template_directory_uri() . '/assets/images/volunteers.jpg'); ?>') center center / cover no-repeat;
   padding: 140px 0;
   position: relative;

@@ -1428,6 +1428,15 @@ section {
   min-width: 0;
 }
 
+@media (min-width: 768px) and (max-width: 1150px) {
+  .story-image-column {
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 33%;
+    margin-left: -15%;
+  }
+}
+
 @media (max-width: 768px) {
   .story-image-column {
     justify-content: center;
@@ -2214,6 +2223,49 @@ p:not([class*="text-"]) {
 header .flex-shrink-0 img {
   height: auto;
   max-height: clamp(96px, 20vw, 144px);
+}
+
+/* Tablet: shrink logo so nav has room */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .site-header-inner {
+    gap: 0.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Logo image — override Tailwind h-28 */
+  .site-header a.hidden.md\:flex img,
+  .site-header a[aria-label] img {
+    height: 90px !important;
+    max-height: 90px !important;
+    width: auto !important;
+  }
+
+  /* Nav: don't stretch full width, shrink to content */
+  .site-header-nav {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .pill-nav {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    width: auto !important;
+    flex-shrink: 1 !important;
+  }
+
+  .pill-nav .pill-nav-link,
+  .pill-nav .pill-nav-dropdown-toggle {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .pill-nav .pill-nav-link.donate-btn,
+  .pill-nav .pill-nav-link.mcyc-btn {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -3140,19 +3192,21 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .filter-search-container {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 124px;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 30px;
+    overflow: hidden;
   }
 
   .filter-group {
+    flex: 1 1 0%;
+    min-width: 0;
     flex-wrap: nowrap;
     overflow-x: auto;
-    min-width: 0;
     padding-bottom: 4px;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -3164,23 +3218,82 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
 
   .filter-btn {
     flex: 0 0 auto;
-    height: 38px;
-    padding: 0 16px;
-    font-size: 13px;
+    height: 30px;
+    padding: 0 12px;
+    font-size: 11px;
   }
 
+  /* Search wrapper: collapsed to icon button by default */
   .search-wrapper {
-    width: 124px;
+    flex: 0 0 34px;
+    width: 34px;
     min-width: 0;
-    justify-self: end;
+    height: 34px;
+    position: relative;
+    overflow: visible;
   }
 
-  .program-search-input {
-    height: 40px;
-    padding-left: 38px;
-    padding-right: 12px;
+  /* Hide the text input and icon by default on mobile */
+  .search-wrapper .program-search-input {
+    display: none;
+  }
+
+  .search-wrapper .search-icon {
+    display: none;
+  }
+
+  /* Red circle search button — shown on mobile */
+  .search-wrapper .programs-search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #C8402E;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .search-wrapper .programs-search-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* Expanded state */
+  .filter-search-container.search-expanded .filter-group {
+    opacity: 0;
+    pointer-events: none;
+    flex: 0 0 0%;
+    overflow: hidden;
+  }
+
+  .filter-search-container.search-expanded .search-wrapper {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .filter-search-container.search-expanded .program-search-input {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding-left: 14px;
+    padding-right: 40px;
     font-size: 13px;
-    border-radius: 10px;
+    border-radius: 9999px;
+    border: 2px solid #C8402E;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(200,64,46,0.12);
+  }
+
+  .filter-search-container.search-expanded .programs-search-btn {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
   }
 
   .programs-register-cta {
@@ -3257,35 +3370,8 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
 }
 
 @media (max-width: 1150px) {
-  .hero-centerline-row {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
   .hero-centerline-right {
     gap: 20px !important;
-  }
-
-  .section-layout {
-    grid-template-columns: 1fr !important;
-    gap: 36px !important;
-    align-items: start;
-  }
-
-  .story-section .section-container {
-    padding-bottom: 120px !important;
-  }
-
-  .story-image-column {
-    justify-content: center;
-  }
-
-  .single-image-wrapper img {
-    width: min(100%, 620px) !important;
-    max-width: 100% !important;
-    height: auto !important;
-    margin: 0 auto !important;
   }
 
   #campaign-cta {
@@ -3322,6 +3408,36 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
     width: 100%;
     max-height: 240px;
     align-self: auto;
+  }
+}
+
+/* Hero row + discover-story: stay two-column until mobile */
+@media (max-width: 767px) {
+  .hero-centerline-row {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section-layout {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+    align-items: start;
+  }
+
+  .story-section .section-container {
+    padding-bottom: 60px !important;
+  }
+
+  .story-image-column {
+    justify-content: center;
+  }
+
+  .single-image-wrapper img {
+    width: min(100%, 620px) !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
   }
 }
 
@@ -3883,42 +3999,322 @@ section:nth-of-type(even):not([class*="bg-"]):not([style*="background"]):not(.ev
 }
 
 /* ------------------------------------------------------------------
-   Inner Page Hero — Mobile Height Fix
-   Targets the dark breadcrumb hero used on Events, News, Gallery,
-   Volunteer, Contact, Programs, About pages.
-   The section uses Tailwind py-12 md:py-16 inline — we override
-   padding and clamp the heading on small screens.
+   Inner Page Hero — Mobile + Tablet Height Fix (ALL PAGES, UNIFIED)
+   Covers: Volunteer, News, Gallery, Programs (.page-hero-bg)
+           Events (.events-hero)
+           Contact, About (.page-inner-hero via hero-breadcrumb templates)
    ------------------------------------------------------------------ */
-@media (max-width: 767px) {
-  /* Both hero-breadcrumb-dark and hero-breadcrumb-light share this structure */
-  .page-hero-section,
-  section.w-full.relative.overflow-hidden[style*="background: linear-gradient(135deg, #141943"] {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
+@media (max-width: 1024px) {
+  /* Shared padding for all hero types */
+  .page-hero-bg,
+  .page-inner-hero {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
   }
 
-  /* Inner container padding via Tailwind py-12 — override */
-  section.w-full.relative.overflow-hidden[style*="background: linear-gradient(135deg, #141943"] .inner,
-  section.w-full.relative.overflow-hidden[style*="background: linear-gradient(135deg, #141943"] > div[class*="mx-auto"] {
-    padding-top: 1.25rem !important;
-    padding-bottom: 1.25rem !important;
+  .events-hero {
+    padding-top: 70px !important;
+    padding-bottom: 70px !important;
   }
 
-  /* Shrink the large h1 heading */
-  section.w-full.relative.overflow-hidden[style*="background: linear-gradient(135deg, #141943"] h1 {
-    font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
-    margin-bottom: 0.5rem !important;
+  /* Contact/About: inner div carries Tailwind py-12 — override it */
+  .page-inner-hero .inner,
+  .page-inner-hero > div[class*="mx-auto"] {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 
-  /* Shrink subtitle */
-  section.w-full.relative.overflow-hidden[style*="background: linear-gradient(135deg, #141943"] p {
-    font-size: 0.9rem !important;
-    line-height: 1.55 !important;
+  /* Events: inner div has inline padding-top: 120px — zero it */
+  .events-hero .events-hero-inner {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 
-  /* Breadcrumb — tighten */
-  section.w-full.relative.overflow-hidden[style*="background: linear-gradient(135deg, #141943"] nav,
-  section.w-full.relative.overflow-hidden[style*="background: linear-gradient(135deg, #141943"] .flex.items-center.gap-2 {
-    margin-bottom: 0.6rem !important;
+  /* Shared h1 size for all hero types */
+  .page-hero-bg h1,
+  .page-inner-hero h1,
+  .events-hero-title {
+    font-size: clamp(1.4rem, 6vw, 2rem) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  /* Shared subtitle/copy size */
+  .page-hero-bg p,
+  .page-inner-hero p,
+  .events-hero-copy {
+    font-size: 0.875rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Breadcrumbs */
+  .page-hero-bg [style*="margin-bottom: 24px"],
+  .page-hero-bg [style*="margin-bottom: 20px"],
+  .page-inner-hero nav,
+  .page-inner-hero .flex.items-center.gap-2,
+  .events-breadcrumb {
+    margin-bottom: 0.4rem !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Filter Bar — Mobile + Tablet (Events, News, Gallery, Programs)
+   Put filters + search on one scrollable row, smaller sizing
+   ------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+
+  /* ── Events ── */
+  .events-controls {
+    flex-direction: row !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .events-controls::-webkit-scrollbar { display: none; }
+
+  .events-filter-tabs {
+    flex-wrap: nowrap !important;
+    flex-shrink: 0;
+    gap: 6px !important;
+  }
+
+  .events-filter-tabs .filter-tab {
+    height: 34px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .events-search {
+    flex: 0 0 auto !important;
+    width: 140px !important;
+    height: 34px !important;
+    padding: 0 10px !important;
+    gap: 6px !important;
+    flex-shrink: 0;
+  }
+
+  .events-search input {
+    font-size: 12px !important;
+    min-width: 0;
+  }
+
+  .events-search svg {
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0;
+  }
+
+  /* ── News — tabs scroll left, search pinned right ── */
+  .news-filter-bar {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 16px !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  .news-filter-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+  }
+
+  .news-filter-tabs::-webkit-scrollbar { display: none; }
+
+  .news-filter-tabs .filter-tab {
+    height: 30px !important;
+    padding: 0 12px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Search wrapper: fixed, non-scrolling, pinned right */
+  .news-filter-bar div[style*="width: 380px"] {
+    position: static !important;
+    transform: none !important;
+    width: 34px !important;
+    height: 34px !important;
+    flex: 0 0 34px !important;
+    flex-shrink: 0 !important;
+    z-index: 2;
+  }
+
+  .news-filter-bar div[style*="width: 380px"] input {
+    display: none !important;
+  }
+
+  .news-filter-bar div[style*="width: 380px"] button {
+    position: static !important;
+    transform: none !important;
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .news-filter-bar div[style*="width: 380px"] button svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  /* ── Gallery — tabs scroll left, search pinned right ── */
+  .gallery-filter-bar {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 16px !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  /* Filter tabs: scroll horizontally, takes remaining space */
+  .gallery-filter-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+  }
+
+  .gallery-filter-tabs::-webkit-scrollbar { display: none; }
+
+  /* Album tab buttons — smaller */
+  .gallery-filter-tabs .album-tab,
+  .gallery-filter-bar .album-tab {
+    height: 30px !important;
+    padding: 0 12px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Search wrapper: fixed size, does NOT scroll */
+  .gallery-filter-bar div[style*="width: 380px"] {
+    position: static !important;
+    transform: none !important;
+    width: 34px !important;
+    height: 34px !important;
+    flex: 0 0 34px !important;
+    flex-shrink: 0 !important;
+    order: 2;
+  }
+
+  /* Hide the text input */
+  .gallery-filter-bar div[style*="width: 380px"] input {
+    display: none !important;
+  }
+
+  /* Search button: static, fills the wrapper */
+  .gallery-filter-bar div[style*="width: 380px"] button {
+    position: static !important;
+    transform: none !important;
+    width: 34px !important;
+    height: 34px !important;
+    top: auto !important;
+    right: auto !important;
+  }
+
+  .gallery-filter-bar div[style*="width: 380px"] button svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Search Expand — Gallery, News, Programs
+   When .search-expanded is toggled by JS, input overlays the tabs
+   ------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  /* Expanded state: input slides over tabs */
+  .gallery-filter-bar.search-expanded .gallery-filter-tabs,
+  .news-filter-bar.search-expanded .news-filter-tabs {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    flex: 0 0 0% !important;
+    overflow: hidden !important;
+    min-width: 0 !important;
+  }
+
+  .gallery-filter-bar.search-expanded div[style*="width: 380px"],
+  .news-filter-bar.search-expanded div[style*="width: 380px"] {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    position: relative !important;
+  }
+
+  .gallery-filter-bar.search-expanded div[style*="width: 380px"] input,
+  .news-filter-bar.search-expanded div[style*="width: 380px"] input {
+    display: block !important;
+    width: 100% !important;
+    height: 34px !important;
+    padding: 0 40px 0 14px !important;
+    font-size: 13px !important;
+    border: 2px solid #C8402E !important;
+    border-radius: 9999px !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(200,64,46,0.12) !important;
+    transition: none !important;
+  }
+
+  .gallery-filter-bar.search-expanded div[style*="width: 380px"] button,
+  .news-filter-bar.search-expanded div[style*="width: 380px"] button {
+    position: absolute !important;
+    right: 4px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 26px !important;
+    height: 26px !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Gallery Mobile + Tablet — equalise filter bar & media toggle sizes
+   ------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  /* Bump album filter tabs up to match toggle height */
+  .gallery-filter-tabs .album-tab,
+  .gallery-filter-bar .album-tab {
+    height: 34px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+  }
+
+  /* Search button same height */
+  .gallery-filter-bar div[style*="width: 380px"] button {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  /* Shrink Photos/Videos toggle to match filter bar */
+  .gallery-media-toggle {
+    padding: 3px !important;
+  }
+
+  .gallery-media-toggle .media-toggle {
+    height: 34px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+    gap: 5px !important;
+  }
+
+  .gallery-media-toggle .media-toggle svg {
+    width: 14px !important;
+    height: 14px !important;
   }
 }
