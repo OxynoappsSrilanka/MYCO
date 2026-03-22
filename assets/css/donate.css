@@ -914,7 +914,8 @@ input[type="email"].dw-input {
 
 @media (max-width: 767px) {
   .donate-hero-section {
-    padding: 40px 0 52px !important;
+    padding: 32px 0 36px !important;
+    min-height: unset !important;
   }
   /* Stats row — tighten on mobile */
   .donate-hero-stats {
