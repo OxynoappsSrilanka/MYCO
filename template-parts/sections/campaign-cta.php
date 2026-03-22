@@ -10,7 +10,7 @@
 $heading  = myco_get_field('campaign_heading', false, '');
 $text     = myco_get_field('campaign_text', false, 'We are on a mission to establish a permanent home for Muslim youth in Central Ohio. A place to learn, grow, and connect in a supportive community.');
 $cta_text = myco_get_field('campaign_cta_text', false, 'Learn More');
-$cta_url  = myco_get_field('campaign_cta_url', false, home_url('/about/'));
+$cta_url  = myco_get_field('campaign_cta_url', false, home_url('/mcyc/'));
 $bg_image = myco_get_field('campaign_bg_image');
 $bg_url   = $bg_image ? (is_array($bg_image) ? $bg_image['url'] : wp_get_attachment_url($bg_image)) : 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&h=900&fit=crop&auto=format&q=80';
 ?>

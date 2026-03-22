@@ -218,14 +218,14 @@ if (!$cta_button_url) {
         </div>
 
         <!-- Reasons grid - compact 3-col -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 100%; margin: 0 auto;">
+        <div class="vol-benefits-grid">
             <?php foreach ($why_reasons as $reason) : ?>
             <div style="
                 background: #ffffff;
                 border-radius: 14px;
                 padding: 28px 26px;
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 gap: 20px;
                 border: 1px solid #E2E6ED;
                 transition: box-shadow .25s, border-color .25s;
