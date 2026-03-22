@@ -65,7 +65,7 @@ function myco_register_taxonomies() {
     ]);
 
     // Gallery Albums
-    register_taxonomy('gallery_album', 'gallery_photo', [
+    register_taxonomy('gallery_album', ['gallery_photo', 'gallery_video'], [
         'labels' => [
             'name'          => __('Albums', 'myco'),
             'singular_name' => __('Album', 'myco'),

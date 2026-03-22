@@ -417,6 +417,51 @@ function myco_register_acf_fields() {
         ],
     ]);
 
+    // ─── GALLERY VIDEO CPT FIELDS ──────────────────────────────
+    acf_add_local_field_group([
+        'key'      => 'group_myco_gallery_video',
+        'title'    => 'Video Details',
+        'fields'   => [
+            [
+                'key'          => 'field_video_url',
+                'label'        => 'Video URL',
+                'name'         => 'video_url',
+                'type'         => 'url',
+                'instructions' => 'YouTube, Vimeo, or direct video URL',
+                'required'     => 1,
+            ],
+            [
+                'key'   => 'field_video_caption',
+                'label' => 'Caption',
+                'name'  => 'video_caption',
+                'type'  => 'textarea',
+                'rows'  => 2,
+            ],
+            [
+                'key'           => 'field_video_type',
+                'label'         => 'Video Type',
+                'name'          => 'video_type',
+                'type'          => 'select',
+                'choices'       => [
+                    'youtube' => 'YouTube',
+                    'vimeo'   => 'Vimeo',
+                    'url'     => 'Direct URL',
+                ],
+                'default_value' => 'youtube',
+            ],
+            [
+                'key'           => 'field_video_order',
+                'label'         => 'Display Order',
+                'name'          => 'sort_order',
+                'type'          => 'number',
+                'default_value' => 0,
+            ],
+        ],
+        'location' => [
+            [['param' => 'post_type', 'operator' => '==', 'value' => 'gallery_video']],
+        ],
+    ]);
+
     // ─── ABOUT PAGE FIELDS ─────────────────────────────────────
     acf_add_local_field_group([
         'key'      => 'group_myco_about',

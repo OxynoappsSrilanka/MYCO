@@ -51,6 +51,15 @@ $gallery_query = new WP_Query(array(
 
 // Use default gallery if no posts
 $use_default_gallery = !$gallery_query->have_posts();
+
+// Get all gallery videos
+$video_query = new WP_Query(array(
+    'post_type' => 'gallery_video',
+    'posts_per_page' => -1,
+    'post_status' => 'publish',
+    'orderby' => 'menu_order',
+    'order' => 'ASC',
+));
 ?>
 
 <!-- Hero Banner Section with Full Width Blurred Background -->
@@ -330,15 +339,108 @@ $use_default_gallery = !$gallery_query->have_posts();
     
     <!-- Videos Grid -->
     <div class="gallery-grid" id="gallery-videos" style="display: none; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-      <!-- Video items will be populated here via JavaScript or PHP -->
-      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #ffffff; border-radius: 16px; border: 2px dashed #E5E7EB;">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin: 0 auto 16px;">
-          <circle cx="32" cy="32" r="30" fill="#F3F4F6"/>
-          <path d="M26 22l16 10-16 10V22z" fill="#9CA3AF"/>
-        </svg>
-        <p style="font-size: 18px; color: #6B7280; font-weight: 500;">Video content coming soon!</p>
-        <p style="font-size: 14px; color: #9CA3AF; margin-top: 8px;">Check back later for event highlights and program videos</p>
-      </div>
+      <?php if ($video_query->have_posts()) : ?>
+        <?php while ($video_query->have_posts()) : $video_query->the_post();
+          $albums_list = get_the_terms(get_the_ID(), 'gallery_album');
+          $album_slugs = '';
+          if ($albums_list && !is_wp_error($albums_list)) {
+              $album_slugs = implode(' ', wp_list_pluck($albums_list, 'slug'));
+          }
+          $caption = myco_get_field('video_caption') ?: get_the_title();
+          $video_url = myco_get_field('video_url');
+          $video_type = myco_get_field('video_type') ?: 'youtube';
+          $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'myco-gallery');
+          
+          // Extract video ID for embeds
+          $video_id = '';
+          $embed_url = '';
+          if ($video_url) {
+              if ($video_type === 'youtube' && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $video_url, $match)) {
+                  $video_id = $match[1];
+                  $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+              } elseif ($video_type === 'vimeo' && preg_match('/vimeo\.com\/(\d+)/i', $video_url, $match)) {
+                  $video_id = $match[1];
+                  $embed_url = 'https://player.vimeo.com/video/' . $video_id;
+              } else {
+                  $embed_url = $video_url;
+              }
+          }
+        ?>
+        <div class="gallery-item video-item loading" 
+             data-album="<?php echo esc_attr($album_slugs); ?>" 
+             data-type="video" 
+             data-caption="<?php echo esc_attr($caption); ?>" 
+             data-video-url="<?php echo esc_url($video_url); ?>"
+             data-embed-url="<?php echo esc_url($embed_url); ?>"
+             data-video-type="<?php echo esc_attr($video_type); ?>"
+             data-video-id="<?php echo esc_attr($video_id); ?>"
+             onclick="openVideoLightbox(this)"
+             style="aspect-ratio: 16 / 9; cursor: pointer; position: relative; border-radius: 16px; overflow: hidden; background: #1a1a1a;">
+          <?php if ($thumbnail_url) : ?>
+            <img src="<?php echo esc_url($thumbnail_url); ?>" 
+                 alt="<?php echo esc_attr($caption); ?>" 
+                 style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          <?php else : ?>
+            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); display: flex; align-items: center; justify-content: center;">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="30" fill="#2a2a2a"/>
+                <path d="M26 22l16 10-16 10V22z" fill="#C8402E"/>
+              </svg>
+            </div>
+          <?php endif; ?>
+          <div class="video-play-overlay" style="
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+          ">
+            <div class="play-button" style="
+              width: 72px;
+              height: 72px;
+              border-radius: 50%;
+              background: rgba(200, 64, 46, 0.95);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: transform 0.3s, background 0.3s;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            ">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="margin-left: 3px;">
+                <path d="M8 5v14l11-7L8 5z" fill="white"/>
+              </svg>
+            </div>
+          </div>
+          <div class="gallery-item-overlay" style="
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            opacity: 0;
+            transition: opacity .3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            pointer-events: none;
+          ">
+            <div class="gallery-item-title" style="color: #ffffff; font-size: 16px; font-weight: 700; margin-bottom: 4px;">
+              <?php echo esc_html($caption); ?>
+            </div>
+          </div>
+        </div>
+        <?php endwhile; wp_reset_postdata(); ?>
+      <?php else : ?>
+        <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #ffffff; border-radius: 16px; border: 2px dashed #E5E7EB;">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin: 0 auto 16px;">
+            <circle cx="32" cy="32" r="30" fill="#F3F4F6"/>
+            <path d="M26 22l16 10-16 10V22z" fill="#9CA3AF"/>
+          </svg>
+          <p style="font-size: 18px; color: #6B7280; font-weight: 500;">No videos have been added yet.</p>
+          <p style="font-size: 14px; color: #9CA3AF; margin-top: 8px;">Check back later for event highlights and program videos</p>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>
@@ -512,6 +614,77 @@ $use_default_gallery = !$gallery_query->have_posts();
   </div>
 </div>
 
+<!-- Video Lightbox Modal -->
+<div id="video-lightbox" class="video-lightbox" role="dialog" aria-modal="true" aria-label="Video player" style="
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+">
+  <div class="video-lightbox-content" style="position: relative; max-width: 1200px; width: 100%; aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center;">
+    
+    <!-- Close Button -->
+    <button class="video-lightbox-close" onclick="closeVideoLightbox()" aria-label="Close video" style="
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      z-index: 100002;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    " onmouseover="this.style.background='#C8402E'; this.style.borderColor='#C8402E'; this.style.transform='rotate(90deg)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.3)'; this.style.transform='rotate(0)'">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    
+    <!-- Video Container -->
+    <div id="video-container" style="
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+    "></div>
+    
+    <!-- Video Caption -->
+    <div id="video-caption" class="video-caption" style="
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 800px;
+      text-align: center;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 16px 32px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      z-index: 100001;
+    "></div>
+  </div>
+</div>
+
 <style>
 /* Gallery Item Styles */
 .gallery-item {
@@ -544,6 +717,14 @@ $use_default_gallery = !$gallery_query->have_posts();
 .gallery-item:hover .gallery-item-overlay {
   opacity: 1;
 }
+/* Video Item Styles */
+.video-item:hover .video-play-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+.video-item:hover .play-button {
+  transform: scale(1.15);
+  background: #C8402E;
+}
 .gallery-item.loading {
   background: linear-gradient(90deg, #E5E7EB 0%, #F3F4F6 50%, #E5E7EB 100%);
   background-size: 200% 100%;
@@ -554,6 +735,9 @@ $use_default_gallery = !$gallery_query->have_posts();
   100% { background-position: 200% 0; }
 }
 .lightbox.active {
+  display: flex !important;
+}
+.video-lightbox.active {
   display: flex !important;
 }
 @keyframes fadeIn {
@@ -922,6 +1106,109 @@ document.addEventListener('DOMContentLoaded', () => {
       dataSrc: item.getAttribute('data-src'),
       caption: item.getAttribute('data-caption')
     });
+  });
+});
+
+// Video Lightbox Functions
+function openVideoLightbox(element) {
+  const embedUrl = element.getAttribute('data-embed-url');
+  const caption = element.getAttribute('data-caption');
+  const videoType = element.getAttribute('data-video-type');
+  
+  if (!embedUrl) {
+    console.error('No video URL found');
+    return;
+  }
+  
+  const videoLightbox = document.getElementById('video-lightbox');
+  const videoContainer = document.getElementById('video-container');
+  const videoCaption = document.getElementById('video-caption');
+  
+  if (!videoLightbox || !videoContainer) {
+    console.error('Video lightbox elements not found');
+    return;
+  }
+  
+  // Clear previous content
+  videoContainer.innerHTML = '';
+  
+  // Create iframe for video
+  const iframe = document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
+  iframe.setAttribute('allowfullscreen', '');
+  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+  
+  // Set appropriate src based on video type
+  if (videoType === 'youtube') {
+    iframe.src = embedUrl + '?autoplay=1&rel=0';
+  } else if (videoType === 'vimeo') {
+    iframe.src = embedUrl + '?autoplay=1';
+  } else {
+    // For direct URLs, try to use video element
+    const video = document.createElement('video');
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.controls = true;
+    video.autoplay = true;
+    video.src = embedUrl;
+    videoContainer.appendChild(video);
+    
+    videoCaption.textContent = caption || 'Video';
+    videoLightbox.classList.add('active');
+    videoLightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    return;
+  }
+  
+  videoContainer.appendChild(iframe);
+  videoCaption.textContent = caption || 'Video';
+  
+  videoLightbox.classList.add('active');
+  videoLightbox.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  
+  console.log('Video lightbox opened:', embedUrl);
+}
+
+function closeVideoLightbox() {
+  const videoLightbox = document.getElementById('video-lightbox');
+  const videoContainer = document.getElementById('video-container');
+  
+  if (videoLightbox) {
+    videoLightbox.classList.remove('active');
+    videoLightbox.style.display = 'none';
+    document.body.style.overflow = '';
+    
+    // Clear video content to stop playback
+    if (videoContainer) {
+      videoContainer.innerHTML = '';
+    }
+  }
+  
+  console.log('Video lightbox closed');
+}
+
+// Close video lightbox on background click
+document.addEventListener('DOMContentLoaded', () => {
+  const videoLightbox = document.getElementById('video-lightbox');
+  if (videoLightbox) {
+    videoLightbox.addEventListener('click', (e) => {
+      if (e.target.id === 'video-lightbox') {
+        closeVideoLightbox();
+      }
+    });
+  }
+  
+  // Close video lightbox on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const videoLightbox = document.getElementById('video-lightbox');
+      if (videoLightbox && videoLightbox.classList.contains('active')) {
+        closeVideoLightbox();
+      }
+    }
   });
 });
 </script>
