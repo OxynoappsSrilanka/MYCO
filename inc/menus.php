@@ -144,24 +144,6 @@ function myco_get_primary_nav_items() {
             'url'   => home_url('/'),
         ],
         [
-            'type'  => 'link',
-            'key'   => 'programs',
-            'label' => __('Programs', 'myco'),
-            'url'   => myco_get_page_url('programs', '/programs/'),
-        ],
-        [
-            'type'  => 'link',
-            'key'   => 'events',
-            'label' => __('Events', 'myco'),
-            'url'   => myco_get_page_url('events', '/events/'),
-        ],
-        [
-            'type'  => 'link',
-            'key'   => 'volunteer',
-            'label' => __('Volunteer', 'myco'),
-            'url'   => myco_get_page_url('volunteer', '/volunteer/'),
-        ],
-        [
             'type'     => 'dropdown',
             'key'      => 'about-group',
             'label'    => __('About Us', 'myco'),
@@ -182,6 +164,24 @@ function myco_get_primary_nav_items() {
                     'url'   => myco_get_page_url('gallery', '/gallery/'),
                 ],
             ],
+        ],
+        [
+            'type'  => 'link',
+            'key'   => 'programs',
+            'label' => __('Programs', 'myco'),
+            'url'   => myco_get_page_url('programs', '/programs/'),
+        ],
+        [
+            'type'  => 'link',
+            'key'   => 'events',
+            'label' => __('Events', 'myco'),
+            'url'   => myco_get_page_url('events', '/events/'),
+        ],
+        [
+            'type'  => 'link',
+            'key'   => 'volunteer',
+            'label' => __('Volunteer', 'myco'),
+            'url'   => myco_get_page_url('volunteer', '/volunteer/'),
         ],
         [
             'type'  => 'link',
