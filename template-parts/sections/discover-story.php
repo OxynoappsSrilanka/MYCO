@@ -111,14 +111,14 @@ if (!$stats) $stats = $default_stats;
                 </div>
 
                 <!-- Statistics Row -->
-                <div class="stats-row">
+                <!-- <div class="stats-row">
                     <?php foreach ($stats as $stat) : ?>
                     <div class="story-stat">
                         <span class="story-stat-number"><?php echo esc_html($stat['number']); ?></span>
                         <span class="story-stat-label"><?php echo esc_html($stat['label']); ?></span>
                     </div>
                     <?php endforeach; ?>
-                </div>
+                </div> -->
             </div>
 
             <!-- RIGHT: Single Image Column -->
