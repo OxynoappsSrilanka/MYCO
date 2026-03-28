@@ -32,7 +32,7 @@ $bg_url   = $bg_image ? (is_array($bg_image) ? $bg_image['url'] : wp_get_attachm
         <!-- Overlay Card -->
         <div class="relative w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 flex justify-center lg:justify-end items-center py-12 lg:py-16"
              style="z-index: 2;">
-            <div class="bg-white rounded-3xl flex flex-col gap-5 w-full sm:w-auto" style="max-width: 680px; padding: clamp(36px, 5vw, 64px); box-shadow: 0 12px 60px 0 rgba(20,25,67,0.16), 0 2px 12px 0 rgba(20,25,67,0.08);">
+            <div class="bg-white rounded-3xl flex flex-col gap-5 w-full sm:w-auto" style="max-width: 1000px; padding: clamp(30px, 4vw, 48px); box-shadow: 0 12px 60px 0 rgba(20,25,67,0.16), 0 2px 12px 0 rgba(20,25,67,0.08);">
 
                 <!-- Headline -->
                 <h2 class="font-inter tracking-tight" style="font-weight: 800; color: #141943; font-size: clamp(1.75rem, 3.5vw, 2.6rem); line-height: 1.12;">
