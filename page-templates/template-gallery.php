@@ -68,6 +68,7 @@ $video_query = new WP_Query(array(
   padding: 140px 0;
   position: relative;
   overflow: hidden;
+  margin-bottom: 0;
 ">
   <!-- Blur Overlay -->
   <div style="
@@ -119,9 +120,9 @@ $video_query = new WP_Query(array(
 </section>
 
 <!-- Filter Tabs Section -->
-<section style="background: #F5F6FA; padding: 60px 0 0; position: relative;">
+<section style="background: #F5F6FA; padding: 40px 0 0; position: relative; margin-top: 0; margin-bottom: 0;">
   <div class="inner">
-    <div class="gallery-filter-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; flex-wrap: wrap;">
+    <div class="gallery-filter-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; flex-wrap: wrap;">
       <!-- Filter Tabs -->
       <div class="gallery-filter-tabs" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex: 1;">
         <button class="album-tab active" data-filter="all" onclick="filterGallery('all', this)" style="
@@ -196,7 +197,7 @@ $video_query = new WP_Query(array(
     </div>
     
     <!-- Toggle Button and Results Count -->
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; flex-wrap: wrap; gap: 16px;">
       <!-- Photo/Video Toggle -->
       <div class="gallery-media-toggle" style="display: inline-flex; background: #ffffff; border-radius: 9999px; padding: 4px; border: 2px solid #E5E7EB; box-shadow: 0 2px 8px rgba(20, 25, 67, 0.08);">
         <button id="toggle-photos" class="media-toggle active" onclick="toggleMediaType('photos')" style="
@@ -253,7 +254,7 @@ $video_query = new WP_Query(array(
 </section>
 
 <!-- Gallery Content Section -->
-<section style="background: #F5F6FA; padding: 0 0 100px; position: relative;">
+<section style="background: #F5F6FA; padding: 32px 0 100px; position: relative; margin-top: 0;">
   <div class="inner">
     <!-- Photos Grid -->
     <div class="gallery-grid" id="gallery-photos" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
@@ -653,6 +654,19 @@ $video_query = new WP_Query(array(
 </div>
 
 <style>
+/* Remove any default margins/padding that might cause gaps */
+.page-template-template-gallery .page-hero-bg {
+  margin-bottom: 0 !important;
+}
+.page-template-template-gallery .page-hero-bg + section {
+  margin-top: 0 !important;
+}
+.page-template-template-gallery section {
+  margin: 0 !important;
+}
+.page-template-template-gallery section + section {
+  margin-top: 0 !important;
+}
 /* Gallery Item Styles */
 .gallery-item {
   position: relative;
