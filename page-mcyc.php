@@ -67,12 +67,37 @@ $story_cards = [
 ];
 
 $program_cards = [
-    ['number' => '01', 'title' => 'Leadership Development', 'description' => 'A place for youth to build responsibility, confidence, and dependable leadership habits.', 'featured' => true],
-    ['number' => '02', 'title' => 'Spiritual Development', 'description' => 'Consistent programming that strengthens faith, identity, worship, and belonging.'],
-    ['number' => '03', 'title' => 'Education and Skills', 'description' => 'Learning spaces that support tutoring, enrichment, and practical preparation.'],
-    ['number' => '04', 'title' => 'Athletics and Training', 'description' => 'Room for recreation, healthy competition, physical discipline, and friendships.'],
-    ['number' => '05', 'title' => 'Social and Cultural Life', 'description' => 'Gatherings that help youth feel seen, connected, and proud of their community.'],
-    ['number' => '06', 'title' => 'Service and Innovation', 'description' => 'Programs that encourage youth to serve others and contribute with ihsan.'],
+    [
+        'number' => '01',
+        'title' => 'YOUTH LEADERSHIP DEVELOPMENT',
+        'description' => 'Helping youth build confidence, communication skills, teamwork, responsibility, and leadership rooted in Islamic values.',
+        'featured' => true
+    ],
+    [
+        'number' => '02',
+        'title' => 'SPIRITUAL DEVELOPMENT',
+        'description' => 'Lectures, youth halaqas, Islamic learning opportunities, and guidance that strengthens faith and identity.',
+    ],
+    [
+        'number' => '03',
+        'title' => 'EDUCATION & SKILL BUILDING',
+        'description' => 'Support through educational initiatives such as computer literacy, counseling, learning support, and developmental programming.',
+    ],
+    [
+        'number' => '04',
+        'title' => 'ATHLETICS & TRAINING',
+        'description' => 'Basketball, soccer, and other active programming that builds discipline, confidence, and brotherhood/sisterhood.',
+    ],
+    [
+        'number' => '05',
+        'title' => 'SOCIAL & CULTURAL ACTIVITIES',
+        'description' => 'Gatherings that foster belonging, friendship, and community connection across backgrounds.',
+    ],
+    [
+        'number' => '06',
+        'title' => 'COMMUNITY SERVICE & INNOVATION',
+        'description' => 'Volunteer initiatives that teach youth to serve others and contribute meaningfully to their communities.',
+    ],
 ];
 
 $focus_cards = [
