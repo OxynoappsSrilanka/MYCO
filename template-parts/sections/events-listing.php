@@ -54,6 +54,7 @@ $volunteer_url = myco_get_page_url('volunteer', '/volunteer/');
   padding: 140px 0;
   position: relative;
   overflow: hidden;
+  margin-bottom: 0;
 ">
   <!-- Blur Overlay -->
   <div style="
@@ -111,7 +112,7 @@ $volunteer_url = myco_get_page_url('volunteer', '/volunteer/');
   </div>
 </section>
 
-<section class="events-page-shell">
+<section class="events-page-shell" style="margin-top: 0;">
     <div class="inner">
         <div class="events-controls">
             <div class="events-filter-tabs">
@@ -135,7 +136,7 @@ $volunteer_url = myco_get_page_url('volunteer', '/volunteer/');
             </label>
         </div>
 
-        <p class="events-results-copy">
+        <p class="events-results-copy" style="margin-bottom: 0;">
             <?php esc_html_e('Showing', 'myco'); ?>
             <span id="count-number"><?php echo esc_html($events_count); ?></span>
             <span id="events-count-label"><?php echo esc_html($count_label); ?></span>
@@ -143,7 +144,7 @@ $volunteer_url = myco_get_page_url('volunteer', '/volunteer/');
     </div>
 </section>
 
-<section class="events-page-listing">
+<section class="events-page-listing" style="margin-top: 0; padding-top: 32px;">
     <div class="inner">
         <?php if ($events_query->have_posts()) : ?>
             <div id="events-container" class="events-stack">
