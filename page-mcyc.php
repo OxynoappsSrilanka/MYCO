@@ -129,13 +129,13 @@ get_header();
                 </div>
 
                 <h1 class="text-navy font-extrabold leading-[0.92] tracking-tight text-[2.6rem] sm:text-[4rem] lg:text-[5.2rem] mb-8">
-                    Building a Place
-                    <span class="text-red block mt-3">to Belong.</span>
+                    A model for the future:
+                    <span class="text-red block mt-3">The Muslim Community Youth Center</span>
                 </h1>
 
                 <div class="max-w-2xl space-y-7 text-[1.08rem] leading-[1.85] text-gray-600">
-                    <p class="text-xl font-medium text-gray-700">MCYC is the vision for a dedicated youth centre where Muslim youth can return consistently for belonging, mentorship, faith, leadership, and growth.</p>
-                    <p>This is more than a building project. It is a long-term investment in a permanent home where community can gather with intention and where guidance can happen with consistency.</p>
+                    <p class="text-xl font-medium text-gray-700">The Muslim Community Youth Center (MCYC) is a capital campaign initiative designed to serve as a safe, welcoming, and inspiring environment for Muslim youth.</p>
+                    <p>This building is a visionary investment in the next generation, where young Muslims will grow in faith, confidence, and become future leaders.</p>
                 </div>
 
                 <div class="mt-10 flex flex-wrap gap-4">

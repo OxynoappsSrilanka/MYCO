@@ -8,7 +8,7 @@
  */
 
 $heading  = myco_get_field('campaign_heading', false, '');
-$text     = myco_get_field('campaign_text', false, 'We are on a mission to establish a permanent home for Muslim youth in Central Ohio. A place to learn, grow, and connect in a supportive community.');
+$text     = myco_get_field('campaign_text', false, 'This visionary center will only be possible through the support of donors who believe in building something lasting for our youth.Whether you choose to give once or become a recurring supporter, your donation plays a direct role in building MCYC.');
 $cta_text = myco_get_field('campaign_cta_text', false, 'Learn More');
 $cta_url  = myco_get_field('campaign_cta_url', false, home_url('/mcyc/'));
 $bg_image = myco_get_field('campaign_bg_image');
