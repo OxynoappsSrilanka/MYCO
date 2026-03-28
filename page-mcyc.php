@@ -28,7 +28,7 @@ $construction_images = [
     ['src' => myco_theme_asset_url('assets/images/Construction/Construction Update 1.jpg'),  'alt' => 'MCYC construction update — site progress'],
     ['src' => myco_theme_asset_url('assets/images/Construction/Construction (2).webp'),       'alt' => 'MCYC construction — structural work in progress'],
     ['src' => myco_theme_asset_url('assets/images/Construction/Construction (3).webp'),       'alt' => 'MCYC construction — building framework'],
-    ['src' => myco_theme_asset_url('assets/images/Construction/Construction (4).webp'),       'alt' => 'MCYC construction — site development'],
+    ['src' => myco_theme_asset_url('assets/images/Construction/Construction (4).jpeg'),       'alt' => 'MCYC construction — site development'],
     ['src' => myco_theme_asset_url('assets/images/Construction/Construction (5).webp'),       'alt' => 'MCYC construction — facility taking shape'],
 ];
 $sports_image    = myco_theme_asset_url('assets/images/sports.jpg');
