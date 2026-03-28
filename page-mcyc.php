@@ -19,7 +19,7 @@ $contact_url     = myco_get_contact_page_url();
 $gallery_url     = myco_get_page_url('gallery', '/gallery/');
 $mcyc_logo       = myco_theme_asset_url('assets/images/mcyc-logo.png');
 $hero_bg         = myco_theme_asset_url('assets/images/Galleries/myco-youth-community-groundbreaking-event-autograph.jpg');
-$hero_image      = myco_theme_asset_url('assets/images/Galleries/myco-youth-community-center-groundbreaking-ceremony.jpg');
+$hero_image      = myco_theme_asset_url('assets/images/Construction/Construction (2).webp');
 $community_image = myco_theme_asset_url('assets/images/volunteers.jpg');
 $building_image  = myco_theme_asset_url('assets/images/study.jpg');
 $meeting_image   = myco_theme_asset_url('assets/images/meeting.jpg');
@@ -154,7 +154,7 @@ get_header();
                 <div class="mcyc-hero-image-frame" style="border-radius: 28px; height: 100%; overflow: hidden;">
                     <img src="<?php echo esc_url($hero_image); ?>"
                          alt="MYCO youth community center groundbreaking ceremony"
-                         style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;" />
+                         style="width:100%; height:100%; object-fit:contain; object-position:center; display:block;" />
                     <div class="absolute left-6 top-6 z-10 mcyc-hero-badge-overlay">
                         <span class="inline-flex items-center px-4 py-2 rounded-full bg-red text-white text-[0.72rem] tracking-[0.18em] uppercase font-extrabold">Building Momentum</span>
                     </div>
