@@ -127,15 +127,15 @@ if (!$other_ways || !is_array($other_ways)) {
 // --- Trust Badges ---
 $default_trust_badges = [
     [
-        'label' => 'SSL Encrypted',
+        'label' => 'Secure Donation',
         'icon'  => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4L4 10v8c0 7.732 5.268 14.964 12 16 6.732-1.036 12-8.268 12-16v-8L16 4Z" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 16l4 4 8-8" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     ],
     [
-        'label' => '501(c)(3) Nonprofit',
+        'label' => 'Registered Nonprofit',
         'icon'  => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4L4 10v8c0 7.732 5.268 14.964 12 16 6.732-1.036 12-8.268 12-16v-8L16 4Z" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 16l4 4 8-8" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     ],
     [
-        'label' => 'Tax Deductible',
+        'label' => 'Tax Receipt Provided',
         'icon'  => '<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4L4 10v8c0 7.732 5.268 14.964 12 16 6.732-1.036 12-8.268 12-16v-8L16 4Z" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 16l4 4 8-8" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     ],
 ];
