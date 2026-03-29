@@ -4,7 +4,7 @@
  * @package MYCO
  */
 $mission_image = myco_get_field('about_mission_image');
-$fallback        = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/Galleries/myco-youth-basketball-event-congregational-prayer.jpg' );
+$fallback        = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/mission.png' );
 $image_url       = $mission_image ? wp_get_attachment_image_url( $mission_image, 'large' ) : $fallback;
 $mission_points = myco_get_field('about_mission_points');
 $defaults = array(

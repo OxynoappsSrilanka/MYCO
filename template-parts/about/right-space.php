@@ -4,7 +4,7 @@
  * @package MYCO
  */
 $image     = myco_get_field('about_space_image');
-$fallback  = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/study.jpg' );
+$fallback  = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/right_space.png' );
 $image_url = $image ? wp_get_attachment_image_url( $image, 'large' ) : $fallback;
 $features = myco_get_field('about_space_features');
 $defaults = array(
