@@ -3,8 +3,9 @@
  * About: Right Space Section
  * @package MYCO
  */
-$image = myco_get_field('about_space_image');
-$image_url = $image ? wp_get_attachment_image_url($image, 'large') : myco_get_image_url('hero-image.png');
+$image     = myco_get_field('about_space_image');
+$fallback  = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/study.jpg' );
+$image_url = $image ? wp_get_attachment_image_url( $image, 'large' ) : $fallback;
 $features = myco_get_field('about_space_features');
 $defaults = array(
     'Multipurpose gym and wellness areas for physical health',

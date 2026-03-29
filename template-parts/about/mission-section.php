@@ -4,7 +4,8 @@
  * @package MYCO
  */
 $mission_image = myco_get_field('about_mission_image');
-$image_url = $mission_image ? wp_get_attachment_image_url($mission_image, 'large') : myco_get_image_url('hero-image.png');
+$fallback        = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/Galleries/myco-youth-basketball-event-congregational-prayer.jpg' );
+$image_url       = $mission_image ? wp_get_attachment_image_url( $mission_image, 'large' ) : $fallback;
 $mission_points = myco_get_field('about_mission_points');
 $defaults = array(
     array('title' => 'Inclusive & Supportive Approach', 'description' => 'Blending engaging and immersive programs with strong Islamic values and mentorship'),

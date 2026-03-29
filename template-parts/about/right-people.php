@@ -3,8 +3,9 @@
  * About: Right People Section
  * @package MYCO
  */
-$image = myco_get_field('about_people_image');
-$image_url = $image ? wp_get_attachment_image_url($image, 'large') : myco_get_image_url('hero-image.png');
+$image     = myco_get_field('about_people_image');
+$fallback  = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/volunteers.jpg' );
+$image_url = $image ? wp_get_attachment_image_url( $image, 'large' ) : $fallback;
 $stats = myco_get_field('about_people_stats');
 $default_stats = array(
     array('number' => '110+', 'label' => 'Active Mentors'),

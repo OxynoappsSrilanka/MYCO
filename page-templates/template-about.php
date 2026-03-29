@@ -4,11 +4,14 @@
  * @package MYCO
  */
 get_header();
+
+// Hero background when ACF banner is empty (theme asset under assets/images).
+$about_banner_fallback = myco_theme_asset_url( 'assets/images/meeting.jpg' );
 ?>
 
 <!-- Hero Banner Section with Full Width Blurred Background -->
 <section class="page-hero-bg" style="
-  background: url('<?php echo esc_url(myco_get_field('about_banner_image') ?: get_template_directory_uri() . '/assets/images/about.png'); ?>') center center / cover no-repeat;
+  background: url('<?php echo esc_url(myco_get_field('about_banner_image') ?: $about_banner_fallback); ?>') center center / cover no-repeat;
   padding: 140px 0;
   position: relative;
   overflow: hidden;
@@ -62,11 +65,13 @@ get_header();
   </div>
 </section>
 
-<?php get_template_part('template-parts/about/vision-section'); ?>
-<?php get_template_part('template-parts/about/mission-section'); ?>
-<?php get_template_part('template-parts/about/four-pillars'); ?>
-<?php get_template_part('template-parts/about/video-section'); ?>
-<?php get_template_part('template-parts/about/right-space'); ?>
-<?php get_template_part('template-parts/about/right-people'); ?>
+<?php
+get_template_part( 'template-parts/about/vision-section' );
+get_template_part( 'template-parts/about/mission-section' );
+get_template_part( 'template-parts/about/four-pillars' );
+get_template_part( 'template-parts/about/video-section' );
+get_template_part( 'template-parts/about/right-space' );
+get_template_part( 'template-parts/about/right-people' );
+?>
 
 <?php get_footer(); ?>

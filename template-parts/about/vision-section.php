@@ -4,7 +4,8 @@
  * @package MYCO
  */
 $vision_image = myco_get_field('about_vision_image');
-$image_url = $vision_image ? wp_get_attachment_image_url($vision_image, 'large') : myco_get_image_url('hero-image.png');
+$fallback     = ! empty( $fallback_image ) ? $fallback_image : myco_theme_asset_url( 'assets/images/Galleries/myco-youth-community-center-groundbreaking-ceremony.jpg' );
+$image_url    = $vision_image ? wp_get_attachment_image_url( $vision_image, 'large' ) : $fallback;
 $badge_number = myco_get_field('about_vision_badge_number') ?: '10+';
 $badge_text = myco_get_field('about_vision_badge_text') ?: "Years Serving\nOur Community";
 ?>
