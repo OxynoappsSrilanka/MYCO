@@ -19,7 +19,13 @@ $contact_url     = myco_get_contact_page_url();
 $gallery_url     = myco_get_page_url('gallery', '/gallery/');
 $mcyc_logo       = myco_theme_asset_url('assets/images/mcyc-logo.png');
 $hero_bg         = myco_theme_asset_url('assets/images/Galleries/myco-youth-community-groundbreaking-event-autograph.jpg');
-$hero_image      = myco_theme_asset_url('assets/images/Construction/Construction (2).webp');
+/*
+ * Hero image: object-fit cover + absolute fill (see mcyc.css). One file works at all breakpoints.
+ * Desktop (1024px+): portrait column — roughly 10:11 to 4:5 width:height; e.g. 1600×1760 or 1600×2000.
+ * Tablet (768–1023): full width × 360px tall — ~2:1 landscape; e.g. 1600×800 or 1920×960.
+ * Mobile (≤767): full width × 220px — very wide strip (~3.5:1); e.g. 1600×450; center the subject.
+ */
+$hero_image      = myco_theme_asset_url('assets/images/Construction/Construction (2)_new.jpeg');
 $community_image = myco_theme_asset_url('assets/images/volunteers.jpg');
 $building_image  = myco_theme_asset_url('assets/images/study.jpg');
 $meeting_image   = myco_theme_asset_url('assets/images/meeting.jpg');
@@ -128,9 +134,9 @@ get_header();
                     <p class="mcyc-eyebrow mb-0">Capital Campaign for the Future Home of MCYC</p>
                 </div>
 
-                <h1 class="text-navy font-extrabold leading-[0.92] tracking-tight text-[2.6rem] sm:text-[4rem] lg:text-[5.2rem] mb-8">
-                    A model for the future:
-                    <span class="text-red block mt-3">The Muslim Community Youth Center</span>
+                <h1 class="text-navy font-extrabold leading-[0.92] tracking-tight mb-8">
+                    <span class="block text-[1.65rem] sm:text-[2.25rem] lg:text-[2.75rem]">A model for the future:</span>
+                    <span class="text-red block mt-3 text-[2.35rem] sm:text-[3.5rem] lg:text-[4.5rem]">The Muslim Community Youth Center</span>
                 </h1>
 
                 <div class="max-w-2xl space-y-7 text-[1.08rem] leading-[1.85] text-gray-600">
@@ -152,9 +158,9 @@ get_header();
             <!-- Image column — absolutely positioned right half -->
             <div class="mcyc-hero-video-col mcyc-fade-in" style="transition-delay: 0.18s; padding: 16px 48px 16px 0;">
                 <div class="mcyc-hero-image-frame" style="border-radius: 28px; height: 100%; overflow: hidden;">
-                    <img src="<?php echo esc_url($hero_image); ?>"
-                         alt="MYCO youth community center groundbreaking ceremony"
-                         style="width:100%; height:100%; object-fit:contain; object-position:center; display:block;" />
+                    <img class="mcyc-hero-image"
+                         src="<?php echo esc_url($hero_image); ?>"
+                         alt="MYCO youth community center groundbreaking ceremony" />
                     <div class="absolute left-6 top-6 z-10 mcyc-hero-badge-overlay">
                         <span class="inline-flex items-center px-4 py-2 rounded-full bg-red text-white text-[0.72rem] tracking-[0.18em] uppercase font-extrabold">Building Momentum</span>
                     </div>

@@ -135,6 +135,24 @@
   box-shadow: 0 40px 120px rgba(20, 25, 67, 0.2);
 }
 
+/* Hero image: must override .mcyc-page img { height:auto } later in this file */
+.mcyc-page .mcyc-hero-image-frame .mcyc-hero-image {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Above ::before scrim (z-index 1) so badge and caption stay visible */
+.mcyc-hero-image-frame .mcyc-hero-badge-overlay,
+.mcyc-hero-image-frame .mcyc-hero-text-overlay {
+  z-index: 3;
+}
+
 /* ── Hero layout ──────────────────────────────────────────────────── */
 .mcyc-hero-inner {
   position: relative;
