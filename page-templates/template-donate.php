@@ -546,7 +546,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
                 </p>
 
                 <!-- Impact Stat -->
-                <?php if (!empty($card['stat_amount'])) : ?>
+                <!-- <?php if (!empty($card['stat_amount'])) : ?>
                 <div style="padding: 20px; background: rgba(200,64,46,0.08); border-radius: 12px; text-align: left; margin-top: auto;">
                     <div style="font-size: 32px; font-weight: 900; color: #C8402E; margin-bottom: 6px;">
                         <?php echo esc_html($card['stat_amount']); ?>
@@ -555,7 +555,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
                         <?php echo esc_html($card['stat_text']); ?>
                     </div>
                 </div>
-                <?php endif; ?>
+                <?php endif; ?> -->
 
             </div>
             <?php endforeach; ?>
@@ -669,7 +669,7 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
 <!-- ===============================================================
      SECTION 5 - TRUST BADGES
      =============================================================== -->
-<section class="donate-trust-section">
+<!-- <section class="donate-trust-section">
     <div class="inner">
         <div class="trust-strip">
             <div class="trust-strip__inner">
@@ -686,6 +686,6 @@ $donation_status = isset($_GET['donation']) ? sanitize_text_field(wp_unslash($_G
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <?php get_footer(); ?>
