@@ -356,86 +356,109 @@ get_header();
   </div>
 </section>
 
+<!-- <style>
+  .faq-answer-custom p {
+  margin: 0 0 14px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #111;
+}
+
+.faq-answer-custom ul {
+  margin: 0 0 18px 22px;
+  padding: 0;
+}
+
+.faq-answer-custom li {
+  margin: 0 0 10px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #111;
+}
+
+.faq-answer-custom li strong {
+  font-weight: 700;
+}
+</style> -->
+
 <!-- FAQ Section -->
 <section style="background: #F5F6FA; padding: 90px 0; position: relative;">
-  <div class="inner">
-    <div style="text-align: center; margin-bottom: 60px;">
-      <p style="font-size: 15px; font-weight: 700; color: #C8402E; margin-bottom: 12px; letter-spacing: 0.02em;">Quick Answers</p>
-      <h2 style="font-size: 52px; font-weight: 900; color: #141943; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px;">Frequently Asked Questions</h2>
-      <p style="font-size: 18px; color: #5B6575; line-height: 1.65; max-width: 680px; margin: 0 auto;">
-        Find answers to common questions about MYCO programs and services
-      </p>
-    </div>
+<div style="flex-direction: column; gap: 16px; max-width: 900px; margin: 0 auto; display: flex;">
+  <?php
+  $faqs = myco_get_field('faq_items');
 
-    <div style="flex-direction: column; gap: 16px; max-width: 900px; margin: 0 auto; display: flex;">
-      <?php
-      $faqs = myco_get_field('faq_items');
-      if ($faqs) :
-        foreach ($faqs as $faq) :
-      ?>
-      <div class="faq-item accordion-item">
-        <button class="accordion-header">
-          <span class="accordion-title"><?php echo esc_html($faq['question']); ?></span>
-          <span class="accordion-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </button>
-        <div class="accordion-content">
-          <p><?php echo esc_html($faq['answer']); ?></p>
-        </div>
+  if ($faqs && is_array($faqs)) :
+    foreach ($faqs as $faq) :
+  ?>
+    <div class="faq-item accordion-item">
+      <button class="accordion-header">
+        <span class="accordion-title"><?php echo esc_html($faq['question']); ?></span>
+        <span class="accordion-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </span>
+      </button>
+      <div class="accordion-content">
+        <?php echo wp_kses_post($faq['answer']); ?>
       </div>
-      <?php
-        endforeach;
-      else :
-      ?>
-      <!-- Default FAQs -->
-      <div class="faq-item accordion-item">
-        <button class="accordion-header">
-          <span class="accordion-title">What age groups do you serve?</span>
-          <span class="accordion-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </button>
-        <div class="accordion-content">
-          <p>MYCO serves youth ages 6-18 with age-appropriate programs for elementary, middle school, and high school students.</p>
-        </div>
-      </div>
-      <div class="faq-item accordion-item">
-        <button class="accordion-header">
-          <span class="accordion-title">How do I register my child?</span>
-          <span class="accordion-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </button>
-        <div class="accordion-content">
-          <p>Visit our Programs page to browse available programs and click the registration link, or contact us directly for assistance.</p>
-        </div>
-      </div>
-      <div class="faq-item accordion-item">
-        <button class="accordion-header">
-          <span class="accordion-title">Are programs free?</span>
-          <span class="accordion-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </button>
-        <div class="accordion-content">
-          <p>Many programs are free or low-cost. Financial assistance is available for families in need. Contact us to learn more.</p>
-        </div>
-      </div>
-      <div class="faq-item accordion-item">
-        <button class="accordion-header">
-          <span class="accordion-title">Can I volunteer at MYCO?</span>
-          <span class="accordion-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </button>
-        <div class="accordion-content">
-          <p>Yes! We welcome volunteers. Visit our Volunteer page to learn about opportunities and complete the registration form.</p>
-        </div>
-      </div>
-      <?php endif; ?>
     </div>
-  </div>
+  <?php
+    endforeach;
+  else :
+    $default_faqs = [
+      [
+        'question' => 'How would your donation help?',
+        'answer'   => '<p>Your gift helps fund the costs required to build and establish the youth center, including planning, development, and campaign needs that move the project forward.</p>',
+      ],
+      [
+        'question' => 'Will I receive a receipt for my donation?',
+        'answer'   => '<p>Yes. A donation receipt will be provided for your records.</p>',
+      ],
+      [
+        'question' => 'Are donations tax-deductible?',
+        'answer'   => '<p>Yes. MYCO is a 501(c)(3) nonprofit organization, and donations made toward the MCYC Capital Campaign are tax-deductible to the extent permitted by law.</p>',
+      ],
+      [
+        'question' => 'Is my payment secure?',
+        'answer'   => '<p>Yes. Donations are processed through a secure online giving system. Payment information is encrypted and handled safely through the donation processor.</p>',
+      ],
+      [
+        'question' => 'Can I make a pledge or commit to giving over time?',
+        'answer'   => '
+          <div class="faq-answer-custom">
+            <p>Yes. Many donors choose to support the campaign through:</p>
+            <ul>
+              <li><strong> Monthly giving</strong></li>
+              <li><strong> Multi-month or multi-year pledges</strong></li>
+              <li><strong> One-time major gifts</strong></li>
+            </ul>
+            <p>If you’d like to set up a pledge or a custom giving plan, MYCO can assist you.</p>
+          </div>
+        ',
+      ],
+    ];
+
+    foreach ($default_faqs as $faq) :
+  ?>
+    <div class="faq-item accordion-item">
+      <button class="accordion-header">
+        <span class="accordion-title"><?php echo esc_html($faq['question']); ?></span>
+        <span class="accordion-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </span>
+      </button>
+      <div class="accordion-content">
+        <?php echo wp_kses_post($faq['answer']); ?>
+      </div>
+    </div>
+  <?php
+    endforeach;
+  endif;
+  ?>
+</div>
 </section>
 
 <?php get_footer(); ?>
