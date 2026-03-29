@@ -77,7 +77,6 @@ $program_cards = [
         'number' => '01',
         'title' => 'YOUTH LEADERSHIP DEVELOPMENT',
         'description' => 'Helping youth build confidence, communication skills, teamwork, responsibility, and leadership rooted in Islamic values.',
-        'featured' => true
     ],
     [
         'number' => '02',
@@ -104,12 +103,6 @@ $program_cards = [
         'title' => 'COMMUNITY SERVICE & INNOVATION',
         'description' => 'Volunteer initiatives that teach youth to serve others and contribute meaningfully to their communities.',
     ],
-];
-
-$focus_cards = [
-    ['title' => 'Faith-centred culture', 'description' => 'Space for worship, reflection, and everyday reminders that faith belongs at the center of youth development.'],
-    ['title' => 'Mentorship by design', 'description' => 'A home that supports natural connection between youth and mentors through repetition and visibility.'],
-    ['title' => 'Leadership with continuity', 'description' => 'Programs and responsibility deepen when youth have a consistent home base instead of temporary venues.'],
 ];
 
 $voice_cards = [
@@ -374,10 +367,10 @@ get_header();
                         <p class="text-sm text-gray-600 mt-3">A visible sign that the project is moving from concept toward a lasting physical home.</p>
                     </div>
                     <div id="building" class="grid md:grid-cols-[1.08fr_0.92fr] gap-3">
-                        <figure class="mcyc-building-image-large min-h-[220px]"><img src="<?php echo esc_url($community_image); ?>" alt="Community volunteers supporting youth-centred programming" class="w-full h-full object-cover" /><figcaption class="mcyc-image-caption"><span>Community Energy</span><p>The project is rooted in real relationships, volunteer energy, and a shared commitment to the next generation.</p></figcaption></figure>
+                        <figure class="mcyc-building-image-large min-h-[220px]"><img src="<?php echo esc_url(myco_theme_asset_url('assets/images/Construction/Construction Update 1.jpg')); ?>" alt="Community volunteers supporting youth-centred programming" class="w-full h-full object-cover" /><figcaption class="mcyc-image-caption"><span>Community Energy</span><p>The project is rooted in real relationships, volunteer energy, and a shared commitment to the next generation.</p></figcaption></figure>
                         <div class="grid gap-3">
-                            <figure class="mcyc-building-image-small min-h-[106px]"><img src="<?php echo esc_url($meeting_image); ?>" alt="Learning space inspiration for the future MCYC building" class="w-full h-full object-cover" /></figure>
-                            <figure class="mcyc-construction-image min-h-[106px]"><img src="<?php echo esc_url($sports_image); ?>" alt="Active programming vision for the future MCYC building" class="w-full h-full object-cover" /></figure>
+                            <figure class="mcyc-building-image-small min-h-[106px]"><img src="<?php echo esc_url(myco_theme_asset_url('assets/images/Construction/Construction (5).webp')); ?>" alt="Learning space inspiration for the future MCYC building" class="w-full h-full object-cover" /></figure>
+                            <figure class="mcyc-construction-image min-h-[106px]"><img src="<?php echo esc_url(myco_theme_asset_url('assets/images/Construction/Construction (4).jpeg')); ?>" alt="Active programming vision for the future MCYC building" class="w-full h-full object-cover" /></figure>
                         </div>
                     </div>
                 </div>
@@ -600,9 +593,26 @@ get_header();
             <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 xl:gap-14 items-center">
                 <div class="mcyc-fade-in">
                     <p class="text-sm font-bold uppercase tracking-[0.22em] text-red mb-4">Mentorship</p>
-                    <h2 class="text-navy text-[2.4rem] sm:text-[3.2rem] lg:text-[3.8rem] font-extrabold leading-[1.0] tracking-tight mb-7">Mentorship gives the building<span class="text-red"> its deeper meaning.</span></h2>
-                    <div class="mcyc-mentorship-copy space-y-5 text-lg leading-[1.8] text-gray-600 mb-8"><p>The building creates the place, but mentorship gives the place its purpose. MCYC is meant to be a setting where guidance can happen consistently.</p><p>Inside a permanent home, mentorship becomes part of the culture of the space, woven into how young people learn, grow, connect, and lead.</p></div>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"><?php foreach ($focus_cards as $focus) : ?><div class="mcyc-focus-card"><p class="text-base font-extrabold text-red mb-2"><?php echo esc_html($focus['title']); ?></p><p class="mcyc-focus-copy text-sm text-gray-600 leading-6"><?php echo esc_html($focus['description']); ?></p></div><?php endforeach; ?></div>
+                    <h2 class="text-navy text-[2.4rem] sm:text-[3.2rem] lg:text-[3.8rem] font-extrabold leading-[1.05] tracking-tight mb-4">
+                        <span class="block">Mentorship turns moments into</span>
+                        <span class="text-red block mt-1">meaning &amp; spaces into purpose.</span>
+                    </h2>
+                    <div class="flex flex-col gap-6 mb-8">
+                        <div class="rounded-[24px] border border-[rgba(20,25,67,0.1)] bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(20,25,67,0.06)] space-y-4">
+                            <h3 class="text-navy text-xl sm:text-2xl font-extrabold leading-snug mb-0">Designed to support mind, body and spirit.</h3>
+                            <div class="mcyc-mentorship-copy space-y-4 text-lg leading-[1.8] text-gray-600">
+                                <p>The multipurpose gym, full kitchen, and wellness areas will promote health, discipline, and connection through physical activity and shared meals. The café, co-working center, and training rooms will create environments for career exploration, mentorship, networking, and skill-building. The gaming room and sim racing studio will invite play, creativity, and teamwork, ensuring faith and friendship are experienced as part of everyday life.</p>
+                                <p class="mb-0">This space is built to shape habits, relationships, and identity, where every decision we make is shaped by a clear sense of purpose.</p>
+                            </div>
+                        </div>
+                        <div class="rounded-[24px] border border-[rgba(20,25,67,0.1)] bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(20,25,67,0.06)] space-y-4">
+                            <h3 class="text-navy text-xl sm:text-2xl font-extrabold leading-snug mb-0">Equipped with mentors that shape the experience</h3>
+                            <p class="text-lg leading-snug mb-0">The facilities alone don&rsquo;t transform lives. <b>People do.</b></p>
+                            <div class="mcyc-mentorship-copy text-lg leading-[1.8] text-gray-600">
+                                <p class="mb-0">That&rsquo;s why MCYC is a mission powered by mentors. Our programs are led by role models grounded in Islamic knowledge who guide youth through each experience with wisdom, compassion, and purpose. They model what it means to live Islam with confidence and balance, translating values into lived habits, from the court to the café.</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="flex flex-wrap gap-4"><a href="<?php echo esc_url($volunteer_url); ?>" class="mcyc-btn-primary">Become a Mentor</a><a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-secondary">Support the Mission</a></div>
                 </div>
                 <div class="relative mcyc-fade-in" style="transition-delay: 0.18s;"><div class="mcyc-image-glow" aria-hidden="true"></div><img src="<?php echo esc_url($building_image); ?>" alt="Mentorship and community support connected to the MCYC vision" class="relative rounded-[28px] w-full h-[380px] md:h-[460px] object-cover shadow-2xl" /></div>
@@ -614,7 +624,9 @@ get_header();
         <div class="mcyc-final-inner max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="mcyc-final-card text-center mcyc-fade-in">
                 <h2 class="mcyc-final-heading text-[2.6rem] sm:text-[4rem] lg:text-[4.8rem] font-extrabold tracking-tight leading-[0.94] mb-8">Support the<span class="text-red block mt-3">Build</span></h2>
-                <p class="mcyc-final-copy max-w-3xl mx-auto text-lg md:text-[1.45rem] leading-[1.75] text-gray-200 mb-12">Help complete a permanent place where youth can belong, grow in faith, find mentorship, and build a stronger future together.</p>
+                <p class="mcyc-final-copy max-w-3xl mx-auto text-lg md:text-[1.45rem] leading-[1.75] text-gray-200 mb-12">This visionary center will only be possible through the support of donors who believe in building something lasting for our youth. Your gift funds the creation of a space where young Muslims can grow with confidence, strengthen their relationship with Allah, develop life skills, and find a community they can rely on.
+
+Whether you choose to give once or become a recurring supporter, your donation plays a direct role in building MCYC.</p>
                 <div class="mcyc-final-actions flex flex-wrap justify-center gap-4"><a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-primary text-lg px-12 py-6">Donate Now</a><a href="#building" class="mcyc-btn-secondary mcyc-btn-secondary--light text-lg px-10 py-6">Learn More</a></div>
             </div>
         </div>
