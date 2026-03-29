@@ -594,8 +594,7 @@ get_header();
                 <div class="mcyc-fade-in">
                     <p class="text-sm font-bold uppercase tracking-[0.22em] text-red mb-4">Mentorship</p>
                     <h2 class="text-navy text-[2.4rem] sm:text-[3.2rem] lg:text-[3.8rem] font-extrabold leading-[1.05] tracking-tight mb-4">
-                        <span class="block">Mentorship turns moments into</span>
-                        <span class="text-red block mt-1">meaning &amp; spaces into purpose.</span>
+                        Mentorship turns moments into <span class="text-red">meaning &amp; spaces into purpose.</span>
                     </h2>
                     <div class="flex flex-col gap-6 mb-8">
                         <div class="rounded-[24px] border border-[rgba(20,25,67,0.1)] bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(20,25,67,0.06)] space-y-4">
@@ -615,18 +614,19 @@ get_header();
                     </div>
                     <div class="flex flex-wrap gap-4"><a href="<?php echo esc_url($volunteer_url); ?>" class="mcyc-btn-primary">Become a Mentor</a><a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-secondary">Support the Mission</a></div>
                 </div>
-                <div class="relative mcyc-fade-in" style="transition-delay: 0.18s;"><div class="mcyc-image-glow" aria-hidden="true"></div><img src="<?php echo esc_url($building_image); ?>" alt="Mentorship and community support connected to the MCYC vision" class="relative rounded-[28px] w-full h-[380px] md:h-[460px] object-cover shadow-2xl" /></div>
+                <div class="relative mcyc-fade-in" style="transition-delay: 0.18s;">
+                    <div class="mcyc-image-glow" aria-hidden="true"></div>
+                    <img src="<?php echo esc_url($building_image); ?>" alt="Mentorship and community support connected to the MCYC vision" class="relative rounded-[28px] w-full h-[880px] md:h-[860px] object-cover shadow-2xl" />
+                </div>
             </div>
         </div>
     </section>
 
     <section class="mcyc-final-cta py-16 md:py-24 text-white relative">
-        <div class="mcyc-final-inner max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="mcyc-final-inner max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="mcyc-final-card text-center mcyc-fade-in">
                 <h2 class="mcyc-final-heading text-[2.6rem] sm:text-[4rem] lg:text-[4.8rem] font-extrabold tracking-tight leading-[0.94] mb-8">Support the<span class="text-red block mt-3">Build</span></h2>
-                <p class="mcyc-final-copy max-w-3xl mx-auto text-lg md:text-[1.45rem] leading-[1.75] text-gray-200 mb-12">This visionary center will only be possible through the support of donors who believe in building something lasting for our youth. Your gift funds the creation of a space where young Muslims can grow with confidence, strengthen their relationship with Allah, develop life skills, and find a community they can rely on.
-
-Whether you choose to give once or become a recurring supporter, your donation plays a direct role in building MCYC.</p>
+                <p class="mcyc-final-copy max-w-[1400px] mx-auto text-base md:text-lg lg:text-xl leading-[1.65] text-gray-200 mb-12">This visionary center will only be possible through the support of donors who believe in building something lasting for our youth. Your gift funds the creation of a space where young Muslims can grow with confidence, strengthen their relationship with Allah, develop life skills, and find a community they can rely on. Whether you choose to give once or become a recurring supporter, your donation plays a direct role in building MCYC.</p>
                 <div class="mcyc-final-actions flex flex-wrap justify-center gap-4"><a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-primary text-lg px-12 py-6">Donate Now</a><a href="#building" class="mcyc-btn-secondary mcyc-btn-secondary--light text-lg px-10 py-6">Learn More</a></div>
             </div>
         </div>
