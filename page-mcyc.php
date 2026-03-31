@@ -589,34 +589,40 @@ get_header();
     <section id="mentorship" class="mcyc-mentorship-stage py-16 md:py-20 relative overflow-hidden">
         <div class="mcyc-section-orb mcyc-section-orb--left" aria-hidden="true"></div>
         <div class="mcyc-section-orb mcyc-section-orb--right" aria-hidden="true"></div>
-        <div class="mcyc-mentorship-inner max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 xl:gap-14 items-center">
-                <div class="mcyc-fade-in">
-                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-red mb-4">Mentorship</p>
-                    <h2 class="text-navy text-[2.4rem] sm:text-[3.2rem] lg:text-[3.8rem] font-extrabold leading-[1.05] tracking-tight mb-4">
-                        Mentorship turns moments into <span class="text-red">meaning &amp; spaces into purpose.</span>
-                    </h2>
-                    <div class="flex flex-col gap-6 mb-8">
+        <div class="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <p class="text-sm font-bold uppercase tracking-[0.22em] text-red mb-4">Mentorship</p>
+            <h2 class="text-navy text-[1.5rem] sm:text-[2rem] lg:text-[2.45rem] xl:text-[2.75rem] font-extrabold leading-[1.08] tracking-tight mb-8 lg:whitespace-nowrap">
+               Real mentorship turns everyday spaces into <span class="text-red">places of growth &amp; purpose.</span>
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 cards-image-row">
+                <div class="lg:col-span-6">
+                    <div class="grid gap-6 cards-stack">
                         <div class="rounded-[24px] border border-[rgba(20,25,67,0.1)] bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(20,25,67,0.06)] space-y-4">
-                            <h3 class="text-navy text-xl sm:text-2xl font-extrabold leading-snug mb-0">Designed to support mind, body and spirit.</h3>
-                            <div class="mcyc-mentorship-copy space-y-4 text-lg leading-[1.8] text-gray-600">
-                                <p>The multipurpose gym, full kitchen, and wellness areas will promote health, discipline, and connection through physical activity and shared meals. The café, co-working center, and training rooms will create environments for career exploration, mentorship, networking, and skill-building. The gaming room and sim racing studio will invite play, creativity, and teamwork, ensuring faith and friendship are experienced as part of everyday life.</p>
-                                <p class="mb-0">This space is built to shape habits, relationships, and identity, where every decision we make is shaped by a clear sense of purpose.</p>
+                            <h3 class="text-navy text-xl sm:text-2xl font-extrabold leading-snug mb-0">Built for mind, body &amp; spirit</h3>
+                            <div class="space-y-4 text-lg leading-[1.8] text-gray-600">
+                                <p>From the gym and wellness spaces to shared meals in the kitchen, every part of MCYC is designed to build healthy habits and strong connections.</p>
+                                <p>Spaces like the café, co-working area, and training rooms help youth explore careers, build skills, and connect with others.</p>
+                                <p class="mb-0">Even gaming and creative spaces encourage teamwork, creativity, and positive friendships.</p>
                             </div>
                         </div>
                         <div class="rounded-[24px] border border-[rgba(20,25,67,0.1)] bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(20,25,67,0.06)] space-y-4">
-                            <h3 class="text-navy text-xl sm:text-2xl font-extrabold leading-snug mb-0">Equipped with mentors that shape the experience</h3>
-                            <p class="text-lg leading-snug mb-0">The facilities alone don&rsquo;t transform lives. <b>People do.</b></p>
-                            <div class="mcyc-mentorship-copy text-lg leading-[1.8] text-gray-600">
-                                <p class="mb-0">That&rsquo;s why MCYC is a mission powered by mentors. Our programs are led by role models grounded in Islamic knowledge who guide youth through each experience with wisdom, compassion, and purpose. They model what it means to live Islam with confidence and balance, translating values into lived habits, from the court to the café.</p>
+                            <h3 class="text-navy text-xl sm:text-2xl font-extrabold leading-snug mb-0">Mentors make the difference</h3>
+                            <p class="text-lg leading-snug mb-0">A building alone doesn't change lives. <b>People do.</b></p>
+                            <div class="text-lg leading-[1.8] text-gray-600">
+                                <p class="mb-0">That's why MCYC is powered by mentors. Our programs are guided by role models rooted in Islamic values who support, guide, and inspire youth in every space — from the court to the café.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-4"><a href="<?php echo esc_url($volunteer_url); ?>" class="mcyc-btn-primary">Become a Mentor</a><a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-secondary">Support the Mission</a></div>
+                    <div class="flex flex-wrap gap-4 pt-6">
+                        <a href="<?php echo esc_url($volunteer_url); ?>" class="mcyc-btn-primary">Become a Mentor</a>
+                        <a href="<?php echo esc_url($mcyc_donate_url); ?>" class="mcyc-btn-secondary">Support the Mission</a>
+                    </div>
                 </div>
-                <div class="relative mcyc-fade-in" style="transition-delay: 0.18s;">
-                    <div class="mcyc-image-glow" aria-hidden="true"></div>
-                    <img src="<?php echo esc_url($building_image); ?>" alt="Mentorship and community support connected to the MCYC vision" class="relative rounded-[28px] w-full h-[880px] md:h-[860px] object-cover shadow-2xl" />
+                <div class="lg:col-span-6">
+                    <div class="relative image-wrap min-h-[700px] lg:min-h-[100%]">
+                        <div class="mcyc-image-glow" aria-hidden="true"></div>
+                        <img src="<?php echo esc_url($building_image); ?>" alt="Mentorship and community support connected to the MCYC vision" class="relative rounded-[28px] w-full h-full object-cover shadow-2xl" />
+                    </div>
                 </div>
             </div>
         </div>
