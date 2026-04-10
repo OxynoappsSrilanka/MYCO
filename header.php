@@ -28,13 +28,18 @@ $is_mcyc_page = is_page('mcyc');
 <?php wp_body_open(); ?>
 
 <header class="site-header w-full bg-white">
-    <div class="site-header-inner w-full mx-auto px-8 sm:px-12 lg:px-16 flex items-center justify-between">
-        <div class="mobile-brand-lockup md:hidden">
+    <div class="site-header-inner relative w-full mx-auto px-8 sm:px-12 lg:px-16 flex items-center justify-between">
+        <div class="mobile-header-logo relative z-10 md:hidden">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="mobile-logo-link flex-shrink-0 transition-opacity hover:opacity-80" aria-label="<?php esc_attr_e('MYCO Home', 'myco'); ?>">
                 <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/myco-logo.png')); ?>"
                      alt="<?php bloginfo('name'); ?>"
                      class="h-20 w-auto" />
             </a>
+        </div>
+
+        <div class="mobile-bismillah-center"
+             role="presentation"
+             aria-hidden="true">
             <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/Bismillah.webp')); ?>"
                  alt=""
                  class="mobile-bismillah-image mobile-bismillah-inline" />
@@ -71,7 +76,7 @@ $is_mcyc_page = is_page('mcyc');
 
         <!-- Hamburger (mobile only) -->
         <button id="hamburger"
-            class="md:hidden flex flex-col gap-[5px] items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-navy-dark"
+            class="relative z-10 md:hidden flex flex-col gap-[5px] items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-navy-dark"
             aria-expanded="false"
             aria-controls="mobile-menu"
             aria-label="<?php esc_attr_e('Open navigation menu', 'myco'); ?>">

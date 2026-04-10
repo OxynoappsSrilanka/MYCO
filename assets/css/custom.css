@@ -620,7 +620,11 @@ a {
   transform: translateY(-6px) rotate(-45deg);
 }
 
-.mobile-brand-lockup {
+.mobile-header-logo {
+  display: none;
+}
+
+.mobile-bismillah-center {
   display: none;
 }
 
@@ -2196,12 +2200,24 @@ p:not([class*="text-"]) {
     gap: 0.75rem;
   }
 
-  .mobile-brand-lockup {
+  .mobile-header-logo {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .mobile-bismillah-center {
     display: flex;
-    align-items: flex-end;
-    gap: 0.6rem;
-    min-width: 0;
-    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    pointer-events: none;
+    max-width: min(70vw, 340px);
+    width: max-content;
   }
 
   .mobile-logo-link {
@@ -2216,8 +2232,7 @@ p:not([class*="text-"]) {
     display: block;
     height: 48px;
     max-width: min(70vw, 340px);
-    flex: 0 1 auto;
-    transform: translateY(-16px);
+    width: auto;
   }
 }
 
@@ -2226,18 +2241,17 @@ p:not([class*="text-"]) {
     gap: 0.55rem;
   }
 
-  .mobile-brand-lockup {
-    gap: 0.45rem;
-  }
-
   .mobile-logo-link img {
     max-height: 62px;
+  }
+
+  .mobile-bismillah-center {
+    max-width: min(64vw, 272px);
   }
 
   .mobile-bismillah-inline {
     height: 39px;
     max-width: min(64vw, 272px);
-    transform: translateY(-13px);
   }
 }
 
