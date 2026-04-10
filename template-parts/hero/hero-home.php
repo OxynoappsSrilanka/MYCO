@@ -14,7 +14,7 @@ $cta2_text      = myco_get_field('hero_cta_secondary_text', false, 'Explore Prog
 $cta2_url       = myco_get_field('hero_cta_secondary_url', false, myco_get_page_url('programs', '/programs/'));
 $hero_image     = myco_get_field('hero_image');
 $hero_img_url   = $hero_image ? (is_array($hero_image) ? $hero_image['url'] : wp_get_attachment_url($hero_image)) : myco_theme_asset_url('assets/images/hero_video_thumbnail.png');
-$hero_video_rel = 'assets/images/MCYC_Youtube.mp4';
+$hero_video_rel = 'assets/images/MCYC_Youtube_Ohio.mp4';
 $hero_video_url = myco_theme_asset_url($hero_video_rel);
 $hero_video_ok  = file_exists(get_theme_file_path($hero_video_rel));
 ?>
