@@ -3,6 +3,12 @@
  * Template Name: Contact
  * @package MYCO
  */
+
+$contact_locations = myco_get_contact_locations();
+$myco_location     = $contact_locations['myco'];
+$mcyc_location     = $contact_locations['mcyc'];
+$shared_phone      = myco_get_shared_phone();
+
 get_header();
 ?>
 
@@ -77,11 +83,13 @@ get_header();
           <?php echo wp_kses_post($card['icon_svg']); ?>
         </div>
         <h3 style="font-size: 22px; font-weight: 800; color: #141943; margin-bottom: 12px;"><?php echo esc_html($card['title']); ?></h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
-          <?php echo wp_kses_post(nl2br($card['details'])); ?>
-        </p>
+        <div class="contact-card-body">
+          <p class="contact-card-details" style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
+            <?php echo wp_kses_post(nl2br($card['details'])); ?>
+          </p>
+        </div>
         <?php if (!empty($card['link_url'])) : ?>
-        <a href="<?php echo esc_url($card['link_url']); ?>" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none; margin-top: auto;">
+        <a href="<?php echo esc_url($card['link_url']); ?>" class="contact-card-cta" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none;">
           <?php echo esc_html($card['link_text']); ?> &rarr;
         </a>
         <?php endif; ?>
@@ -99,10 +107,23 @@ get_header();
           </svg>
         </div>
         <h3 style="font-size: 22px; font-weight: 800; color: #141943; margin-bottom: 12px;">Visit Us</h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
-          123 Community Street<br>Columbus, OH 43215<br>United States
-        </p>
-        <a href="https://maps.google.com/?q=123+Community+Street+Columbus+OH+43215" target="_blank" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none; margin-top: auto;">Get Directions &rarr;</a>
+        <div class="contact-card-body">
+          <p class="contact-card-details" style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
+            <span style="display: block; margin-bottom: 16px;">
+              <span style="display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #C8402E; margin-bottom: 6px;">MYCO</span>
+              <?php echo esc_html($myco_location['name']); ?><br>
+              <?php echo esc_html($myco_location['street']); ?><br>
+              <?php echo esc_html($myco_location['city_state_zip']); ?>
+            </span>
+            <span style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #C8402E; margin-bottom: 6px;">MCYC</span>
+              <?php echo esc_html($mcyc_location['name']); ?><br>
+              <?php echo esc_html($mcyc_location['street']); ?><br>
+              <?php echo esc_html($mcyc_location['city_state_zip']); ?>
+            </span>
+          </p>
+        </div>
+        <a href="#contact-location-list" class="contact-card-cta" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none;">View Locations &rarr;</a>
       </div>
 
       <div class="contact-card" style="background: #ffffff; border-radius: 20px; padding: 40px 32px; text-align: center; box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08); border: 1px solid rgba(20, 25, 67, 0.05); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; align-items: center;">
@@ -112,10 +133,12 @@ get_header();
           </svg>
         </div>
         <h3 style="font-size: 22px; font-weight: 800; color: #141943; margin-bottom: 12px;">Call Us</h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
-          Main Office:<br>(614) 555-MYCO<br>Mon-Fri: 9am - 6pm
-        </p>
-        <a href="tel:+16145556926" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none; margin-top: auto;">Call Now &rarr;</a>
+        <div class="contact-card-body">
+          <p class="contact-card-details" style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
+            Main Office:<br><?php echo esc_html($shared_phone); ?><br>Mon-Fri: 9am - 6pm
+          </p>
+        </div>
+        <a href="tel:+1<?php echo esc_attr(preg_replace('/\D+/', '', $shared_phone)); ?>" class="contact-card-cta" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none;">Call Now &rarr;</a>
       </div>
 
       <div class="contact-card" style="background: #ffffff; border-radius: 20px; padding: 40px 32px; text-align: center; box-shadow: 0 8px 24px rgba(20, 25, 67, 0.08); border: 1px solid rgba(20, 25, 67, 0.05); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; align-items: center;">
@@ -126,10 +149,12 @@ get_header();
           </svg>
         </div>
         <h3 style="font-size: 22px; font-weight: 800; color: #141943; margin-bottom: 12px;">Email Us</h3>
-        <p style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
-          General Inquiries:<br>info@mycohio.org<br>We reply within 24 hours
-        </p>
-        <a href="mailto:info@mycohio.org" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none; margin-top: auto;">Send Email &rarr;</a>
+        <div class="contact-card-body">
+          <p class="contact-card-details" style="font-size: 15px; color: #5B6575; line-height: 1.7; margin-bottom: 16px;">
+            General Inquiries:<br>info@mycohio.org<br>We reply within 24 hours
+          </p>
+        </div>
+        <a href="mailto:info@mycohio.org" class="contact-card-cta" style="font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none;">Send Email &rarr;</a>
       </div>
       <?php endif; ?>
 
@@ -200,7 +225,7 @@ get_header();
 
           <div class="form-group">
             <label class="form-label" for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" class="form-input" placeholder="(614) 555-0123" />
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="614 769 1949" />
           </div>
 
           <div class="form-group">
@@ -267,11 +292,11 @@ get_header();
       </div>
 
       <!-- Right Column: Map & Office Hours -->
-      <div style="display: flex; flex-direction: column; height: 100%;">
+      <div id="contact-location-list" style="display: flex; flex-direction: column; height: 100%;">
         <div style="margin-bottom: 40px;">
           <p style="font-size: 15px; font-weight: 700; color: #C8402E; margin-bottom: 12px; letter-spacing: 0.02em;">Find Us</p>
           <h2 style="font-size: 48px; font-weight: 900; color: #141943; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px;">Our Location</h2>
-          <p style="font-size: 17px; color: #5B6575; line-height: 1.65;">Visit our community center in the heart of Columbus</p>
+          <p style="font-size: 17px; color: #5B6575; line-height: 1.65;">Visit MYCO and the future home of MCYC in Central Ohio.</p>
         </div>
 
         <!-- Map Container -->
@@ -292,19 +317,33 @@ get_header();
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
-          <div style="background: white; padding: 20px; text-align: center; border-top: 1px solid #E5E7EB;">
-            <p style="font-size: 15px; color: #374151; font-weight: 600; margin-bottom: 8px;">
-              <?php echo esc_html(myco_get_option('address') ?: '123 Community Street, Columbus, OH 43215'); ?>
-            </p>
-            <a href="https://www.google.com/maps/search/?api=1&query=123+Community+Street+Columbus+OH+43215" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none; padding: 8px 16px; border-radius: 8px; background: rgba(200, 64, 46, 0.08); transition: all 0.2s;">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M10 18c0 0-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              Open in Google Maps
-            </a>
-          </div>
           <?php endif; ?>
+          <div style="background: white; padding: 20px; text-align: left; border-top: 1px solid #E5E7EB;">
+            <?php
+            $location_keys = array_keys($contact_locations);
+            foreach ($location_keys as $position => $location_key) :
+                $location = $contact_locations[$location_key];
+                $is_last  = $position === array_key_last($location_keys);
+            ?>
+            <div style="<?php echo $is_last ? '' : 'padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid #E5E7EB;'; ?>">
+              <p style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #C8402E; margin-bottom: 8px;">
+                <?php echo esc_html($location['short_label']); ?>
+              </p>
+              <p style="font-size: 15px; color: #374151; font-weight: 600; line-height: 1.7; margin-bottom: 12px;">
+                <?php echo esc_html($location['name']); ?><br>
+                <?php echo esc_html($location['street']); ?><br>
+                <?php echo esc_html($location['city_state_zip']); ?>
+              </p>
+              <a href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($location['maps_query'])); ?>" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #C8402E; text-decoration: none; padding: 8px 16px; border-radius: 8px; background: rgba(200, 64, 46, 0.08); transition: all 0.2s;">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 18c0 0-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Open in Google Maps
+              </a>
+            </div>
+            <?php endforeach; ?>
+          </div>
         </div>
 
         <!-- Office Hours Card -->

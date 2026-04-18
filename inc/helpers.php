@@ -295,6 +295,65 @@ function myco_get_option($field_name, $fallback = '') {
 }
 
 /**
+ * Get the shared main contact phone number.
+ */
+function myco_get_shared_phone() {
+    return '614 769 1949';
+}
+
+/**
+ * Get core organization location details.
+ */
+function myco_get_contact_locations() {
+    return [
+        'myco' => [
+            'short_label'    => 'MYCO',
+            'name'           => 'Muslim Youth of Central Ohio',
+            'street'         => '1255 N Hamilton Road Box 229',
+            'city_state_zip' => 'Gahanna, Ohio 43230',
+            'maps_query'     => 'Muslim Youth of Central Ohio 1255 N Hamilton Road Box 229 Gahanna Ohio 43230',
+        ],
+        'mcyc' => [
+            'short_label'    => 'MCYC',
+            'name'           => 'Muslim Community Youth Centre',
+            'street'         => '5509 Sunbury Road',
+            'city_state_zip' => 'Columbus, Ohio 43230',
+            'maps_query'     => 'Muslim Community Youth Centre 5509 Sunbury Road Columbus Ohio 43230',
+        ],
+    ];
+}
+
+/**
+ * Format a location for display.
+ */
+function myco_format_contact_location($location, $multiline = true) {
+    if (!is_array($location)) {
+        return '';
+    }
+
+    $second_line = trim(($location['street'] ?? '') . ', ' . ($location['city_state_zip'] ?? ''), ', ');
+
+    if ($multiline) {
+        return trim(($location['name'] ?? '') . "\n" . $second_line);
+    }
+
+    return trim(($location['name'] ?? '') . ', ' . $second_line, ', ');
+}
+
+/**
+ * Get footer contact details for the current page context.
+ */
+function myco_get_footer_contact_details() {
+    $locations = myco_get_contact_locations();
+    $location  = is_page('mcyc') ? $locations['mcyc'] : $locations['myco'];
+
+    return [
+        'address' => myco_format_contact_location($location, false),
+        'phone'   => myco_get_shared_phone(),
+    ];
+}
+
+/**
  * Output breadcrumb navigation
  *
  * @param array  $items   Breadcrumb items: [['label' => '', 'url' => ''], ...]

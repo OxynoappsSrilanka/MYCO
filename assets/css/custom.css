@@ -104,12 +104,26 @@ a {
   margin-bottom: 12px;
 }
 
-.contact-card p {
-  flex-grow: 1;
+.contact-card-body {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.contact-card a {
-  margin-top: auto;
+.contact-card p,
+.contact-card-details {
+  margin-bottom: 0;
+}
+
+.contact-card-details {
+  width: 100%;
+}
+
+.contact-card a,
+.contact-card-cta {
+  margin-top: 16px !important;
 }
 
 @media (max-width: 768px) {
@@ -152,7 +166,7 @@ a {
    4. Pill Navigation (Larger, More Spacious)
    ------------------------------------------------------------------ */
 .pill-nav {
-  background: #efefef;
+  background: var(--header-pill-surface, #efefef);
   border: 1px solid #e0e0e0;
   border-radius: 9999px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.09);
@@ -193,10 +207,16 @@ a {
 
 .site-header-nav {
   gap: 0;
+  --header-pill-surface: #efefef;
+}
+
+.site-header-nav--with-badge {
+  gap: 14px;
 }
 
 .site-header-nav--mcyc {
   gap: 14px;
+  --header-pill-surface: #ffffff;
 }
 
 .site-header-nav--mcyc .pill-nav {
@@ -214,7 +234,7 @@ a {
   flex-shrink: 0;
   padding: 0.75rem;
   border-radius: 22px;
-  background: #ffffff;
+  background: var(--header-pill-surface, #efefef);
   border: 1px solid rgba(20, 25, 67, 0.08);
   box-shadow: 0 14px 36px rgba(20, 25, 67, 0.1);
   text-decoration: none;

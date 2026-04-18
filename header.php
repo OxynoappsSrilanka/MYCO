@@ -53,14 +53,12 @@ $is_mcyc_page = is_page('mcyc');
         </a>
 
         <!-- Desktop pill nav -->
-        <nav class="hidden md:flex items-center site-header-nav<?php echo $is_mcyc_page ? ' site-header-nav--mcyc' : ''; ?>" aria-label="<?php esc_attr_e('Primary navigation', 'myco'); ?>">
-            <?php if ($is_mcyc_page) : ?>
-                <a href="<?php echo esc_url(myco_get_page_url('mcyc', '/mcyc/')); ?>" class="pill-nav-mcyc-badge pill-nav-mcyc-badge--outside" aria-label="<?php esc_attr_e('MCYC page', 'myco'); ?>">
-                    <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/mcyc-logo.png')); ?>"
-                         alt="<?php esc_attr_e('MCYC', 'myco'); ?>"
-                         class="pill-nav-mcyc-badge-image" />
-                </a>
-            <?php endif; ?>
+        <nav class="hidden md:flex items-center site-header-nav site-header-nav--with-badge<?php echo $is_mcyc_page ? ' site-header-nav--mcyc' : ''; ?>" aria-label="<?php esc_attr_e('Primary navigation', 'myco'); ?>">
+            <a href="<?php echo esc_url(myco_get_page_url('mcyc', '/mcyc/')); ?>" class="pill-nav-mcyc-badge pill-nav-mcyc-badge--outside" aria-label="<?php esc_attr_e('MCYC page', 'myco'); ?>">
+                <img src="<?php echo esc_url(myco_theme_asset_url('assets/images/mcyc-logo.png')); ?>"
+                     alt="<?php esc_attr_e('MCYC', 'myco'); ?>"
+                     class="pill-nav-mcyc-badge-image" />
+            </a>
             <div class="pill-nav flex items-center" style="position: relative; z-index: 1; overflow: visible;">
                 <span class="pill-nav-bismillah" role="presentation" aria-hidden="true"
                       style="position: relative; z-index: 3; margin-right: 8px; padding-left: 13px; padding-right: 12px;">

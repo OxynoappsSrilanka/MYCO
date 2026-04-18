@@ -6,9 +6,10 @@
  */
 
 $description = myco_get_option('footer_description', 'Empowering Muslim Youth of Central Ohio through education, leadership, and community service.');
-$address     = myco_get_option('org_address', '123 MYCO Way, Columbus, OH 43210');
+$contact     = myco_get_footer_contact_details();
+$address     = $contact['address'];
 $email       = myco_get_option('org_email', 'info@myco.org');
-$phone       = myco_get_option('org_phone', '(614) 555-0123');
+$phone       = $contact['phone'];
 $copyright   = myco_get_option('copyright_text', '2026 MYCO. All rights reserved.');
 $social      = myco_get_social_links();
 $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connected');
@@ -133,19 +134,19 @@ $newsletter_heading = myco_get_option('footer_newsletter_heading', 'Stay Connect
                 </svg>
                 <?php echo esc_html($email); ?>
             </a>
+            <span class="footer-contact-location flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span style="display:inline-block; line-height:1.4;"><?php echo esc_html($address); ?></span>
+            </span>
             <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>" class="footer-contact-bar-link flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
                 </svg>
                 <?php echo esc_html($phone); ?>
             </a>
-            <span class="footer-contact-location flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <?php echo esc_html($address); ?>
-            </span>
         </div>
     </div>
 

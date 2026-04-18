@@ -6,9 +6,10 @@
  */
 
 $description = myco_get_option('footer_description', 'Empowering Muslim Youth of Central Ohio through education, leadership, and community service. Building a brighter future together.');
-$address     = myco_get_option('org_address', '123 MYCO Way, Columbus, OH 43210');
+$contact     = myco_get_footer_contact_details();
+$address     = $contact['address'];
 $email       = myco_get_option('org_email', 'info@myco.org');
-$phone       = myco_get_option('org_phone', '(614) 555-0123');
+$phone       = $contact['phone'];
 $copyright   = myco_get_option('copyright_text', '2026 MYCO. All rights reserved.');
 $social      = myco_get_social_links();
 ?>
