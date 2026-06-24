@@ -77,6 +77,72 @@ $video_query = new WP_Query(array(
   </div>
 </section>
 
+<?php
+// Get text testimonials (testimonial CPT)
+$text_query = new WP_Query(array(
+    'post_type'      => 'testimonial',
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'orderby'        => 'meta_value_num',
+    'meta_key'       => 'sort_order',
+    'order'          => 'ASC',
+));
+?>
+
+<!-- Text Testimonials Section -->
+<?php if ($text_query->have_posts()) : ?>
+<section style="background: #ffffff; padding: 80px 0 60px; position: relative; margin-top: 0;">
+  <div class="inner">
+
+    <!-- Section Header -->
+    <div style="text-align: center; margin-bottom: 56px;">
+      <span style="color: #C8402E; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.05em; display: block; margin-bottom: 12px;">
+        <?php echo esc_html(myco_get_field('testimonials_text_label') ?: 'WHAT THEY SAY'); ?>
+      </span>
+      <h2 style="color: #141943; font-weight: 800; font-size: clamp(1.9rem, 4.5vw, 3.0rem); line-height: 1.1; letter-spacing: -0.01em; margin: 0 auto; max-width: 680px;">
+        <?php echo esc_html(myco_get_field('testimonials_text_heading') ?: 'Words from Our Community'); ?>
+      </h2>
+    </div>
+
+    <!-- Text Cards Grid -->
+    <div class="testi-text-grid">
+      <?php
+      $star_svg = '<svg width="18" height="18" viewBox="0 0 20 20" fill="#C8402E" aria-hidden="true"><path d="M10 1l2.39 4.84 5.35.78-3.87 3.77.91 5.32L10 13.27l-4.78 2.44.91-5.32L2.26 6.62l5.35-.78z"/></svg>';
+      while ($text_query->have_posts()) : $text_query->the_post();
+        $t_name  = get_the_title();
+        $t_quote = myco_get_field('testimonial_quote') ?: '';
+        $t_role  = myco_get_field('testimonial_role') ?: '';
+        $t_photo = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail');
+      ?>
+      <div class="testi-text-card">
+        <span class="testi-watermark" aria-hidden="true">&#8220;&#8221;</span>
+        <div class="testi-content">
+          <div class="testi-stars" aria-label="5 out of 5 stars" style="display:flex;gap:2px;margin-bottom:14px;">
+            <?php echo str_repeat($star_svg, 5); ?>
+          </div>
+          <p class="testi-quote" style="color:#141943;font-size:1rem;line-height:1.7;font-style:italic;flex:1;margin:0 0 20px;">&ldquo;<?php echo esc_html($t_quote); ?>&rdquo;</p>
+          <div class="testi-author" style="display:flex;align-items:center;gap:14px;margin-top:auto;">
+            <?php if ($t_photo) : ?>
+              <img src="<?php echo esc_url($t_photo); ?>" alt="<?php echo esc_attr($t_name); ?>" class="testi-avatar" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid #F5F6FA;" />
+            <?php else : ?>
+              <div style="width:52px;height:52px;border-radius:50%;background:#141943;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:20px;font-weight:700;"><?php echo esc_html(mb_substr($t_name, 0, 1)); ?></div>
+            <?php endif; ?>
+            <div>
+              <p class="testi-author-name" style="color:#141943;font-weight:700;font-size:0.95rem;margin:0 0 2px;"><?php echo esc_html($t_name); ?></p>
+              <?php if ($t_role) : ?>
+                <p class="testi-author-role" style="color:#C8402E;font-size:0.82rem;font-weight:600;margin:0;"><?php echo esc_html($t_role); ?></p>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php endwhile; wp_reset_postdata(); ?>
+    </div>
+
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- Videos Section -->
 <section style="background: #F5F6FA; padding: 60px 0 100px; position: relative; margin-top: 0;">
   <div class="inner">
@@ -316,6 +382,58 @@ $video_query = new WP_Query(array(
 }
 .page-template-template-testimonials .page-hero-bg + section {
   margin-top: 0 !important;
+}
+
+/* Text testimonial cards grid */
+.testi-text-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.testi-text-card {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid rgba(20, 25, 67, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(20, 25, 67, 0.06);
+  padding: 36px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.testi-text-card:hover {
+  box-shadow: 0 20px 50px rgba(20, 25, 67, 0.12);
+  transform: translateY(-3px);
+}
+.testi-text-card .testi-watermark {
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  font-size: 120px;
+  line-height: 1;
+  color: rgba(200, 64, 46, 0.08);
+  font-family: Georgia, serif;
+  pointer-events: none;
+  user-select: none;
+}
+.testi-text-card .testi-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@media (max-width: 1100px) {
+  .testi-text-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 640px) {
+  .testi-text-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* Video card hover effects */

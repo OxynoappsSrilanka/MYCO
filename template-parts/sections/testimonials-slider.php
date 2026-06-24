@@ -4,7 +4,14 @@
  * Updated with community leaders testimonials and round profile images
  * @package MYCO
  */
-$testimonials = get_posts(['post_type' => 'testimonial', 'posts_per_page' => 12, 'orderby' => 'menu_order', 'order' => 'ASC']);
+$testimonials = get_posts([
+    'post_type'      => 'testimonial',
+    'posts_per_page' => 12,
+    'post_status'    => 'publish',
+    'orderby'        => 'meta_value_num',
+    'meta_key'       => 'sort_order',
+    'order'          => 'ASC',
+]);
 $defaults = [
     ['quote' => 'MYCO is building a space where Muslim youth can grow in faith, confidence, and strong community.', 'name' => 'Br. Abdurahman Abdala', 'role' => 'Community Leader', 'image' => 'Br_Abdurahman_Abdala.png'],
     ['quote' => 'MYCO is creating a powerful space where Muslim youth can grow in faith, leadership, and community.', 'name' => 'Sh. Nasir Jungda', 'role' => 'Islamic Scholar', 'image' => 'Sh_Nasir_Jungda.png'],
@@ -69,17 +76,21 @@ $star_svg = '<svg width="20" height="20" viewBox="0 0 20 20" fill="#C8402E" aria
                 <div class="testi-page">
                     <?php foreach ($page as $item) :
                         if ($use_defaults) {
-                            $quote = $item['quote'];
-                            $name = $item['name'];
-                            $role = $item['role'];
-                            $image = $item['image'];
+                            $quote     = $item['quote'];
+                            $name      = $item['name'];
+                            $role      = $item['role'];
+                            $image_url = myco_theme_asset_url('assets/images/Testimonials/' . $item['image']);
                         } else {
-                            $quote = myco_get_field('testimonial_quote', $item->ID, '');
-                            $name = get_the_title($item->ID);
-                            $role = myco_get_field('testimonial_role', $item->ID, '');
-                            $image = myco_get_field('testimonial_image', $item->ID, '');
+                            $quote     = myco_get_field('testimonial_quote', $item->ID, '');
+                            $name      = get_the_title($item->ID);
+                            $role      = myco_get_field('testimonial_role', $item->ID, '');
+                            // Use WP featured image (set by studio), fall back to legacy filename meta
+                            $image_url = get_the_post_thumbnail_url($item->ID, 'thumbnail');
+                            if ( ! $image_url ) {
+                                $legacy = myco_get_field('testimonial_image', $item->ID, '');
+                                $image_url = $legacy ? myco_theme_asset_url('assets/images/Testimonials/' . $legacy) : '';
+                            }
                         }
-                        $image_url = $image ? myco_theme_asset_url('assets/images/Testimonials/' . $image) : '';
                     ?>
                     <div class="testi-card">
                         <span class="testi-watermark" aria-hidden="true">&#8220;&#8221;</span>

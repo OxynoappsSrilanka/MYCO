@@ -4,13 +4,22 @@
  * Matches source index.html - split left heading / right event list + volunteer card below
  * @package MYCO
  */
-$events = get_posts(['post_type' => 'event', 'posts_per_page' => 3, 'meta_key' => 'event_date', 'orderby' => 'meta_value', 'order' => 'ASC']);
-$defaults = [
-    ['month' => 'OCT', 'day' => '15', 'title' => 'Youth Basketball League: Kick-off Games & Registration', 'meta' => '6:00 PM – 9:00 PM &middot; MYCO Community Center'],
-    ['month' => 'OCT', 'day' => '18', 'title' => 'Academic Tutoring: Math & Science Support for High School', 'meta' => '4:00 PM – 8:00 PM &middot; Online via Zoom'],
-    ['month' => 'OCT', 'day' => '27', 'title' => 'Monthly Service Day: Food Pantry Volunteering', 'meta' => '9:00 AM – 12:00 PM &middot; Central Ohio Food Bank'],
-];
-$use_defaults = empty($events);
+$today = date('Y-m-d');
+$events = get_posts([
+    'post_type'   => 'event',
+    'post_status' => 'publish',
+    'posts_per_page' => 3,
+    'meta_key'    => 'event_date',
+    'orderby'     => 'meta_value',
+    'order'       => 'ASC',
+    'meta_query'  => [[
+        'key'     => 'event_date',
+        'value'   => $today,
+        'compare' => '>=',
+        'type'    => 'DATE',
+    ]],
+]);
+$has_upcoming = ! empty($events);
 $vol_image = myco_get_field('volunteer_card_image', false, '');
 $vol_img_url = $vol_image ? (is_array($vol_image) ? $vol_image['url'] : wp_get_attachment_url($vol_image)) : myco_theme_asset_url('assets/images/volunteers.jpg');
 ?>
@@ -62,49 +71,86 @@ $vol_img_url = $vol_image ? (is_array($vol_image) ? $vol_image['url'] : wp_get_a
                     }
                 </style>
 
-                <?php if ($use_defaults) : ?>
-                    <?php foreach ($defaults as $ev) : 
-                        $parts = explode(' &middot; ', $ev['meta']);
-                        $time = isset($parts[0]) ? $parts[0] : '';
-                        $venue = isset($parts[1]) ? $parts[1] : '';
-                    ?>
-                    <div class="ue-row-new">
-                        <div class="ue-date-col">
-                            <span class="ue-month"><?php echo esc_html($ev['month']); ?></span>
-                            <span class="ue-day"><?php echo esc_html($ev['day']); ?></span>
-                        </div>
-                        <div class="ue-content-col">
-                            <h3 class="ue-pattern-title"><?php echo esc_html($ev['title']); ?></h3>
-                            <div class="ue-meta-row">
-                                <span class="ue-pattern-time"><?php echo esc_html($time); ?></span>
-                                <span class="ue-pattern-venue"><?php echo esc_html($venue); ?></span>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                <?php else : ?>
+                <?php if ($has_upcoming) : ?>
                     <?php foreach ($events as $event) :
                         $date_raw = myco_get_field('event_date', $event->ID, '');
-                        $date = myco_format_event_date($date_raw);
-                        $location = myco_get_field('event_location_name', $event->ID, 'Venue TBA');
-                        $time = myco_get_field('event_start_time', $event->ID, 'Time TBA');
+                        $date     = myco_format_event_date($date_raw);
+                        $location = myco_get_field('event_location_name', $event->ID, '');
+                        $time     = myco_get_field('event_start_time', $event->ID, '');
                         $end_time = myco_get_field('event_end_time', $event->ID, '');
-                        if ($end_time) $time .= ' – ' . $end_time;
+                        if ($time && $end_time) $time .= ' – ' . $end_time;
                     ?>
                     <div class="ue-row-new">
                         <div class="ue-date-col">
-                            <span class="ue-month"><?php echo esc_html($date ? $date['month'] : 'OCT'); ?></span>
-                            <span class="ue-day"><?php echo esc_html($date ? $date['day'] : '15'); ?></span>
+                            <span class="ue-month"><?php echo esc_html($date ? $date['month'] : ''); ?></span>
+                            <span class="ue-day"><?php echo esc_html($date ? $date['day'] : ''); ?></span>
                         </div>
                         <div class="ue-content-col">
-                            <h3 class="ue-pattern-title"><?php echo get_the_title($event->ID); ?></h3>
+                            <h3 class="ue-pattern-title"><?php echo esc_html(get_the_title($event->ID)); ?></h3>
                             <div class="ue-meta-row">
-                                <span class="ue-pattern-time"><?php echo esc_html($time); ?></span>
-                                <span class="ue-pattern-venue"><?php echo esc_html($location); ?></span>
+                                <?php if ($time) : ?>
+                                    <span class="ue-pattern-time"><?php echo esc_html($time); ?></span>
+                                <?php endif; ?>
+                                <?php if ($location) : ?>
+                                    <span class="ue-pattern-venue"><?php echo esc_html($location); ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                     <?php endforeach; ?>
+
+                <?php else : ?>
+
+                    <!-- No upcoming events state -->
+                    <div style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: center;
+                        padding: 48px 0 32px;
+                        gap: 16px;
+                    ">
+                        <div style="
+                            width: 56px;
+                            height: 56px;
+                            border-radius: 14px;
+                            background: rgba(20, 25, 67, 0.06);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-shrink: 0;
+                        ">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#141943" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="3"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p style="color: #141943; font-weight: 700; font-size: 1.15rem; margin: 0 0 6px;">No upcoming events right now</p>
+                            <p style="color: #6B7280; font-size: 0.95rem; margin: 0 0 20px; line-height: 1.6;">Check back soon — new events are added regularly.</p>
+                            <a href="<?php echo esc_url(myco_get_page_url('events', '/events/')); ?>"
+                               style="
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 6px;
+                                color: #C8402E;
+                                font-weight: 700;
+                                font-size: 0.95rem;
+                                text-decoration: none;
+                                transition: gap 0.2s;
+                               "
+                               onmouseover="this.style.gap='10px'"
+                               onmouseout="this.style.gap='6px'">
+                                View all events
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3 8h10M9 4l4 4-4 4" stroke="#C8402E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
                 <?php endif; ?>
             </div>
 
