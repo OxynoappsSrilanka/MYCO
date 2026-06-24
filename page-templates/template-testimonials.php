@@ -168,8 +168,14 @@ $text_query = new WP_Query(array(
 
           $video_id = '';
           $embed_url = '';
+          $video_mime = '';
           if ($video_url) {
-              if ($video_type === 'youtube' && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $video_url, $match)) {
+              if (myco_is_direct_video_url($video_url)) {
+                  $playback_url = myco_get_browser_safe_video_url($video_url);
+                  $video_type = 'direct';
+                  $embed_url = $playback_url;
+                  $video_mime = myco_get_video_mime_type($playback_url);
+              } elseif ($video_type === 'youtube' && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $video_url, $match)) {
                   $video_id = $match[1];
                   $embed_url = 'https://www.youtube.com/embed/' . $video_id;
               } elseif ($video_type === 'vimeo' && preg_match('/vimeo\.com\/(\d+)/i', $video_url, $match)) {
@@ -185,6 +191,7 @@ $text_query = new WP_Query(array(
              data-video-url="<?php echo esc_url($video_url); ?>"
              data-embed-url="<?php echo esc_url($embed_url); ?>"
              data-video-type="<?php echo esc_attr($video_type); ?>"
+             data-video-mime="<?php echo esc_attr($video_mime); ?>"
              data-video-id="<?php echo esc_attr($video_id); ?>"
              onclick="openVideoLightbox(this)"
              style="aspect-ratio: 16 / 9; cursor: pointer; position: relative; border-radius: 16px; overflow: hidden; background: #1a1a1a; box-shadow: 0 4px 20px rgba(20, 25, 67, 0.14);">
@@ -454,6 +461,163 @@ $text_query = new WP_Query(array(
   display: flex !important;
 }
 
+.testi-mcyc-player {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #0a0f28 0%, #141943 55%, #1a1040 100%);
+  overflow: hidden;
+  position: relative;
+}
+.testi-mcyc-main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+.testi-mcyc-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+.testi-mcyc-play-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+.testi-mcyc-play-overlay:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+.testi-mcyc-play-overlay.is-playing .testi-mcyc-big-play {
+  opacity: 0;
+}
+.testi-mcyc-big-play {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(200, 64, 46, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 12px 36px rgba(200, 64, 46, 0.5);
+  transition: opacity .2s, transform .2s;
+}
+.testi-mcyc-play-overlay:hover .testi-mcyc-big-play {
+  transform: scale(1.08);
+}
+.testi-mcyc-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 40px 20px 16px;
+  background: linear-gradient(to top, rgba(8, 14, 40, 0.95) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.testi-mcyc-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.testi-mcyc-badge {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: #C8402E;
+  background: rgba(200, 64, 46, 0.14);
+  border: 1px solid rgba(200, 64, 46, 0.3);
+  border-radius: 20px;
+  padding: 2px 10px;
+  flex-shrink: 0;
+}
+.testi-mcyc-title-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.testi-mcyc-progress-wrap {
+  height: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.testi-mcyc-progress-bg {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.24);
+}
+.testi-mcyc-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  border-radius: inherit;
+  background: #C8402E;
+}
+.testi-mcyc-progress-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+.testi-mcyc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.testi-mcyc-controls-left,
+.testi-mcyc-controls-right,
+.testi-mcyc-vol-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.testi-mcyc-ctrl {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.testi-mcyc-ctrl:hover {
+  background: #C8402E;
+}
+.testi-mcyc-time {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  font-weight: 600;
+}
+.testi-mcyc-vol-slider {
+  width: 86px;
+  accent-color: #C8402E;
+}
+
 @media (max-width: 1100px) {
   .testi-videos-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -469,6 +633,7 @@ $text_query = new WP_Query(array(
 <script>
 function openVideoLightbox(element) {
   const embedUrl = element.getAttribute('data-embed-url');
+  const videoUrl = element.getAttribute('data-video-url');
   const caption = element.getAttribute('data-caption');
   const videoType = element.getAttribute('data-video-type');
 
@@ -494,13 +659,114 @@ function openVideoLightbox(element) {
   } else if (videoType === 'vimeo') {
     iframe.src = embedUrl + '?autoplay=1';
   } else {
+    const player = document.createElement('div');
+    player.className = 'testi-mcyc-player';
+
+    const main = document.createElement('div');
+    main.className = 'testi-mcyc-main';
+
     const video = document.createElement('video');
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.controls = true;
-    video.autoplay = true;
-    video.src = embedUrl;
-    videoContainer.appendChild(video);
+    video.className = 'testi-mcyc-video';
+    video.src = embedUrl || videoUrl;
+    video.setAttribute('data-original-src', videoUrl || '');
+    video.setAttribute('data-playback-src', embedUrl || '');
+    video.playsInline = true;
+    video.preload = 'metadata';
+
+    const overlayBtn = document.createElement('button');
+    overlayBtn.className = 'testi-mcyc-play-overlay';
+    overlayBtn.type = 'button';
+    overlayBtn.setAttribute('aria-label', 'Play video');
+    overlayBtn.innerHTML = '<span class="testi-mcyc-big-play"><svg class="testi-mcyc-big-play-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg class="testi-mcyc-big-pause-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>';
+
+    const bar = document.createElement('div');
+    bar.className = 'testi-mcyc-bar';
+    bar.innerHTML = '<div class="testi-mcyc-title-row"><span class="testi-mcyc-badge">MYCO Stories</span><span class="testi-mcyc-title-text"></span></div><div class="testi-mcyc-progress-wrap"><div class="testi-mcyc-progress-bg"><div class="testi-mcyc-progress-fill"></div><div class="testi-mcyc-progress-thumb"></div></div></div><div class="testi-mcyc-controls"><div class="testi-mcyc-controls-left"><button class="testi-mcyc-ctrl testi-mcyc-play-btn" type="button" title="Play/Pause"><svg class="testi-mcyc-play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg class="testi-mcyc-pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button><span class="testi-mcyc-time">0:00 / 0:00</span></div><div class="testi-mcyc-controls-right"><div class="testi-mcyc-vol-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:rgba(255,255,255,0.6);flex-shrink:0;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg><input type="range" class="testi-mcyc-vol-slider" min="0" max="100" value="80" /></div><button class="testi-mcyc-ctrl testi-mcyc-fullscreen" type="button" title="Fullscreen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button></div></div>';
+
+    main.appendChild(video);
+    main.appendChild(overlayBtn);
+    main.appendChild(bar);
+    player.appendChild(main);
+    videoContainer.appendChild(player);
+
+    const bigPlayIcon = player.querySelector('.testi-mcyc-big-play-icon');
+    const bigPauseIcon = player.querySelector('.testi-mcyc-big-pause-icon');
+    const playBtn = player.querySelector('.testi-mcyc-play-btn');
+    const playIcon = player.querySelector('.testi-mcyc-play-icon');
+    const pauseIcon = player.querySelector('.testi-mcyc-pause-icon');
+    const fill = player.querySelector('.testi-mcyc-progress-fill');
+    const thumb = player.querySelector('.testi-mcyc-progress-thumb');
+    const progressWrap = player.querySelector('.testi-mcyc-progress-wrap');
+    const timeEl = player.querySelector('.testi-mcyc-time');
+    const volSlider = player.querySelector('.testi-mcyc-vol-slider');
+    const fsBtn = player.querySelector('.testi-mcyc-fullscreen');
+    const titleEl = player.querySelector('.testi-mcyc-title-text');
+
+    function fmt(seconds) {
+      seconds = Math.floor(seconds || 0);
+      return Math.floor(seconds / 60) + ':' + ('0' + (seconds % 60)).slice(-2);
+    }
+
+    function syncPlayState(playing) {
+      if (playIcon) playIcon.style.display = playing ? 'none' : '';
+      if (pauseIcon) pauseIcon.style.display = playing ? '' : 'none';
+      if (bigPlayIcon) bigPlayIcon.style.display = playing ? 'none' : '';
+      if (bigPauseIcon) bigPauseIcon.style.display = playing ? '' : 'none';
+      overlayBtn.classList.toggle('is-playing', playing);
+    }
+
+    function togglePlay() {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+
+    if (titleEl) titleEl.textContent = caption || '';
+    overlayBtn.addEventListener('click', togglePlay);
+    if (playBtn) playBtn.addEventListener('click', togglePlay);
+
+    video.addEventListener('play', () => syncPlayState(true));
+    video.addEventListener('pause', () => syncPlayState(false));
+    video.addEventListener('ended', () => syncPlayState(false));
+    video.addEventListener('timeupdate', () => {
+      if (!video.duration) return;
+      const pct = (video.currentTime / video.duration) * 100;
+      if (fill) fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (timeEl) timeEl.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+    });
+
+    if (progressWrap) {
+      progressWrap.addEventListener('click', (e) => {
+        const rect = progressWrap.getBoundingClientRect();
+        video.currentTime = ((e.clientX - rect.left) / rect.width) * (video.duration || 0);
+      });
+    }
+
+    if (volSlider) {
+      video.volume = 0.8;
+      volSlider.addEventListener('input', () => {
+        video.volume = volSlider.value / 100;
+      });
+    }
+
+    if (fsBtn) {
+      fsBtn.addEventListener('click', () => {
+        if (video.requestFullscreen) video.requestFullscreen();
+        else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+      });
+    }
+
+    video.addEventListener('canplay', () => {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    }, { once: true });
+
+    video.load();
     videoCaption.textContent = caption || '';
     videoLightbox.classList.add('active');
     videoLightbox.style.display = 'flex';

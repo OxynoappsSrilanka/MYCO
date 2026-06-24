@@ -23,6 +23,7 @@ require_once MYCO_DIR . '/inc/widgets.php';
 require_once MYCO_DIR . '/inc/custom-post-types.php';
 require_once MYCO_DIR . '/inc/taxonomies.php';
 require_once MYCO_DIR . '/inc/helpers.php';
+require_once MYCO_DIR . '/inc/video-uploads.php';
 require_once MYCO_DIR . '/inc/program-data.php';
 require_once MYCO_DIR . '/inc/customizer.php';
 

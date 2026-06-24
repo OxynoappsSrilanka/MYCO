@@ -52,6 +52,235 @@ function myco_version_theme_url($url = '') {
 }
 
 /**
+ * Determine whether a URL points directly to a browser-playable video file.
+ */
+function myco_is_direct_video_url($url = '') {
+    $path = wp_parse_url((string) $url, PHP_URL_PATH);
+    if (!$path) {
+        return false;
+    }
+
+    $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+    return in_array($extension, ['mp4', 'm4v', 'webm', 'ogv', 'ogg', 'mov'], true);
+}
+
+/**
+ * Resolve a direct video URL to a useful source MIME type.
+ */
+function myco_get_video_mime_type($url = '') {
+    $path = wp_parse_url((string) $url, PHP_URL_PATH);
+    $extension = $path ? strtolower(pathinfo($path, PATHINFO_EXTENSION)) : '';
+
+    $types = [
+        'mp4'  => 'video/mp4',
+        'm4v'  => 'video/mp4',
+        'webm' => 'video/webm',
+        'ogv'  => 'video/ogg',
+        'ogg'  => 'video/ogg',
+        'mov'  => 'video/quicktime',
+    ];
+
+    return $types[$extension] ?? 'video/mp4';
+}
+
+/**
+ * Convert a local browser-served URL into a filesystem path when it belongs to this site.
+ */
+function myco_resolve_local_url_to_path($url = '') {
+    $url = (string) $url;
+    if ($url === '') {
+        return '';
+    }
+
+    $uploads = wp_upload_dir();
+    $candidates = [
+        [
+            'base_url' => $uploads['baseurl'] ?? '',
+            'base_dir' => $uploads['basedir'] ?? '',
+        ],
+        [
+            'base_url' => content_url(),
+            'base_dir' => WP_CONTENT_DIR,
+        ],
+        [
+            'base_url' => MYCO_URI,
+            'base_dir' => MYCO_DIR,
+        ],
+        [
+            'base_url' => home_url('/'),
+            'base_dir' => ABSPATH,
+        ],
+    ];
+
+    $clean_url = strtok($url, '?#');
+
+    foreach ($candidates as $candidate) {
+        $base_url = rtrim((string) $candidate['base_url'], '/');
+        $base_dir = rtrim((string) $candidate['base_dir'], DIRECTORY_SEPARATOR);
+
+        if ($base_url === '' || $base_dir === '' || strpos($clean_url, $base_url . '/') !== 0) {
+            continue;
+        }
+
+        $relative = rawurldecode(ltrim(substr($clean_url, strlen($base_url)), '/'));
+        $path = $base_dir . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relative);
+
+        if (file_exists($path)) {
+            return $path;
+        }
+    }
+
+    $url_path = wp_parse_url($clean_url, PHP_URL_PATH);
+    if (!$url_path) {
+        return '';
+    }
+
+    $home_path = wp_parse_url(home_url('/'), PHP_URL_PATH);
+    $relative_path = ltrim(rawurldecode($url_path), '/');
+    if ($home_path) {
+        $home_path = trim(rawurldecode($home_path), '/');
+        if ($home_path !== '' && strpos($relative_path, $home_path . '/') === 0) {
+            $relative_path = substr($relative_path, strlen($home_path) + 1);
+        }
+    }
+
+    $wp_content_marker = 'wp-content/';
+    $wp_content_pos = strpos(str_replace('\\', '/', $relative_path), $wp_content_marker);
+    if ($wp_content_pos !== false) {
+        $content_relative = substr(str_replace('\\', '/', $relative_path), $wp_content_pos + strlen($wp_content_marker));
+        $content_path = rtrim(WP_CONTENT_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $content_relative);
+        if (file_exists($content_path)) {
+            return $content_path;
+        }
+    }
+
+    $absolute_path = rtrim(ABSPATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relative_path);
+    if (file_exists($absolute_path)) {
+        return $absolute_path;
+    }
+
+    return '';
+}
+
+/**
+ * Find an ffmpeg binary when local video transcoding is available.
+ */
+function myco_get_ffmpeg_binary() {
+    static $binary = null;
+
+    if ($binary !== null) {
+        return $binary;
+    }
+
+    $candidates = [
+        'C:\\ProgramData\\chocolatey\\bin\\ffmpeg.exe',
+        'C:\\ffmpeg\\bin\\ffmpeg.exe',
+        'C:\\xampp\\ffmpeg\\bin\\ffmpeg.exe',
+        rtrim((string) getenv('HOME'), '/\\') . '/bin/ffmpeg',
+        rtrim((string) getenv('HOME'), '/\\') . '/bin/ffmpeg.exe',
+        rtrim((string) getenv('DOCUMENT_ROOT'), '/\\') . '/../bin/ffmpeg',
+        'ffmpeg',
+    ];
+
+    foreach ($candidates as $candidate) {
+        if ($candidate === '/bin/ffmpeg' || $candidate === '/bin/ffmpeg.exe' || $candidate === '/../bin/ffmpeg') {
+            continue;
+        }
+
+        if (file_exists($candidate)) {
+            $binary = $candidate;
+            return $binary;
+        }
+
+        if ($candidate !== 'ffmpeg') {
+            continue;
+        }
+
+        $check = stripos(PHP_OS, 'WIN') === 0
+            ? 'where ffmpeg 2>NUL'
+            : 'command -v ffmpeg 2>/dev/null';
+
+        $result = function_exists('shell_exec') ? trim((string) shell_exec($check)) : '';
+        if ($result !== '') {
+            $lines = preg_split('/\r\n|\r|\n/', $result);
+            $binary = trim($lines[0] ?? $candidate);
+            return $binary;
+        }
+    }
+
+    $binary = '';
+    return $binary;
+}
+
+/**
+ * Decide whether the theme may create a browser-safe MP4 beside a local source video.
+ */
+function myco_can_transcode_video_fallback($source_path = '') {
+    $host = wp_parse_url(home_url('/'), PHP_URL_HOST);
+    $is_local = in_array($host, ['localhost', '127.0.0.1', '::1'], true);
+    $default_enabled = $is_local || is_admin();
+    $enabled = defined('MYCO_ENABLE_VIDEO_TRANSCODE') ? (bool) MYCO_ENABLE_VIDEO_TRANSCODE : $default_enabled;
+
+    if (!$enabled || !function_exists('shell_exec') || !is_readable($source_path)) {
+        return false;
+    }
+
+    // Keep accidental page-load conversions bounded.
+    $max_bytes = 300 * 1024 * 1024;
+    if (filesize($source_path) > $max_bytes) {
+        return false;
+    }
+
+    return myco_get_ffmpeg_binary() !== '';
+}
+
+/**
+ * Prefer or create a browser-safe MP4 copy for local direct videos that browsers decode poorly.
+ */
+function myco_get_browser_safe_video_url($url = '') {
+    $url = (string) $url;
+    if (!myco_is_direct_video_url($url)) {
+        return $url;
+    }
+
+    $source_path = myco_resolve_local_url_to_path($url);
+    if ($source_path === '') {
+        return $url;
+    }
+
+    $info = pathinfo($source_path);
+    $target_path = ($info['dirname'] ?? '') . DIRECTORY_SEPARATOR . ($info['filename'] ?? 'video') . '-browser.mp4';
+    $target_url = preg_replace('/\.[a-z0-9]+([?#].*)?$/i', '-browser.mp4', $url);
+
+    if (file_exists($target_path) && filesize($target_path) > 0) {
+        return $target_url;
+    }
+
+    if (!myco_can_transcode_video_fallback($source_path)) {
+        return $url;
+    }
+
+    $ffmpeg = myco_get_ffmpeg_binary();
+    $video_filter = 'scale=trunc(iw/2)*2:trunc(ih/2)*2,setsar=1';
+    $command = sprintf(
+        '%s -y -hide_banner -loglevel error -i %s -map 0:v:0 -map 0:a? -vf %s -c:v libx264 -preset veryfast -profile:v main -level 3.1 -pix_fmt yuv420p -movflags +faststart -map_metadata -1 -metadata:s:v:0 rotate=0 -c:a aac -b:a 160k %s 2>&1',
+        escapeshellarg($ffmpeg),
+        escapeshellarg($source_path),
+        escapeshellarg($video_filter),
+        escapeshellarg($target_path)
+    );
+
+    shell_exec($command);
+
+    if (file_exists($target_path) && filesize($target_path) > 0) {
+        return $target_url;
+    }
+
+    return $url;
+}
+
+/**
  * Get featured image URL with fallback
  * Can be called as:
  *   myco_get_image_url()                   - current post, 'large' size
