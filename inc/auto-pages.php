@@ -64,6 +64,12 @@ function myco_get_required_pages() {
             'template' => 'page-templates/template-gallery.php',
             'content'  => 'Photo gallery of MYCO events and community.',
         ],
+        'testimonials' => [
+            'title'    => 'Testimonials',
+            'slug'     => 'testimonials',
+            'template' => 'page-templates/template-testimonials.php',
+            'content'  => 'Video testimonials from the MYCO community.',
+        ],
         'contact' => [
             'title'    => 'Contact',
             'slug'     => 'contact',
@@ -95,7 +101,7 @@ function myco_get_required_pages() {
  * Ensure newly introduced required pages exist on existing installs.
  */
 function myco_sync_required_pages() {
-    $sync_version = '1.1';
+    $sync_version = '1.2';
 
     if (get_option('myco_required_pages_sync_version') === $sync_version) {
         return;

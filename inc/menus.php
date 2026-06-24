@@ -95,6 +95,10 @@ function myco_is_primary_nav_item_active($key, $url = '') {
                 || is_tax('gallery_album')
                 || myco_nav_url_matches_current($url);
 
+        case 'testimonials':
+            return is_page_template('page-templates/template-testimonials.php')
+                || myco_nav_url_matches_current($url);
+
         case 'contact':
             return is_page_template('page-templates/template-contact.php')
                 || myco_nav_url_matches_current($url);
@@ -162,6 +166,11 @@ function myco_get_primary_nav_items() {
                     'key'   => 'gallery',
                     'label' => __('Gallery', 'myco'),
                     'url'   => myco_get_page_url('gallery', '/gallery/'),
+                ],
+                [
+                    'key'   => 'testimonials',
+                    'label' => __('Testimonials', 'myco'),
+                    'url'   => myco_get_page_url('testimonials', '/testimonials/'),
                 ],
             ],
         ],
