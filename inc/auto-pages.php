@@ -104,6 +104,7 @@ function myco_sync_required_pages() {
     $sync_version = '1.2';
 
     if (get_option('myco_required_pages_sync_version') === $sync_version) {
+        myco_seed_testimonials(); // fast no-op once seeded
         return;
     }
 
@@ -124,6 +125,7 @@ function myco_sync_required_pages() {
     }
 
     update_option('myco_required_pages_sync_version', $sync_version);
+    myco_seed_testimonials();
 }
 
 /**
@@ -667,7 +669,10 @@ function myco_create_sample_content() {
         }
     }
 
-    // ── Sample News Articles ──────────────────────────────────────
+    // ── Seed Testimonials ─────────────────────────────────────────
+    myco_seed_testimonials();
+
+    // ── Sample News Articles ─────────────────────────────────────
     $existing_news = get_posts(['post_type' => 'news_article', 'posts_per_page' => 1, 'post_status' => 'publish']);
     if (empty($existing_news)) {
         $articles = [
@@ -699,4 +704,122 @@ function myco_create_sample_content() {
             ]);
         }
     }
+}
+
+/**
+ * Seed the testimonial CPT with the hardcoded defaults if the table is empty.
+ *
+ * Runs on every init via myco_sync_required_pages() but exits immediately
+ * after the first successful seed (tracked by myco_testimonials_seeded option).
+ * Also skips seeding if an admin has already added testimonials manually.
+ */
+function myco_seed_testimonials() {
+    // Already seeded — fast exit.
+    if ( get_option( 'myco_testimonials_seeded' ) ) {
+        return;
+    }
+
+    // Admin has already added testimonials — don't overwrite, just mark done.
+    $existing = get_posts([
+        'post_type'      => 'testimonial',
+        'posts_per_page' => 1,
+        'post_status'    => ['publish', 'draft'],
+    ]);
+    if ( ! empty( $existing ) ) {
+        update_option( 'myco_testimonials_seeded', true );
+        return;
+    }
+
+    $author_id = get_current_user_id() ?: 1;
+
+    $seed = [
+        ['name' => 'Br. Abdurahman Abdala', 'role' => 'Community Leader',       'image' => 'Br_Abdurahman_Abdala.png', 'order' => 1,
+         'quote' => 'MYCO is building a space where Muslim youth can grow in faith, confidence, and strong community.'],
+        ['name' => 'Sh. Nasir Jungda',      'role' => 'Islamic Scholar',         'image' => 'Sh_Nasir_Jungda.png',      'order' => 2,
+         'quote' => 'MYCO is creating a powerful space where Muslim youth can grow in faith, leadership, and community.'],
+        ['name' => 'Nasser Karimian',        'role' => 'Community Leader',       'image' => 'Nasser_Karimian.png',      'order' => 3,
+         'quote' => 'MYCO is nurturing the next generation of Muslim leaders through guidance, mentorship, and community.'],
+        ['name' => 'Suhaib Webb',            'role' => 'Islamic Scholar',         'image' => 'Suhaib_Webb.png',          'order' => 4,
+         'quote' => 'MYCO is helping young Muslims strengthen their identity while staying connected to their faith and community.'],
+        ['name' => 'Nasser Karimian',        'role' => 'Al Huda Center – Indiana','image' => 'Nasser_Karimian.png',      'order' => 5,
+         'quote' => 'Supporting MYCO means investing in a future where Muslim youth thrive spiritually and socially.'],
+        ['name' => 'Mufti Kamani',           'role' => 'Islamic Scholar',         'image' => 'Mufti_Kamani.png',         'order' => 6,
+         'quote' => 'MYCO provides a welcoming environment where youth can learn, connect, and grow together.'],
+        ['name' => 'Mufti Kamani',           'role' => 'Islamic Scholar',         'image' => 'Mufti_Kamani.png',         'order' => 7,
+         'quote' => 'MYCO is empowering Muslim youth with knowledge, leadership, and a strong sense of purpose.'],
+    ];
+
+    // Load WP media helpers once.
+    require_once ABSPATH . 'wp-admin/includes/file.php';
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+    require_once ABSPATH . 'wp-admin/includes/media.php';
+
+    $upload_dir = wp_upload_dir();
+
+    foreach ( $seed as $t ) {
+        $id = wp_insert_post([
+            'post_title'  => $t['name'],
+            'post_status' => 'publish',
+            'post_type'   => 'testimonial',
+            'post_author' => $author_id,
+        ]);
+
+        if ( ! $id || is_wp_error( $id ) ) {
+            continue;
+        }
+
+        // Core meta fields (read by slider and testimonials page).
+        update_post_meta( $id, 'testimonial_quote', $t['quote'] );
+        update_post_meta( $id, 'testimonial_role',  $t['role'] );
+        update_post_meta( $id, 'sort_order',         $t['order'] );
+        // Legacy filename meta — used as fallback by the homepage slider.
+        update_post_meta( $id, 'testimonial_image',  $t['image'] );
+
+        // Try to import the theme image into WP media library and set as
+        // featured image so studio edits and the Testimonials page photo work.
+        $image_path = get_template_directory() . '/assets/images/Testimonials/' . $t['image'];
+        if ( ! file_exists( $image_path ) ) {
+            continue;
+        }
+
+        $filename = basename( $image_path );
+
+        // Reuse attachment if it was already imported (e.g. second run).
+        $existing_att = get_posts([
+            'post_type'      => 'attachment',
+            'posts_per_page' => 1,
+            'meta_query'     => [[
+                'key'     => '_wp_attached_file',
+                'value'   => $filename,
+                'compare' => 'LIKE',
+            ]],
+        ]);
+
+        if ( ! empty( $existing_att ) ) {
+            set_post_thumbnail( $id, $existing_att[0]->ID );
+            continue;
+        }
+
+        // Copy to uploads and register as attachment.
+        $new_file = $upload_dir['path'] . '/' . $filename;
+        if ( ! copy( $image_path, $new_file ) ) {
+            continue;
+        }
+
+        $filetype  = wp_check_filetype( $filename );
+        $attach_id = wp_insert_attachment([
+            'guid'           => $upload_dir['url'] . '/' . $filename,
+            'post_mime_type' => $filetype['type'],
+            'post_title'     => preg_replace( '/\.[^.]+$/', '', $filename ),
+            'post_content'   => '',
+            'post_status'    => 'inherit',
+        ], $new_file, $id );
+
+        if ( $attach_id && ! is_wp_error( $attach_id ) ) {
+            wp_update_attachment_metadata( $attach_id, wp_generate_attachment_metadata( $attach_id, $new_file ) );
+            set_post_thumbnail( $id, $attach_id );
+        }
+    }
+
+    update_option( 'myco_testimonials_seeded', true );
 }
