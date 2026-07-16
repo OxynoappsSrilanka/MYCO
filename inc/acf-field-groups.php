@@ -75,7 +75,7 @@ function myco_register_acf_fields() {
                 'label' => 'Email',
                 'name'  => 'org_email',
                 'type'  => 'email',
-                'default_value' => 'info@myco.org',
+                'default_value' => 'info@mycohio.org',
             ],
             [
                 'key'   => 'field_org_phone',
@@ -705,7 +705,7 @@ function myco_register_acf_fields() {
                 'instructions' => 'Upload images for the circle photo strip in the dark footer (shown on most pages)',
                 'max' => 20,
             ],
-            ['key' => 'field_footer_contact_email', 'label' => 'Contact Bar Email Text', 'name' => 'footer_contact_email', 'type' => 'text', 'default_value' => 'info@myco.org'],
+            ['key' => 'field_footer_contact_email', 'label' => 'Contact Bar Email Text', 'name' => 'footer_contact_email', 'type' => 'text', 'default_value' => 'info@mycohio.org'],
             ['key' => 'field_footer_contact_phone', 'label' => 'Contact Bar Phone Text', 'name' => 'footer_contact_phone', 'type' => 'text', 'default_value' => '(614) 555-0123'],
             ['key' => 'field_footer_newsletter_heading', 'label' => 'Newsletter Heading', 'name' => 'footer_newsletter_heading', 'type' => 'text', 'default_value' => 'Stay Connected'],
             ['key' => 'field_footer_newsletter_text', 'label' => 'Newsletter Text', 'name' => 'footer_newsletter_text', 'type' => 'text'],

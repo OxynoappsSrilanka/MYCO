@@ -679,7 +679,7 @@ function myco_create_sample_content() {
             [
                 'title'   => 'MYCO Launches New Mentorship Program for Muslim Youth',
                 'excerpt' => 'We are proud to announce the expansion of our mentorship program, connecting youth with experienced community leaders.',
-                'content' => '<p>MYCO is excited to announce the launch of our expanded Mentorship Circles program, designed to connect Muslim youth ages 13–18 with experienced community mentors. This initiative builds on our commitment to empowering the next generation of Muslim leaders in Central Ohio.</p><p>The program features bi-weekly one-on-one sessions, group workshops, and community service projects. Applications are now open for both mentors and mentees.</p><p>For more information, visit our Programs page or contact us at info@myco.org.</p>',
+                'content' => '<p>MYCO is excited to announce the launch of our expanded Mentorship Circles program, designed to connect Muslim youth ages 13–18 with experienced community mentors. This initiative builds on our commitment to empowering the next generation of Muslim leaders in Central Ohio.</p><p>The program features bi-weekly one-on-one sessions, group workshops, and community service projects. Applications are now open for both mentors and mentees.</p><p>For more information, visit our Programs page or contact us at info@mycohio.org.</p>',
             ],
             [
                 'title'   => 'Record Turnout at Annual Youth Basketball Tournament',

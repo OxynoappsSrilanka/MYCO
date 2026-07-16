@@ -345,7 +345,7 @@ foreach ($all_programs as $slug => $item) {
                     <p class="program-detail__coordinator-name"><?php echo esc_html($coordinator['name'] ?? 'MYCO Programs Team'); ?></p>
                     <p class="program-detail__coordinator-role"><?php echo esc_html($coordinator['role'] ?? 'Program Support'); ?></p>
                     <div class="program-detail__links">
-                        <a href="mailto:<?php echo esc_attr(antispambot($coordinator['email'] ?? 'info@myco.org')); ?>"><?php echo esc_html(antispambot($coordinator['email'] ?? 'info@myco.org')); ?></a>
+                        <a href="mailto:<?php echo esc_attr(antispambot($coordinator['email'] ?? 'info@mycohio.org')); ?>"><?php echo esc_html(antispambot($coordinator['email'] ?? 'info@mycohio.org')); ?></a>
                         <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $coordinator['phone'] ?? '(614) 555-0100')); ?>"><?php echo esc_html($coordinator['phone'] ?? '(614) 555-0100'); ?></a>
                     </div>
                 </section>

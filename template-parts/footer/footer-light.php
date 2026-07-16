@@ -8,7 +8,7 @@
 $description = myco_get_option('footer_description', 'Empowering Muslim Youth of Central Ohio through education, leadership, and community service. Building a brighter future together.');
 $contact     = myco_get_footer_contact_details();
 $address     = $contact['address'];
-$email       = myco_get_option('org_email', 'info@myco.org');
+$email       = myco_get_option('org_email', 'info@mycohio.org');
 $phone       = $contact['phone'];
 $copyright   = myco_get_option('copyright_text', '2026 MYCO. All rights reserved.');
 $social      = myco_get_social_links();
